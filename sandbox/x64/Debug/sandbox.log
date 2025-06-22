@@ -1,2 +1,0 @@
-﻿Application.obj : error LNK2019: 无法解析的外部符号 "__declspec(dllimport) void __cdecl Biscuit::Print(void)" (__imp_?Print@Biscuit@@YAXXZ)，函数 main 中引用了该符号
-D:\Projects\biscuit\biscuit\x64\Debug\sandbox.exe : fatal error LNK1120: 1 个无法解析的外部命令

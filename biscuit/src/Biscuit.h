@@ -4,4 +4,6 @@
 
 #include "Biscuit/Application.h"
 
+#include "Biscuit/Log.h"
+
 #include "Biscuit/EntryPoint.h"
