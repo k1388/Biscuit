@@ -19,6 +19,10 @@
     <ClInclude Include="src\Biscuit\Log.h">
       <Filter>Biscuit</Filter>
     </ClInclude>
+    <ClInclude Include="src\Biscuit\Event\Event.h" />
+    <ClInclude Include="src\Biscuit\Event\ApplicationEvent.h" />
+    <ClInclude Include="src\Biscuit\Event\KeyEvent.h" />
+    <ClInclude Include="src\Biscuit\Event\MouseEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Biscuit\Application.cpp">

@@ -156,6 +156,10 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClInclude Include="src\Biscuit\Application.h" />
     <ClInclude Include="src\Biscuit\Core.h" />
     <ClInclude Include="src\Biscuit\EntryPoint.h" />
+    <ClInclude Include="src\Biscuit\Event\ApplicationEvent.h" />
+    <ClInclude Include="src\Biscuit\Event\Event.h" />
+    <ClInclude Include="src\Biscuit\Event\KeyEvent.h" />
+    <ClInclude Include="src\Biscuit\Event\MouseEvent.h" />
     <ClInclude Include="src\Biscuit\Log.h" />
   </ItemGroup>
   <ItemGroup>

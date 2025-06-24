@@ -3,11 +3,11 @@
 namespace Biscuit
 {
 
-	Biscuit::Application::Application()
+	Application::Application()
 	{
 	}
 
-	Biscuit::Application::~Application()
+	Application::~Application()
 	{
 	}
 

@@ -6,4 +6,5 @@
 
 #include "Biscuit/Log.h"
 
+// where the main() in
 #include "Biscuit/EntryPoint.h"
