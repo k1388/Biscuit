@@ -4,6 +4,9 @@
 
 namespace Biscuit
 {
+	/// <summary>
+	/// 键盘事件类
+	/// </summary>
 	class BISCUIT_API KeyEvent : public Event
 	{
 	public:
@@ -17,6 +20,9 @@ namespace Biscuit
 		int m_KeyCode;
 	};
 
+	/// <summary>
+	/// 按下键盘按键事件类
+	/// </summary>
 	class BISCUIT_API KeyPressedEvent : public KeyEvent
 	{
 	public:
@@ -37,6 +43,9 @@ namespace Biscuit
 		int m_repeatCount;
 	};
 
+	/// <summary>
+	/// 松开键盘按键事件类
+	/// </summary>
 	class BISCUIT_API KeyReleasedEvent : public KeyEvent
 	{
 	public:

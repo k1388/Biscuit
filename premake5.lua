@@ -15,6 +15,9 @@ project "Biscuit"
 	kind "SharedLib"
 	language "C++"
 
+	pchheader "pch.h"
+	pchsource "Biscuit/src/pch.cpp"
+
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -26,7 +29,8 @@ project "Biscuit"
 
 	includedirs
 	{
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{prj.name}/src"
 	}
 	postbuildcommands
 	{

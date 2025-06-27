@@ -4,6 +4,9 @@
 
 namespace Biscuit
 {
+	/// <summary>
+	/// 鼠标移动事件类
+	/// </summary>
 	class BISCUIT_API MouseMovedEvent : public Event
 	{
 	public:
@@ -27,6 +30,9 @@ namespace Biscuit
 		float m_Y;
 	};
 
+	/// <summary>
+	/// 鼠标滚轮滚动事件类
+	/// </summary>
 	class BISCUIT_API MouseScrolledEvent : public Event
 	{
 	public:
@@ -50,6 +56,9 @@ namespace Biscuit
 		float m_YOffset;
 	};
 
+	/// <summary>
+	/// 鼠标点击事件类
+	/// </summary>
 	class BISCUIT_API MouseButtonEvent : public Event
 	{
 	public:
@@ -62,6 +71,9 @@ namespace Biscuit
 		int m_Button;
 	};
 
+	/// <summary>
+	/// 鼠标按键按下事件类
+	/// </summary>
 	class BISCUIT_API MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
@@ -77,6 +89,9 @@ namespace Biscuit
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
+	/// <summary>
+	/// 鼠标按键松开事件类
+	/// </summary>
 	class BISCUIT_API MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:

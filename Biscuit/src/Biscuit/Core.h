@@ -1,3 +1,7 @@
+/*
+	要导出函数或类，或在游戏项目中使用导出函数或导出类时引入此文件
+*/
+
 #pragma once
 
 #ifdef BC_PLATFORM_WINDOWS

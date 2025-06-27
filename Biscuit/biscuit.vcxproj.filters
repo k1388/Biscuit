@@ -4,6 +4,9 @@
     <Filter Include="Biscuit">
       <UniqueIdentifier>{583C8AD9-C41B-0975-CD33-944B39926FD6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Biscuit\Event">
+      <UniqueIdentifier>{A99F11E8-1560-8D1E-DE9A-D69B4A1AD2FA}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Biscuit.h" />
@@ -16,13 +19,22 @@
     <ClInclude Include="src\Biscuit\EntryPoint.h">
       <Filter>Biscuit</Filter>
     </ClInclude>
+    <ClInclude Include="src\Biscuit\Event\ApplicationEvent.h">
+      <Filter>Biscuit\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\Event\Event.h">
+      <Filter>Biscuit\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\Event\KeyEvent.h">
+      <Filter>Biscuit\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\Event\MouseEvent.h">
+      <Filter>Biscuit\Event</Filter>
+    </ClInclude>
     <ClInclude Include="src\Biscuit\Log.h">
       <Filter>Biscuit</Filter>
     </ClInclude>
-    <ClInclude Include="src\Biscuit\Event\Event.h" />
-    <ClInclude Include="src\Biscuit\Event\ApplicationEvent.h" />
-    <ClInclude Include="src\Biscuit\Event\KeyEvent.h" />
-    <ClInclude Include="src\Biscuit\Event\MouseEvent.h" />
+    <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Biscuit\Application.cpp">
@@ -31,5 +43,6 @@
     <ClCompile Include="src\Biscuit\Log.cpp">
       <Filter>Biscuit</Filter>
     </ClCompile>
+    <ClCompile Include="src\pch.cpp" />
   </ItemGroup>
 </Project>

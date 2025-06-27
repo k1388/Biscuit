@@ -1,6 +1,6 @@
 #pragma once
 
-#include <memory>
+#include "pch.h"
 #include "Core.h"
 #include "spdlog/spdlog.h"
 
@@ -20,12 +20,14 @@ namespace Biscuit
 	};
 }
 
+// 引擎内部调用
 #define BC_CORE_INFO(...)	::Biscuit::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define BC_CORE_WARN(...)	::Biscuit::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define BC_CORE_TRACE(...)	::Biscuit::Log::GetCoreLogger()->trace(__VA_ARGS__)
 #define BC_CORE_FATAL(...)	::Biscuit::Log::GetCoreLogger()->fatal(__VA_ARGS__)
 #define BC_CORE_ERROR(...)	::Biscuit::Log::GetCoreLogger()->error(__VA_ARGS__)
 
+// 游戏开发调用
 #define BC_INFO(...)		::Biscuit::Log::GetClientLogger()->info(__VA_ARGS__)
 #define BC_WARN(...)		::Biscuit::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define BC_TRACE(...)		::Biscuit::Log::GetClientLogger()->trace(__VA_ARGS__)
