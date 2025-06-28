@@ -92,7 +92,7 @@ namespace Biscuit
 		/// 包装回调函数，其返回值为bool，接受事件T作为参数
 		/// </summary>
 		template<typename T>
-		using EventFn = std::function<bool<T&>>;
+		using EventFn = std::function<bool(T&)>;
 	public:
 		/// <summary>
 		/// 构造事件分发器

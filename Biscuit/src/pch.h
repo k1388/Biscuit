@@ -7,6 +7,7 @@
 #include <functional>
 #include <memory>
 #include <vector>
+#include "Biscuit/Log.h"
 
 
 

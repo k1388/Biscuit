@@ -13,7 +13,7 @@ int main(int argc, char** argv)
 	Biscuit::Log::Init();
 	BC_CORE_INFO("Engine Logger Ready");
 	BC_INFO("Application Logger Ready");
-
+	
 
 	auto app = Biscuit::CreateApplication();
 	app->Run();

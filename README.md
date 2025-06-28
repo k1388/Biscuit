@@ -1,2 +1,2 @@
 # Biscuit
-My game engine (a copy of Hazel)
+My game engine

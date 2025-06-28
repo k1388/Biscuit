@@ -10,6 +10,11 @@ workspace "Biscuit"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {}
+IncludeDir["GLFW"] = "Biscuit/vendor/GLFW/include"
+
+include "Biscuit/vendor/GLFW"
+
 project "Biscuit"
 	location "Biscuit"
 	kind "SharedLib"
@@ -30,7 +35,14 @@ project "Biscuit"
 	includedirs
 	{
 		"%{prj.name}/vendor/spdlog/include",
-		"%{prj.name}/src"
+		"%{prj.name}/src",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 	postbuildcommands
 	{
@@ -80,7 +92,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Biscuit/vendor/spdlog/include",
-		"Biscuit/src"
+		"Biscuit/src",
+		"%{IncludeDir.GLFW}"
 	}
 	links
 	{
