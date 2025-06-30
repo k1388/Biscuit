@@ -7,3 +7,5 @@
 #include "Biscuit/Log.h"
 
 #include "Biscuit/EntryPoint.h"
+
+#include "GLFW/glfw3.h"

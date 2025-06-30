@@ -2,8 +2,23 @@
 #include "Application.h"
 #include "GLFW/glfw3.h"
 
+
 namespace Biscuit
 {
+
+
+	void Application::OnEvent(Event& e) 
+	{
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WindowCloseEvent>([this](WindowCloseEvent& e) {return this->OnWindowClose(e); });
+		BC_CORE_TRACE("{0}", e.ToString());
+	}
+
+	bool Application::OnWindowClose(WindowCloseEvent& e)
+	{
+		m_IsRunning = false;
+		return true;
+	}
 
 	Application::Application()
 	{
@@ -13,6 +28,9 @@ namespace Biscuit
 			return;
 		}
 		m_Window = std::unique_ptr<Window>(new Window());
+		m_Window->SetEventCallback([this](Event& e) {
+			this->OnEvent(e);
+		});
 	}
 
 	Application::~Application()
@@ -23,7 +41,7 @@ namespace Biscuit
 	{
 		while (m_IsRunning)
 		{
-			glClearColor(0.5, 0.5, 0.5, 1);
+			glClearColor(0.8, 0.8, 0.8, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 			m_Window->OnUpdate();
 			

@@ -93,7 +93,6 @@ project "Sandbox"
 	{
 		"Biscuit/vendor/spdlog/include",
 		"Biscuit/src",
-		"%{IncludeDir.GLFW}"
 	}
 	links
 	{

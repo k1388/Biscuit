@@ -7,7 +7,12 @@
 #include <functional>
 #include <memory>
 #include <vector>
+
+#ifdef BC_DEBUG
+
 #include "Biscuit/Log.h"
+
+#endif // BC_DEBUG
 
 
 

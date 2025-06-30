@@ -46,6 +46,7 @@ namespace Biscuit
 	class BISCUIT_API Event
 	{
 	public:
+		friend class EventDispatcher;
 		/// <summary>
 		/// 获得自身的事件类型
 		/// </summary>
@@ -111,7 +112,7 @@ namespace Biscuit
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.m_Handled = func(*(T*)m_Event);
+				m_Event.m_Handled = func(static_cast<T&>(m_Event));
 				return true;
 			}
 			return false;

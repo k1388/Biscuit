@@ -26,8 +26,8 @@ namespace Biscuit
 		EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
 
 	private:
-		float m_X;
-		float m_Y;
+		double m_X;
+		double m_Y;
 	};
 
 	/// <summary>
