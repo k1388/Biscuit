@@ -76,7 +76,7 @@ namespace Biscuit
 			return GetCategoryFlags() & cate;
 		}
 
-	protected:
+	public:
 
 		/// <summary>
 		/// 事件是否已经被处理

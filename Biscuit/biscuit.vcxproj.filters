@@ -7,6 +7,9 @@
     <Filter Include="Biscuit\Event">
       <UniqueIdentifier>{A99F11E8-1560-8D1E-DE9A-D69B4A1AD2FA}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Biscuit\ImGui">
+      <UniqueIdentifier>{829354E8-EE53-D01E-B78E-199C230E15FB}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Biscuit.h" />
@@ -31,6 +34,15 @@
     <ClInclude Include="src\Biscuit\Event\MouseEvent.h">
       <Filter>Biscuit\Event</Filter>
     </ClInclude>
+    <ClInclude Include="src\Biscuit\ImGui\ImGuiLayer.h">
+      <Filter>Biscuit\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\Layer.h">
+      <Filter>Biscuit</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\LayerStack.h">
+      <Filter>Biscuit</Filter>
+    </ClInclude>
     <ClInclude Include="src\Biscuit\Log.h">
       <Filter>Biscuit</Filter>
     </ClInclude>
@@ -41,6 +53,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Biscuit\Application.cpp">
+      <Filter>Biscuit</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\ImGui\ImGuiLayer.cpp">
+      <Filter>Biscuit\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\Layer.cpp">
+      <Filter>Biscuit</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\LayerStack.cpp">
       <Filter>Biscuit</Filter>
     </ClCompile>
     <ClCompile Include="src\Biscuit\Log.cpp">

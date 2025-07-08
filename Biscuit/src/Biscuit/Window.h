@@ -6,6 +6,7 @@
 #include "Event/ApplicationEvent.h"
 #include "Event/KeyEvent.h"
 #include "Event/MouseEvent.h"
+#include "Glad/glad.h"
 
 namespace Biscuit
 {
@@ -41,8 +42,8 @@ namespace Biscuit
 
 		void OnUpdate()
 		{
-			glfwPollEvents();	// 处理窗口事件队列
-			glfwSwapBuffers(m_Window);	// 交换前后缓冲区指针（将后缓冲区已渲染的图像显示出来）
+			//glfwPollEvents();	// 处理窗口事件队列
+			//glfwSwapBuffers(m_Window);	// 交换前后缓冲区指针（将后缓冲区已渲染的图像显示出来）
 
 		}
 
@@ -123,6 +124,7 @@ namespace Biscuit
 			);
 			SetVSync(true);
 			glfwMakeContextCurrent(m_Window);
+			int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 			glfwSetWindowUserPointer(m_Window, this);
 
 			// 设置窗口调整大小的回调
@@ -220,6 +222,10 @@ namespace Biscuit
 			);
 		}
 
+		GLFWwindow* GetWindow() const
+		{
+			return m_Window;
+		}
 	private:
 		GLFWwindow *m_Window;
 		WindowProps m_Props;

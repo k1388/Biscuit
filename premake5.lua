@@ -1,6 +1,6 @@
 workspace "Biscuit"
 	architecture "x64"
-
+	startproject "Sandbox"
 	configurations
 	{
 		"Debug",
@@ -12,8 +12,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Biscuit/vendor/GLFW/include"
+IncludeDir["Glad"] = "Biscuit/vendor/Glad/include"
+IncludeDir["ImGui"] = "Biscuit/vendor/imgui"
 
 include "Biscuit/vendor/GLFW"
+include "Biscuit/vendor/Glad"
+include "Biscuit/vendor/imgui"
 
 project "Biscuit"
 	location "Biscuit"
@@ -36,12 +40,16 @@ project "Biscuit"
 	{
 		"%{prj.name}/vendor/spdlog/include",
 		"%{prj.name}/src",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}",
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
+		"ImGui",
 		"opengl32.lib"
 	}
 	postbuildcommands
@@ -61,19 +69,23 @@ project "Biscuit"
 		{
 			"BC_PLATFORM_WINDOWS",
 			"BC_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 	filter "configurations:Debug"
 		defines "BC_DEBUG"
 		symbols "On"
+		buildoptions "/MDd"
 
 	filter "configurations:Release"
 		defines "BC_RELEASE"
 		optimize "On"
+		buildoptions "/MD"
 
 	filter "configurations:Dist"
 		defines "BC_DIST"
 		optimize "On"
+		buildoptions "/MD"
 	
 project "Sandbox"
 	location "Sandbox"
@@ -92,7 +104,10 @@ project "Sandbox"
 	includedirs
 	{
 		"Biscuit/vendor/spdlog/include",
+		"Biscuit/vendor/GLFW/include",
 		"Biscuit/src",
+		"Biscuit/vendor/Glad/include",
+		"Biscuit/vendor/imgui"
 	}
 	links
 	{
@@ -106,17 +121,22 @@ project "Sandbox"
 
 		defines
 		{
-			"BC_PLATFORM_WINDOWS"
+			"BC_PLATFORM_WINDOWS",
+			"GLFW_INCLUDE_NONE"
 		}
 	
 	filter "configurations:Debug"
 		defines "BC_DEBUG"
 		symbols "On"
+		buildoptions "/MDd"
 
 	filter "configurations:Release"
 		defines "BC_RELEASE"
 		optimize "On"
+		buildoptions "/MD"
 
 	filter "configurations:Dist"
 		defines "BC_DIST"
 		optimize "On"
+		buildoptions "/MD"
+

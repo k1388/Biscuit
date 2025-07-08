@@ -4,3 +4,6 @@
 [submodule "Biscuit/vendor/GLFW"]
 	path = Biscuit/vendor/GLFW
 	url = https://github.com/TheCherno/glfw
+[submodule "Biscuit/vendor/imgui"]
+	path = Biscuit/vendor/imgui
+	url = https://github.com/TheCherno/imgui
