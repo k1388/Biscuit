@@ -18,14 +18,43 @@ namespace Biscuit
 		virtual ~Application();
 
 		void Run();
+
+		/// <summary>
+		/// push一个遮盖层
+		/// </summary>
+		/// <param name="overlay">遮盖层</param>
 		void PushOverLay(Layer* overlay);
+
+		/// <summary>
+		/// push一个图层
+		/// </summary>
+		/// <param name="layer">图层</param>
 		void PushLayer(Layer* layer);
 		void OnEvent(Event& e);
+
+		Window& GetApplicationWindow() const;
+
+		static Application* Get();
+
+		double deltaTime = 0.0f;
 	private:
+		/// <summary>
+		/// 应用对应的Window类(注意是对GLFWWindow的封装，获得渲染窗口调用m_window->GetWindow())
+		/// </summary>
 		std::unique_ptr<Window> m_Window;
+
+		/// <summary>
+		/// 控制引擎循环
+		/// </summary>
 		bool m_IsRunning = true;
+
 		bool OnWindowClose(WindowCloseEvent& e);
-		LayerStack m_LayerStack;
+		LayerStack m_LayerStack;	// 如果将来有Level或者Scene的概念，图层栈应该放到那里面 --7.9
+
+		static Application* m_Instance;
+
+		double m_LastFrameTime = 0.0f;
+		double m_CurrentFrameTime = 0.0f;
 	};
 
 	Application* CreateApplication();

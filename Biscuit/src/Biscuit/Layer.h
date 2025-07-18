@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Event/Event.h"
+
 namespace Biscuit
 {
 	class BISCUIT_API Layer
@@ -13,7 +14,6 @@ namespace Biscuit
 		virtual void OnDetach();
 		virtual void OnEvent(Event& e);
 		inline std::string GetName() const { return m_Name; }
-
 	private:
 		std::string m_Name;
 	};

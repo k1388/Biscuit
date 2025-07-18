@@ -14,6 +14,8 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Biscuit/vendor/GLFW/include"
 IncludeDir["Glad"] = "Biscuit/vendor/Glad/include"
 IncludeDir["ImGui"] = "Biscuit/vendor/imgui"
+IncludeDir["glm"] = "Biscuit/vendor/glm"
+IncludeDir["stb"] = "Biscuit/vendor/stb"
 
 include "Biscuit/vendor/GLFW"
 include "Biscuit/vendor/Glad"
@@ -21,8 +23,10 @@ include "Biscuit/vendor/imgui"
 
 project "Biscuit"
 	location "Biscuit"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	pchheader "pch.h"
 	pchsource "Biscuit/src/pch.cpp"
@@ -43,6 +47,8 @@ project "Biscuit"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb}"
 	}
 
 	links
@@ -52,6 +58,7 @@ project "Biscuit"
 		"ImGui",
 		"opengl32.lib"
 	}
+	
 	postbuildcommands
 	{
 		"echo Copying DLL to: %{wks.location}bin\\" .. outputdir .. "\\Sandbox\\",
@@ -61,36 +68,35 @@ project "Biscuit"
 
 
 	filter "system:windows"
-		cppdialect "c++17"
-		staticruntime "On"
 		systemversion "10.0"
 
 		defines
 		{
 			"BC_PLATFORM_WINDOWS",
-			"BC_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
 
 	filter "configurations:Debug"
 		defines "BC_DEBUG"
-		symbols "On"
-		buildoptions "/MDd"
+		symbols "on"
+		runtime "Debug"
 
 	filter "configurations:Release"
 		defines "BC_RELEASE"
-		optimize "On"
-		buildoptions "/MD"
+		runtime "Release"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "BC_DIST"
-		optimize "On"
-		buildoptions "/MD"
+		runtime "Release"
+		optimize "on"
 	
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "c++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -107,7 +113,8 @@ project "Sandbox"
 		"Biscuit/vendor/GLFW/include",
 		"Biscuit/src",
 		"Biscuit/vendor/Glad/include",
-		"Biscuit/vendor/imgui"
+		"Biscuit/vendor/imgui",
+		"%{IncludeDir.glm}"
 	}
 	links
 	{
@@ -115,8 +122,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "c++17"
-		staticruntime "On"
 		systemversion "10.0"
 
 		defines
@@ -127,16 +132,17 @@ project "Sandbox"
 	
 	filter "configurations:Debug"
 		defines "BC_DEBUG"
-		symbols "On"
-		buildoptions "/MDd"
+		runtime "Debug"
+		symbols "on"
+
 
 	filter "configurations:Release"
 		defines "BC_RELEASE"
-		optimize "On"
-		buildoptions "/MD"
+		runtime "Release"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "BC_DIST"
-		optimize "On"
-		buildoptions "/MD"
+		runtime "Release"
+		optimize "on"
 

@@ -13,3 +13,7 @@
 #include "imgui.h"
 
 #include "Biscuit/ImGui/ImGuiLayer.h"
+
+#include "Biscuit/BCUI/BCUI.h"
+
+#include "Biscuit/Input.h"

@@ -23,19 +23,19 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
@@ -54,46 +54,43 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)..\bin\Debug-windows-x86_64\Biscuit\</OutDir>
     <IntDir>$(ProjectDir)..\bin-int\Debug-windows-x86_64\Biscuit\</IntDir>
     <TargetName>Biscuit</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)..\bin\Release-windows-x86_64\Biscuit\</OutDir>
     <IntDir>$(ProjectDir)..\bin-int\Release-windows-x86_64\Biscuit\</IntDir>
     <TargetName>Biscuit</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
-    <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)..\bin\Dist-windows-x86_64\Biscuit\</OutDir>
     <IntDir>$(ProjectDir)..\bin-int\Dist-windows-x86_64\Biscuit\</IntDir>
     <TargetName>Biscuit</TargetName>
-    <TargetExt>.dll</TargetExt>
+    <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>BC_PLATFORM_WINDOWS;BC_BUILD_DLL;GLFW_INCLUDE_NONE;BC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BC_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;BC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalOptions>/MDd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\bin\Debug-windows-x86_64\Biscuit\Biscuit.lib</ImportLibrary>
     </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
     <PostBuildEvent>
       <Command>echo Copying DLL to: $(SolutionDir)bin\Debug-windows-x86_64\Sandbox\
 if not exist "$(SolutionDir)bin\Debug-windows-x86_64\Sandbox" mkdir "$(SolutionDir)bin\Debug-windows-x86_64\Sandbox"
@@ -105,15 +102,14 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Debug-windows-x86_64
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>BC_PLATFORM_WINDOWS;BC_BUILD_DLL;GLFW_INCLUDE_NONE;BC_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BC_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;BC_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -121,9 +117,10 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Debug-windows-x86_64
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\bin\Release-windows-x86_64\Biscuit\Biscuit.lib</ImportLibrary>
     </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
     <PostBuildEvent>
       <Command>echo Copying DLL to: $(SolutionDir)bin\Release-windows-x86_64\Sandbox\
 if not exist "$(SolutionDir)bin\Release-windows-x86_64\Sandbox" mkdir "$(SolutionDir)bin\Release-windows-x86_64\Sandbox"
@@ -135,15 +132,14 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Release-windows-x86_
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>BC_PLATFORM_WINDOWS;BC_BUILD_DLL;GLFW_INCLUDE_NONE;BC_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BC_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;BC_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -151,9 +147,10 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Release-windows-x86_
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\bin\Dist-windows-x86_64\Biscuit\Biscuit.lib</ImportLibrary>
     </Link>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
     <PostBuildEvent>
       <Command>echo Copying DLL to: $(SolutionDir)bin\Dist-windows-x86_64\Sandbox\
 if not exist "$(SolutionDir)bin\Dist-windows-x86_64\Sandbox" mkdir "$(SolutionDir)bin\Dist-windows-x86_64\Sandbox"
@@ -163,6 +160,10 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
   <ItemGroup>
     <ClInclude Include="src\Biscuit.h" />
     <ClInclude Include="src\Biscuit\Application.h" />
+    <ClInclude Include="src\Biscuit\BCUI\BCUI.h" />
+    <ClInclude Include="src\Biscuit\BCUI\Button.h" />
+    <ClInclude Include="src\Biscuit\BCUI\Label.h" />
+    <ClInclude Include="src\Biscuit\BCUI\Widget.h" />
     <ClInclude Include="src\Biscuit\Core.h" />
     <ClInclude Include="src\Biscuit\EntryPoint.h" />
     <ClInclude Include="src\Biscuit\Event\ApplicationEvent.h" />
@@ -170,18 +171,32 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClInclude Include="src\Biscuit\Event\KeyEvent.h" />
     <ClInclude Include="src\Biscuit\Event\MouseEvent.h" />
     <ClInclude Include="src\Biscuit\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Biscuit\Input.h" />
     <ClInclude Include="src\Biscuit\Layer.h" />
     <ClInclude Include="src\Biscuit\LayerStack.h" />
     <ClInclude Include="src\Biscuit\Log.h" />
+    <ClInclude Include="src\Biscuit\Math\Vec2.h" />
+    <ClInclude Include="src\Biscuit\Math\Vec3.h" />
+    <ClInclude Include="src\Biscuit\Render\Drawable.h" />
+    <ClInclude Include="src\Biscuit\Render\Position.h" />
+    <ClInclude Include="src\Biscuit\Render\Shader.h" />
     <ClInclude Include="src\Biscuit\Window.h" />
     <ClInclude Include="src\pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Biscuit\Application.cpp" />
+    <ClCompile Include="src\Biscuit\BCUI\BCUI.cpp" />
+    <ClCompile Include="src\Biscuit\BCUI\Button.cpp" />
+    <ClCompile Include="src\Biscuit\BCUI\Label.cpp" />
+    <ClCompile Include="src\Biscuit\BCUI\Widget.cpp" />
     <ClCompile Include="src\Biscuit\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Biscuit\Input.cpp" />
     <ClCompile Include="src\Biscuit\Layer.cpp" />
     <ClCompile Include="src\Biscuit\LayerStack.cpp" />
     <ClCompile Include="src\Biscuit\Log.cpp" />
+    <ClCompile Include="src\Biscuit\Render\Drawable.cpp" />
+    <ClCompile Include="src\Biscuit\Render\Position.cpp" />
+    <ClCompile Include="src\Biscuit\Render\Shader.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

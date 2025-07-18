@@ -1,5 +1,8 @@
 #include "Biscuit.h"
+#include "Biscuit/BCUI/BCUI.h"
+#include "Biscuit/BCUI/Label.h"
 
+using namespace Biscuit;
 /// <summary>
 /// 程序入口main()见src/Biscuit/EntryPoint.h
 /// </summary>
@@ -20,23 +23,13 @@ public:
 	}
 };
 
-class MyUI : public Biscuit::ImGuiLayer
-{
-public:
-	
-	// void DrawContent() override
-	// {
-	// 	ImGui::Button("Button",ImVec2(200,20));
-	// }
-};
 
 class Sandbox : public Biscuit::Application
 {
 public:
 	Sandbox()
 	{
-		//PushLayer(new MyLayer());
-		PushOverLay(new Biscuit::ImGuiLayer("The UI"));
+
 	}
 
 	~Sandbox()

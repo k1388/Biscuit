@@ -4,17 +4,38 @@
     <Filter Include="Biscuit">
       <UniqueIdentifier>{583C8AD9-C41B-0975-CD33-944B39926FD6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Biscuit\BCUI">
+      <UniqueIdentifier>{4A8C0D26-36EF-9CCA-DF74-D580CBB6684D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Biscuit\Event">
       <UniqueIdentifier>{A99F11E8-1560-8D1E-DE9A-D69B4A1AD2FA}</UniqueIdentifier>
     </Filter>
     <Filter Include="Biscuit\ImGui">
       <UniqueIdentifier>{829354E8-EE53-D01E-B78E-199C230E15FB}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Biscuit\Math">
+      <UniqueIdentifier>{31181426-1D7B-A3CA-C600-DC80B2426F4D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Biscuit\Render">
+      <UniqueIdentifier>{C7C76907-B395-5D0D-9C29-CE3388963972}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Biscuit.h" />
     <ClInclude Include="src\Biscuit\Application.h">
       <Filter>Biscuit</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\BCUI\BCUI.h">
+      <Filter>Biscuit\BCUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\BCUI\Button.h">
+      <Filter>Biscuit\BCUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\BCUI\Label.h">
+      <Filter>Biscuit\BCUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\BCUI\Widget.h">
+      <Filter>Biscuit\BCUI</Filter>
     </ClInclude>
     <ClInclude Include="src\Biscuit\Core.h">
       <Filter>Biscuit</Filter>
@@ -37,6 +58,9 @@
     <ClInclude Include="src\Biscuit\ImGui\ImGuiLayer.h">
       <Filter>Biscuit\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Biscuit\Input.h">
+      <Filter>Biscuit</Filter>
+    </ClInclude>
     <ClInclude Include="src\Biscuit\Layer.h">
       <Filter>Biscuit</Filter>
     </ClInclude>
@@ -45,6 +69,21 @@
     </ClInclude>
     <ClInclude Include="src\Biscuit\Log.h">
       <Filter>Biscuit</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\Math\Vec2.h">
+      <Filter>Biscuit\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\Math\Vec3.h">
+      <Filter>Biscuit\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\Render\Drawable.h">
+      <Filter>Biscuit\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\Render\Position.h">
+      <Filter>Biscuit\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\Render\Shader.h">
+      <Filter>Biscuit\Render</Filter>
     </ClInclude>
     <ClInclude Include="src\Biscuit\Window.h">
       <Filter>Biscuit</Filter>
@@ -55,8 +94,23 @@
     <ClCompile Include="src\Biscuit\Application.cpp">
       <Filter>Biscuit</Filter>
     </ClCompile>
+    <ClCompile Include="src\Biscuit\BCUI\BCUI.cpp">
+      <Filter>Biscuit\BCUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\BCUI\Button.cpp">
+      <Filter>Biscuit\BCUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\BCUI\Label.cpp">
+      <Filter>Biscuit\BCUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\BCUI\Widget.cpp">
+      <Filter>Biscuit\BCUI</Filter>
+    </ClCompile>
     <ClCompile Include="src\Biscuit\ImGui\ImGuiLayer.cpp">
       <Filter>Biscuit\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\Input.cpp">
+      <Filter>Biscuit</Filter>
     </ClCompile>
     <ClCompile Include="src\Biscuit\Layer.cpp">
       <Filter>Biscuit</Filter>
@@ -66,6 +120,15 @@
     </ClCompile>
     <ClCompile Include="src\Biscuit\Log.cpp">
       <Filter>Biscuit</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\Render\Drawable.cpp">
+      <Filter>Biscuit\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\Render\Position.cpp">
+      <Filter>Biscuit\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\Render\Shader.cpp">
+      <Filter>Biscuit\Render</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp" />
   </ItemGroup>

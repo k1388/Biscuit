@@ -7,7 +7,6 @@
 #include "Event/KeyEvent.h"
 #include "Event/MouseEvent.h"
 #include "Glad/glad.h"
-
 namespace Biscuit
 {
 	/// <summary>

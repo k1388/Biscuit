@@ -5,11 +5,18 @@
 #pragma once
 
 #ifdef BC_PLATFORM_WINDOWS
+
+	#ifdef BC_DYNAMIC_LIBRARY
 		#ifdef BC_BUILD_DLL
 			#define BISCUIT_API __declspec(dllexport)
 		#else
 			#define BISCUIT_API __declspec(dllimport)
 		#endif
+	#else
+		#define BISCUIT_API 
+	#endif
+
+
 #endif
 
-#define BIT(x) (1 << x)
+#define BIT(x) (1 << (x))

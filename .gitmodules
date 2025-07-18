@@ -7,3 +7,9 @@
 [submodule "Biscuit/vendor/imgui"]
 	path = Biscuit/vendor/imgui
 	url = https://github.com/TheCherno/imgui
+[submodule "Biscuit/vendor/glm"]
+	path = Biscuit/vendor/glm
+	url = https://github.com/g-truc/glm
+[submodule "Biscuit/vendor/stb"]
+	path = Biscuit/vendor/stb
+	url = https://github.com/nothings/stb

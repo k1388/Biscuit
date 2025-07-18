@@ -1,22 +1,25 @@
 #include "pch.h"
 #include "Layer.h"
-
-Biscuit::Layer::~Layer()
+namespace Biscuit
 {
-}
+    Layer::~Layer()
+    {
+    }
 
-void Biscuit::Layer::OnUpdate()
-{
-}
+    void Layer::OnUpdate()
+    {
+    }
 
-void Biscuit::Layer::OnAttach()
-{
-}
+    void Layer::OnAttach()
+    {
+    }
 
-void Biscuit::Layer::OnDetach()
-{
-}
+    void Layer::OnDetach()
+    {
+    
+    }
 
-void Biscuit::Layer::OnEvent(Event& e)
-{
+    void Layer::OnEvent(Event& e)
+    {
+    }
 }

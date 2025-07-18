@@ -7,6 +7,7 @@
 #include <functional>
 #include <memory>
 #include <vector>
+#include <array>
 
 #ifdef BC_DEBUG
 
