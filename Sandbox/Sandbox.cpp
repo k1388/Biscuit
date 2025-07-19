@@ -8,33 +8,13 @@ using namespace Biscuit;
 /// </summary>
 
 
-class MyLayer : public Biscuit::Layer
-{
-public:
-	MyLayer() :Layer("Mylayer!!!!!") {}
-	void OnUpdate() override
-	{
-		//BC_INFO("game updated");
-	}
-
-	void OnEvent(Biscuit::Event& e) override
-	{
-		//BC_INFO("{0}", e.ToString());
-	}
-};
-
-
 class Sandbox : public Biscuit::Application
 {
 public:
-	Sandbox()
+	void OnGameStart() override
 	{
-
-	}
-
-	~Sandbox()
-	{
-
+		Sprite *drawable = new Sprite("C:/Users/kanho/OneDrive/Desktop/41903-1859816609.png");
+		AddSprite(drawable);
 	}
 };
 

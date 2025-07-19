@@ -5,6 +5,7 @@
 #include "Event/Event.h"
 #include "Event/ApplicationEvent.h"
 #include "LayerStack.h"
+#include "SpriteLayer.h"
 
 namespace Biscuit
 {
@@ -37,6 +38,14 @@ namespace Biscuit
 		static Application* Get();
 
 		double deltaTime = 0.0f;
+
+		inline std::shared_ptr<SpriteLayer> GetSpriteLayer() const
+		{
+			return m_SpriteLayer;
+		}
+
+		void AddSprite(Sprite* sprite);
+		virtual void OnGameStart() {}
 	private:
 		/// <summary>
 		/// 应用对应的Window类(注意是对GLFWWindow的封装，获得渲染窗口调用m_window->GetWindow())
@@ -51,10 +60,12 @@ namespace Biscuit
 		bool OnWindowClose(WindowCloseEvent& e);
 		LayerStack m_LayerStack;	// 如果将来有Level或者Scene的概念，图层栈应该放到那里面 --7.9
 
+		std::shared_ptr<SpriteLayer> m_SpriteLayer;
 		static Application* m_Instance;
 
 		double m_LastFrameTime = 0.0f;
 		double m_CurrentFrameTime = 0.0f;
+		
 	};
 
 	Application* CreateApplication();

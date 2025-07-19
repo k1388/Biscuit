@@ -4,7 +4,7 @@
 #include "imgui.h"
 #include "Input.h"
 #include "ImGui/ImGuiLayer.h"
-#include "Render/Drawable.h"
+#include "InGame/Sprite.h"
 
 namespace Biscuit
 {
@@ -33,6 +33,11 @@ namespace Biscuit
 	Application* Application::Get()
 	{
 		return m_Instance;
+	}
+
+	void Application::AddSprite(Sprite* sprite)
+	{
+		m_SpriteLayer->AddSprite(sprite);
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
@@ -72,6 +77,9 @@ namespace Biscuit
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // 标准的混合函数
 
 		m_Instance = this;
+
+
+		
 	}
 
 	Application::~Application()
@@ -80,8 +88,13 @@ namespace Biscuit
 
 	void Application::Run()
 	{
+		m_SpriteLayer = std::make_shared<SpriteLayer>();
+		this->PushLayer(m_SpriteLayer.get());
+
+		OnGameStart();
+		m_SpriteLayer->InitAllSprites();
+
 		m_LastFrameTime = glfwGetTime();
-		Drawable drawable = Drawable("C:/Users/kanho/OneDrive/Desktop/41903-1859816609.png");
 		while (m_IsRunning)
 		{
 			m_CurrentFrameTime = glfwGetTime();
@@ -89,20 +102,23 @@ namespace Biscuit
 			m_LastFrameTime = m_CurrentFrameTime;
 			glClear(GL_COLOR_BUFFER_BIT);
 			glClearColor(0.8f, 0.8f, 0.9f, 1);
+			//drawable.Draw();
+			//drawable.SetPos(drawable.GetPos().GetX()+deltaTime*100, drawable.GetPos().GetY());
 			
-			drawable.Draw();
-			drawable.SetPos(drawable.GetPos().GetX()+deltaTime*100, drawable.GetPos().GetY());
 			// 遍历图层栈并更新每一图层
 			for (Layer* layer : m_LayerStack)
 			{
 				layer->OnUpdate();
 			}
+			
 			// 交换前后缓冲区，刷新画面
 			glfwSwapBuffers(m_Window->GetWindow());
 			// 更新glfw事件
 			glfwPollEvents();
 		}
 	}
+
+	
 
 	void Application::PushOverLay(Layer* overlay)
 	{

@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "Biscuit/Application.h"
 #include "Biscuit/Math/Vec2.h"
 #include "Biscuit/Math/Vec3.h"
 
@@ -10,9 +9,7 @@ namespace Biscuit
     public:
         Position()
         {
-            m_Pos = Vec3(
-                Application::Get()->GetApplicationWindow().GetWidth()/2.0f,
-                Application::Get()->GetApplicationWindow().GetHeight()/2.0f
+            m_Pos = Vec3(100,100,0
             );
         }
         Position(const Vec3& position)

@@ -1,12 +1,14 @@
 ﻿#pragma once
 #include "Position.h"
 #include "Shader.h"
+#include "Texture.h"
 
 namespace Biscuit
 {
     class Drawable
     {
     public:
+        virtual ~Drawable(){}
         /// <summary>
         /// 可以渲染图片材质并进行简单变换的类
         /// </summary>
@@ -18,6 +20,8 @@ namespace Biscuit
         /// </summary>
         void Draw();
 
+        void Init();
+        
         /// <summary>
         /// 获得对象名称
         /// </summary>
@@ -74,7 +78,32 @@ namespace Biscuit
         {
             return m_Visble;
         }
-    private:
+
+        // inline void SetRotation(int angle)
+        // {
+        //     m_Angle = angle;
+        // }
+        //
+        // inline void SetScale(float scale)
+        // {
+        //     m_Scale = scale;
+        // }
+        inline void SetScale(float scale) 
+        {
+            m_Scale = scale;
+            m_VertexChanged = true;
+        }
+        
+        inline float GetScale() const
+        {
+            return m_Scale;
+        }
+    protected:
+        /// <summary>
+        /// 将屏幕坐标变换为NDC
+        /// </summary>
+        /// <returns>顶点NDC数组</returns>
+        virtual float* CoordTransform();
         bool m_Visble = true;
         int m_Pic_Width;
         int m_Pic_Height;
@@ -82,27 +111,28 @@ namespace Biscuit
         int m_Pic_NrChannels;
         unsigned int m_Texture;
         float m_Vertices[4 * 5];
-        unsigned int m_Indices[6] = {  // note that we start from 0!
-            0, 1, 3,  // first Triangle
-            1, 2, 3   // second Triangle
+        float m_Scale = 1.0f;
+        std::string m_Name;
+        bool m_VertexChanged = true;
+        std::vector<Texture*> m_Textures;
+        Texture* m_CurTexture;
+    private: 
+        const unsigned int m_Indices[6] = {  
+            0, 1, 3,  
+            1, 2, 3   
         };
         unsigned int m_ShaderProgram;
         unsigned int m_VAO;
         unsigned int m_VBO;
         unsigned int m_EBO;
         std::unique_ptr<Shader> m_Shader; // 管理着色器生命周期
-        std::string m_Name;
-        bool m_VertexChanged = false;
         
-        /// <summary>
-        /// 将屏幕坐标变换为NDC
-        /// </summary>
-        /// <returns>顶点NDC数组</returns>
-        virtual float* CoordTransform();
-
         /// <summary>
         /// 加载顶点，着色器，初始化VBO，EBO
         /// </summary>
         void Load();
+
+        std::string m_t_PicSrc;
+        
     };
 }

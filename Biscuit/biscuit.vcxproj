@@ -170,6 +170,10 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClInclude Include="src\Biscuit\Event\Event.h" />
     <ClInclude Include="src\Biscuit\Event\KeyEvent.h" />
     <ClInclude Include="src\Biscuit\Event\MouseEvent.h" />
+    <ClInclude Include="src\Biscuit\Render\Collidable.h" />
+    <ClInclude Include="src\Biscuit\Render\Texture.h" />
+    <ClInclude Include="src\Biscuit\SpriteLayer.h" />
+    <ClInclude Include="src\Biscuit\InGame\Sprite.h" />
     <ClInclude Include="src\Biscuit\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Biscuit\Input.h" />
     <ClInclude Include="src\Biscuit\Layer.h" />
@@ -189,6 +193,82 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClCompile Include="src\Biscuit\BCUI\Button.cpp" />
     <ClCompile Include="src\Biscuit\BCUI\Label.cpp" />
     <ClCompile Include="src\Biscuit\BCUI\Widget.cpp" />
+    <ClCompile Include="src\Biscuit\Render\Collidable.cpp">
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <Optimization>Disabled</Optimization>
+      <SupportJustMyCode>true</SupportJustMyCode>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+      <AssemblerListingLocation>D:\Projects\biscuit\Biscuit\Biscuit\..\bin-int\Debug-windows-x86_64\Biscuit\</AssemblerListingLocation>
+      <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+      <BrowseInformation>false</BrowseInformation>
+      <BrowseInformationFile>D:\Projects\biscuit\Biscuit\Biscuit\..\bin-int\Debug-windows-x86_64\Biscuit\</BrowseInformationFile>
+      <CompileAs>Default</CompileAs>
+      <ConformanceMode>Default</ConformanceMode>
+      <DiagnosticsFormat>Column</DiagnosticsFormat>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ErrorReporting>Prompt</ErrorReporting>
+      <ExpandAttributedSource>false</ExpandAttributedSource>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <EnableASAN>false</EnableASAN>
+      <EnableFuzzer>false</EnableFuzzer>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <GenerateModuleDependencies>false</GenerateModuleDependencies>
+      <GenerateSourceDependencies>false</GenerateSourceDependencies>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <MinimalRebuild>false</MinimalRebuild>
+      <ModuleDependenciesFile>D:\Projects\biscuit\Biscuit\Biscuit\..\bin-int\Debug-windows-x86_64\Biscuit\</ModuleDependenciesFile>
+      <ModuleOutputFile>D:\Projects\biscuit\Biscuit\Biscuit\..\bin-int\Debug-windows-x86_64\Biscuit\</ModuleOutputFile>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <ObjectFileName>D:\Projects\biscuit\Biscuit\Biscuit\..\bin-int\Debug-windows-x86_64\Biscuit\</ObjectFileName>
+      <CallingConvention>Cdecl</CallingConvention>
+      <ProgramDataBaseFileName>D:\Projects\biscuit\Biscuit\Biscuit\..\bin\Debug-windows-x86_64\Biscuit\Biscuit.pdb</ProgramDataBaseFileName>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>D:\Projects\biscuit\Biscuit\Biscuit\..\bin-int\Debug-windows-x86_64\Biscuit\Biscuit.pch</PrecompiledHeaderOutputFile>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessKeepComments>false</PreprocessKeepComments>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+      <ShowIncludes>false</ShowIncludes>
+      <SourceDependenciesFile>D:\Projects\biscuit\Biscuit\Biscuit\..\bin-int\Debug-windows-x86_64\Biscuit\</SourceDependenciesFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <SpectreMitigation>false</SpectreMitigation>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <TrackerLogDirectory>D:\Projects\biscuit\Biscuit\Biscuit\..\bin-int\Debug-windows-x86_64\Biscuit\Biscuit.tlog\</TrackerLogDirectory>
+      <TranslateIncludes>false</TranslateIncludes>
+      <MinimalRebuildFromTracking>true</MinimalRebuildFromTracking>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <UseFullPaths>true</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <XMLDocumentationFileName>D:\Projects\biscuit\Biscuit\Biscuit\..\bin-int\Debug-windows-x86_64\Biscuit\</XMLDocumentationFileName>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <IntelJCCErratum>false</IntelJCCErratum>
+      <BuildStlModules>false</BuildStlModules>
+      <TreatAngleIncludeAsExternal>false</TreatAngleIncludeAsExternal>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
+      <TreatExternalTemplatesAsInternal>true</TreatExternalTemplatesAsInternal>
+      <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
+      <PreprocessorDefinitions>BC_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;BC_DEBUG;_UNICODE;UNICODE;</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb;</AdditionalIncludeDirectories>
+      <LibCompiled>true</LibCompiled>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\SpriteLayer.cpp" />
+    <ClCompile Include="src\Biscuit\InGame\Sprite.cpp" />
     <ClCompile Include="src\Biscuit\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Biscuit\Input.cpp" />
     <ClCompile Include="src\Biscuit\Layer.cpp" />

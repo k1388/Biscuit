@@ -3,16 +3,47 @@
 #include "stb_image.h"
 #include "Drawable.h"
 #include "Shader.h"
+#include "Biscuit/Application.h"
 #include "Glad/glad.h"
 
 namespace Biscuit
 {
     Drawable::Drawable(const std::string& picSrc)
+        :m_t_PicSrc(picSrc)
     {
         m_Pos = Position(100,100);
-        stbi_set_flip_vertically_on_load(true);
+        m_Name = "null";
+    }
+
+
+    void Drawable::Draw()
+    {
+        if (!m_Visble)
+        {
+            return;
+        }
+        if (m_VertexChanged)
+        {
+            memcpy(m_Vertices, CoordTransform(), sizeof(m_Vertices));
+            glBindVertexArray(m_VAO);
+            glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(m_Vertices), m_Vertices, GL_DYNAMIC_DRAW);
+            m_VertexChanged = false;
+        }
+        
+        glUseProgram(m_Shader->GetShaderProgram());
+        glUniform1i(glGetUniformLocation(m_ShaderProgram, "myTexture"), 0);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, m_Texture);
+        glBindVertexArray(m_VAO);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    }
+
+    void Drawable::Init()
+    {
+        //stbi_set_flip_vertically_on_load(true);
         unsigned char* t_Pic_Data = stbi_load(
-            picSrc.c_str(),
+            m_t_PicSrc.c_str(),
             &m_Pic_Width,
             &m_Pic_Height,
             &m_Pic_NrChannels,
@@ -41,48 +72,13 @@ namespace Biscuit
         }
         stbi_image_free(t_Pic_Data);
         Load();
-        m_Name = "null";
-    }
-
-
-    void Drawable::Draw()
-    {
-        if (!m_Visble)
-        {
-            return;
-        }
-        if (m_VertexChanged)
-        {
-            memcpy(m_Vertices, CoordTransform(), sizeof(m_Vertices));
-            glBindVertexArray(m_VAO);
-            glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-            glBufferData(GL_ARRAY_BUFFER, sizeof(m_Vertices), m_Vertices, GL_DYNAMIC_DRAW);
-            m_VertexChanged = false;
-            BC_CORE_TRACE("{0}", m_Pos.GetX());
-        }
         
-        glUseProgram(m_Shader->GetShaderProgram());
-        glUniform1i(glGetUniformLocation(m_ShaderProgram, "myTexture"), 0);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, m_Texture);
-        glBindVertexArray(m_VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
+
 
     float* Drawable::CoordTransform()
     {
-        float sw = Application::Get()->GetApplicationWindow().GetWidth();
-        float sh = Application::Get()->GetApplicationWindow().GetHeight();
-        float rux, ruy, rdx, rdy, ldx, ldy, lux, luy;
-        lux = (2.0f * m_Pos.GetX()) / sw - 1.0f;
-        luy = 1.0f - (2.0f * m_Pos.GetY()) / sh;
-        rux = lux + m_Pic_Width / sw;
-        ruy =  luy;
-        ldx = lux;
-        ldy = luy - m_Pic_Height / sh;
-        rdx = rux;
-        rdy = ldy;
-        
+                
         // float vertices[4 * 5] = {
         //     // ---- 位置 ---     - 纹理坐标 -
         //     0.5f,  0.5f, 0.0f,    1.0f, 1.0f,   // 右上
@@ -90,12 +86,28 @@ namespace Biscuit
         //    -0.5f, -0.5f, 0.0f,    0.0f, 0.0f,   // 左下
         //    -0.5f,  0.5f, 0.0f,    0.0f, 1.0f    // 左上
         // };
+        
+        float sw = Application::Get()->GetApplicationWindow().GetWidth();
+        float sh = Application::Get()->GetApplicationWindow().GetHeight();
+        float rux, ruy, rdx, rdy, ldx, ldy, lux, luy;
+        lux = (2.0f * m_Pos.GetX()) / sw - 1.0f;
+        luy = 1.0f - (2.0f * m_Pos.GetY()) / sh;
+        rux = lux + (m_Pic_Width / sw) * m_Scale;
+        ruy =  luy;
+        ldx = lux;
+        ldy = luy - (m_Pic_Height / sh) * m_Scale;
+        rdx = rux;
+        rdy = ldy;
+
+        // 缩放
+
+        
         float vertices[4 * 5] = {
             // ---- 位置 ---    - 纹理坐标 -
-            rux, ruy, 0.0f,    1.0f, 1.0f,   // 右上
-            rdx, rdy, 0.0f,    1.0f, 0.0f,   // 右下
-            ldx, ldy, 0.0f,    0.0f, 0.0f,   // 左下
-            lux, luy, 0.0f,    0.0f, 1.0f    // 左上
+            lux, luy, 0.0f,    1.0f, 1.0f,   // 左上
+            rux, ruy, 0.0f,    1.0f, 0.0f,   // 右上
+            rdx, rdy, 0.0f,    0.0f, 0.0f,   // 右下
+            ldx, ldy, 0.0f,    0.0f, 1.0f    // 左下
         };
 
         return vertices;
@@ -154,5 +166,15 @@ namespace Biscuit
         
         glBindVertexArray(0); // 解绑
     }
+
+    // float* Drawable::GenerateRotateMatrix() const
+    // {
+    //     float mat[2][2];
+    //     mat[0][0] = cos(m_Angle);
+    //     mat[0][1] = -sin(m_Angle);
+    //     mat[1][0] = sin(m_Angle);
+    //     mat[1][1] = cos(m_Angle);
+    //     return mat[0];
+    // }
 }
 
