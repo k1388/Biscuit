@@ -1,9 +1,8 @@
 ﻿#pragma once
 #include "../Math/Vec2.h"
-#include "../Core.h"
 namespace Biscuit::BCUI
 {
-    class BISCUIT_API Widget
+    class Widget
     {
     public:
         enum class WidgetType
@@ -11,6 +10,7 @@ namespace Biscuit::BCUI
             Null,
             Button,
             Label,
+            ProgressBar
         };
         static int ID;
 

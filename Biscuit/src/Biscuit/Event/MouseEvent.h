@@ -7,7 +7,7 @@ namespace Biscuit
 	/// <summary>
 	/// 鼠标移动事件类
 	/// </summary>
-	class BISCUIT_API MouseMovedEvent : public Event
+	class MouseMovedEvent : public Event
 	{
 	public:
 		MouseMovedEvent(float x, float y):m_X(x),m_Y(y){}
@@ -33,7 +33,7 @@ namespace Biscuit
 	/// <summary>
 	/// 鼠标滚轮滚动事件类
 	/// </summary>
-	class BISCUIT_API MouseScrolledEvent : public Event
+	class MouseScrolledEvent : public Event
 	{
 	public:
 		MouseScrolledEvent(float xOffset, float yOffset) : m_XOffset(xOffset), m_YOffset(yOffset) {}
@@ -59,7 +59,7 @@ namespace Biscuit
 	/// <summary>
 	/// 鼠标点击事件类
 	/// </summary>
-	class BISCUIT_API MouseButtonEvent : public Event
+	class MouseButtonEvent : public Event
 	{
 	public:
 		inline int GetMouseButton() const { return m_Button; }
@@ -74,7 +74,7 @@ namespace Biscuit
 	/// <summary>
 	/// 鼠标按键按下事件类
 	/// </summary>
-	class BISCUIT_API MouseButtonPressedEvent : public MouseButtonEvent
+	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonPressedEvent(int button):MouseButtonEvent(button){}
@@ -92,7 +92,7 @@ namespace Biscuit
 	/// <summary>
 	/// 鼠标按键松开事件类
 	/// </summary>
-	class BISCUIT_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonReleasedEvent(int button) :MouseButtonEvent(button) {}

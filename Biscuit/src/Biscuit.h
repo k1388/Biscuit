@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Biscuit/Keycode.h"
+
 #include "Biscuit/Layer.h"
 
 #include "GLFW/glfw3.h"

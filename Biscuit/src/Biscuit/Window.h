@@ -1,6 +1,5 @@
 #pragma once
 #include "pch.h"
-#include "Core.h"
 #include "Event/Event.h"
 #include "GLFW/glfw3.h"
 #include "Event/ApplicationEvent.h"
@@ -12,7 +11,7 @@ namespace Biscuit
 	/// <summary>
 	/// 窗口类
 	/// </summary>
-	class BISCUIT_API Window
+	class Window
 	{
 	public:
 		/// <summary>
@@ -116,6 +115,7 @@ namespace Biscuit
 		/// <param name="props">窗口基本属性</param>
 		Window(const WindowProps& props = WindowProps())
 		{
+			m_Props = props;
 			m_Window = glfwCreateWindow
 			(
 				m_Props.Width, m_Props.Height, m_Props.Title.c_str(),

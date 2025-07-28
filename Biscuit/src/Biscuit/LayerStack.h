@@ -1,10 +1,9 @@
 #pragma once
-#include "Core.h"
 #include "Layer.h"
 #include <vector>
 namespace Biscuit
 {
-	class BISCUIT_API LayerStack
+	class LayerStack
 	{
 	public:
 		/// <summary>

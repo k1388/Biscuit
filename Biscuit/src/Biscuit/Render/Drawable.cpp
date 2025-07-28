@@ -4,6 +4,7 @@
 #include "Drawable.h"
 #include "Shader.h"
 #include "Biscuit/Application.h"
+#include "Biscuit/Math/Vec2.h"
 #include "Glad/glad.h"
 
 namespace Biscuit
@@ -11,7 +12,7 @@ namespace Biscuit
     Drawable::Drawable(const std::string& picSrc)
         :m_t_PicSrc(picSrc)
     {
-        m_Pos = Position(100,100);
+        m_Pos = Vec2(100,100);
         m_Name = "null";
     }
 
@@ -34,7 +35,7 @@ namespace Biscuit
         glUseProgram(m_Shader->GetShaderProgram());
         glUniform1i(glGetUniformLocation(m_ShaderProgram, "myTexture"), 0);
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, m_Texture);
+        glBindTexture(GL_TEXTURE_2D, m_CurTexture->textureID);
         glBindVertexArray(m_VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
@@ -55,6 +56,7 @@ namespace Biscuit
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        
         if (t_Pic_Data)
         {
             glTexImage2D(
@@ -70,11 +72,72 @@ namespace Biscuit
             );
             glGenerateMipmap(GL_TEXTURE_2D);
         }
+        m_Textures.push_back(std::make_shared<Texture>(m_Pic_Width,m_Pic_Height,m_Pic_NrChannels,m_Texture));
+        m_CurTexture = m_Textures[0];
+        m_TextureCount++;
         stbi_image_free(t_Pic_Data);
         Load();
         
     }
 
+
+    bool Drawable::AddTexture(const std::string& picSrc)
+    {
+        GLint lastTexture;
+        glGetIntegerv(GL_TEXTURE_BINDING_2D, &lastTexture);
+        int width, height, nrChannels;
+        unsigned int textureID;
+        unsigned char* t_Pic_Data = stbi_load(
+           picSrc.c_str(),
+           &width,
+           &height,
+           &nrChannels,
+           0
+       );
+        if (!t_Pic_Data)
+        {
+            return false;
+        }
+        glGenTextures(1, &textureID);
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);   
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexImage2D(
+            GL_TEXTURE_2D,
+            0,
+            nrChannels < 4?GL_RGB:GL_RGBA,
+            width,
+            height,
+            0,
+            nrChannels < 4?GL_RGB:GL_RGBA,
+            GL_UNSIGNED_BYTE,
+            t_Pic_Data
+        );
+        glGenerateMipmap(GL_TEXTURE_2D);
+        m_Textures.push_back(std::make_shared<Texture>(width,height,nrChannels,textureID));
+        m_TextureCount++;
+        stbi_image_free(t_Pic_Data);
+
+        glBindTexture(GL_TEXTURE_2D, lastTexture);
+        return true;
+    }
+
+    void Drawable::SetTexture(unsigned int index)
+    {
+        int texIndex = index < m_TextureCount?index:m_TextureCount-1;
+        m_CurTexture = m_Textures[texIndex];
+        m_TextureIndex = texIndex;
+
+    }
+
+    void Drawable::NextTexture()
+    {
+        int texIndex = ((m_TextureIndex+1 <= m_TextureCount) ?m_TextureIndex+1:m_TextureCount-1);
+        m_CurTexture = m_Textures[texIndex];
+        m_TextureIndex = texIndex;
+    }
 
     float* Drawable::CoordTransform()
     {
@@ -92,10 +155,10 @@ namespace Biscuit
         float rux, ruy, rdx, rdy, ldx, ldy, lux, luy;
         lux = (2.0f * m_Pos.GetX()) / sw - 1.0f;
         luy = 1.0f - (2.0f * m_Pos.GetY()) / sh;
-        rux = lux + (m_Pic_Width / sw) * m_Scale;
+        rux = lux + (m_CurTexture->picWidth / sw) * m_Scale;
         ruy =  luy;
         ldx = lux;
-        ldy = luy - (m_Pic_Height / sh) * m_Scale;
+        ldy = luy - (m_CurTexture->picHeight / sh) * m_Scale;
         rdx = rux;
         rdy = ldy;
 

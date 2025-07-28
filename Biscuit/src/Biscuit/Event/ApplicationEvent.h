@@ -7,7 +7,7 @@ namespace Biscuit
 	/// <summary>
 	/// 窗口大小更改事件类
 	/// </summary>
-	class BISCUIT_API WindowResizeEvent : public Event
+	class WindowResizeEvent : public Event
 	{
 	public:
 		WindowResizeEvent(
@@ -36,7 +36,7 @@ namespace Biscuit
 	/// <summary>
 	/// 窗口关闭事件类
 	/// </summary>
-	class BISCUIT_API WindowCloseEvent : public Event
+	class WindowCloseEvent : public Event
 	{
 	public:
 		WindowCloseEvent(){}

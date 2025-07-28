@@ -1,7 +1,7 @@
 #pragma once
-#include "../Core.h"
 #include <string>
 #include <functional>
+#define BIT(x) (1 << (x))
 
 namespace Biscuit
 {
@@ -43,7 +43,7 @@ namespace Biscuit
 	/// <summary>
 	/// 所有事件的抽象类
 	/// </summary>
-	class BISCUIT_API Event
+	class Event
 	{
 	public:
 		friend class EventDispatcher;

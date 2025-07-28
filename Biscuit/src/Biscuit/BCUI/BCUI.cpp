@@ -1,5 +1,8 @@
 ﻿#include <pch.h>
 #include "BCUI.h"
+
+#include "ProgressBar.h"
+
 namespace Biscuit::BCUI
 {
     void BCUI::DrawContent()
@@ -35,6 +38,15 @@ namespace Biscuit::BCUI
                     ImGui::Text(
                         dynamic_cast<Label*>(i)->GetText().c_str(),
                         ImVec2(i->GetSize().GetX(), i->GetSize().GetY())
+                    );
+                    break;
+                }
+            case Widget::WidgetType::ProgressBar:
+                {
+                    ImGui::ProgressBar
+                    (
+                    dynamic_cast<ProgressBar*>(i)->GetPercentage(),
+                    ImVec2(i->GetSize().GetX(), i->GetSize().GetY())
                     );
                     break;
                 }

@@ -4,7 +4,7 @@
 
 namespace Biscuit::BCUI
 {
-    class BISCUIT_API Label : public Widget
+    class Label : public Widget
     {
     public:
         Label();
@@ -23,9 +23,9 @@ namespace Biscuit::BCUI
         /// 设置Label中的文本
         /// </summary>
         /// <param name="text">文本</param>
-        inline void SetText(const std::string& text);
-        inline WidgetType GetWidgetType() const override;
-        inline std::string ToString() const override;
+        void SetText(const std::string& text);
+        WidgetType GetWidgetType() const override;
+        std::string ToString() const override;
 
         
     private:

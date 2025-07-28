@@ -1,12 +1,11 @@
 #pragma once
 
 #include "pch.h"
-#include "Core.h"
 #include "spdlog/spdlog.h"
 
 namespace Biscuit
 {
-	class BISCUIT_API Log
+	class Log
 	{
 	public:
 		static void Init();

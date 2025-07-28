@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Core.h"
 #include "Window.h"
 #include "Event/Event.h"
 #include "Event/ApplicationEvent.h"
@@ -12,12 +11,12 @@ namespace Biscuit
 	/// <summary>
 	/// Application是游戏程序的最底层
 	/// </summary>
-	class BISCUIT_API Application
+	class Application
 	{
 	public:
 		Application();
 		virtual ~Application();
-
+		Application(Window::WindowProps windowProperty);
 		void Run();
 
 		/// <summary>
@@ -44,8 +43,16 @@ namespace Biscuit
 			return m_SpriteLayer;
 		}
 
-		void AddSprite(Sprite* sprite);
+		void AddSprite(std::shared_ptr<Sprite> sprite);
+
+		/// <summary>
+		/// 游戏开始运行时会调用这个方法
+		/// 一般来说，该方法中应该调用AddSprite方法等将Sprite添加至场景
+		/// 注意不要在此方法中调用AddTexture以及相关的方法
+		/// </summary>
 		virtual void OnGameStart() {}
+		virtual void OnSpriteInited() {}
+		virtual void OnUpdate() {}
 	private:
 		/// <summary>
 		/// 应用对应的Window类(注意是对GLFWWindow的封装，获得渲染窗口调用m_window->GetWindow())
@@ -65,6 +72,9 @@ namespace Biscuit
 
 		double m_LastFrameTime = 0.0f;
 		double m_CurrentFrameTime = 0.0f;
+
+		bool InitGLFW();
+		void InitImGuiAndGL();
 		
 	};
 

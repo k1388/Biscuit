@@ -10,7 +10,7 @@ namespace Biscuit
         const float sw = float(Application::Get()->GetApplicationWindow().GetWidth());
         const float sh = float(Application::Get()->GetApplicationWindow().GetHeight());
 
-        m_Pos = Position(sw/2,sh/2);
+        m_Pos = Vec2(sw/2,sh/2);
 
         //Application::Get()->GetSpriteLayer()->AddSprite(this);
     }
@@ -20,8 +20,8 @@ namespace Biscuit
         const float sw = float(Application::Get()->GetApplicationWindow().GetWidth());
         const float sh = float(Application::Get()->GetApplicationWindow().GetHeight());
 
-        const float w = m_Pic_Width  * m_Scale * 0.5f;
-        const float h = m_Pic_Height * m_Scale * 0.5f;
+        const float w = m_CurTexture->picWidth  * m_Scale * 0.5f;
+        const float h = m_CurTexture->picHeight * m_Scale * 0.5f;
 
         // 顺序：左上、右上、右下、左下
         float corners[4][2] = {

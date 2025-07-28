@@ -2,7 +2,7 @@
 #include "Widget.h"
 namespace Biscuit::BCUI
 {
-    class BISCUIT_API Button : public Widget
+    class Button : public Widget
     {
     public:
         Button();

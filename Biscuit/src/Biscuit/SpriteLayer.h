@@ -7,10 +7,12 @@ namespace Biscuit
     class SpriteLayer : public Layer
     {
     public:
-        void AddSprite(Sprite* gameObject);
+        void AddSprite(std::shared_ptr<Sprite> gameObject);
         void OnUpdate() override;
         void InitAllSprites();
+        void CheckAllCollisions();
+        void CheckMouseCollisions(Vec2 pos);
     private:
-        std::vector<Sprite*> m_Sprites;
+        std::vector<std::shared_ptr<Sprite>> m_Sprites;
     };
 }

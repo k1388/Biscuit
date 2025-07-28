@@ -1,40 +1,61 @@
 ﻿#pragma once
 namespace Biscuit
 {
-    class BISCUIT_API Vec2
+    class Vec3;
+    class Vec4;
+    class Vec2
     {
     public:
         Vec2(float x = 0, float y = 0):m_X(x), m_Y(y) {}
         
         inline Vec2 Add(const Vec2& other = Vec2()) const
         {return Vec2(m_X + other.m_X, m_Y + other.m_Y);}
+        
         inline Vec2 Sub(const Vec2& other = Vec2()) const
         {return Vec2(m_X - other.m_X, m_Y - other.m_Y);}
+        
         inline float Dot(const Vec2& other = Vec2()) const
         {return m_X * other.m_X + m_Y * other.m_Y;}
         
-        inline static Vec2 Add(const Vec2& a = Vec2(), const Vec2& b = Vec2())
-        {return Vec2(a.m_X + b.m_X, a.m_Y + b.m_Y);}
-        inline static Vec2 Sub(const Vec2& a = Vec2(), const Vec2& b = Vec2())
-        {return Vec2(a.m_X - b.m_X, a.m_Y - b.m_Y);}
-        inline static float Dot(const Vec2& a = Vec2(), const Vec2& b = Vec2())
-        {return a.m_X * b.m_X + a.m_Y * b.m_Y;}
+        // inline static Vec2 Add(const Vec2& a = Vec2(), const Vec2& b = Vec2())
+        // {return Vec2(a.m_X + b.m_X, a.m_Y + b.m_Y);}
+        //
+        // inline static Vec2 Sub(const Vec2& a = Vec2(), const Vec2& b = Vec2())
+        // {return Vec2(a.m_X - b.m_X, a.m_Y - b.m_Y);}
+        //
+        // inline static float Dot(const Vec2& a = Vec2(), const Vec2& b = Vec2())
+        // {return a.m_X * b.m_X + a.m_Y * b.m_Y;}
+        
         Vec2 operator+(const Vec2& other) const
         {return Vec2(m_X + other.m_X, m_Y + other.m_Y);}
+        
         Vec2 operator-(const Vec2& other) const
         {return Vec2(m_X - other.m_X, m_Y - other.m_Y);}
-
+        
+        Vec2 operator*(float num) const
+        {return Vec2(m_X * num, m_Y * num);}
+        
         inline float Norm() const
         {return sqrt(m_X * m_X + m_Y * m_Y);}
 
         inline void SetX(float x)
         {m_X = x;}
+        
         inline void SetY(double y)
         {m_Y = y;}
+        
         inline float GetX() const
         {return m_X;}
+        
         inline float GetY() const
         {return m_Y;}
+
+        inline float X() const
+        {return m_X;}
+
+        inline float Y() const
+        {return m_Y;}
+        
         inline void Set(float x, float y)
         {m_X = x;m_Y = y;}
 
@@ -45,6 +66,18 @@ namespace Biscuit
             return ss.str().c_str();
         }
 
+        Vec2(const Vec3& convert);
+        Vec2(const Vec4& convert);
+
+        inline Vec2 GetNormal() const
+        {
+            float x = 1;
+            float y = -(m_X / m_Y);
+            x = x / this->Norm();
+            y = y / this->Norm();
+            return Vec2(x, y);
+        }
+        
     private:
         float m_X;
         float m_Y;

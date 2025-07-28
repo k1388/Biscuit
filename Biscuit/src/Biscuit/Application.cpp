@@ -35,7 +35,7 @@ namespace Biscuit
 		return m_Instance;
 	}
 
-	void Application::AddSprite(Sprite* sprite)
+	void Application::AddSprite(std::shared_ptr<Sprite> sprite)
 	{
 		m_SpriteLayer->AddSprite(sprite);
 	}
@@ -46,25 +46,24 @@ namespace Biscuit
 		return true;
 	}
 
-	Application::Application()
+	bool Application::InitGLFW()
 	{
-		//初始化GLFW
+		// 初始化GLFW
 		if (!glfwInit())
 		{
 			BC_CORE_ERROR("Failed to init GLFW!");
-			return;
+			return false;
 		}
 
 		// 调整OpenGL版本为3.3，启用核心模式渲染
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		
-		m_Window = std::unique_ptr<Window>(new Window());
-		m_Window->SetEventCallback([this](Event& e) {
-			this->OnEvent(e);
-		});
+		return true;
+	}
 
+	void Application::InitImGuiAndGL()
+	{
 		// 初始化ImGui
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext(nullptr);
@@ -76,14 +75,40 @@ namespace Biscuit
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // 标准的混合函数
 
+	}
+
+
+	Application::Application()
+	{
+		if (!InitGLFW())
+		{
+			return;
+		}
+		m_Window = std::unique_ptr<Window>(new Window());
+		m_Window->SetEventCallback([this](Event& e) {
+			this->OnEvent(e);
+		});
+		InitImGuiAndGL();
 		m_Instance = this;
-
-
-		
 	}
 
 	Application::~Application()
 	{
+	}
+
+	Application::Application(Window::WindowProps windowProperty)
+	{
+		if (!InitGLFW())
+		{
+			return;
+		}
+		m_Window = std::unique_ptr<Window>(new Window(windowProperty));
+		m_Window->SetEventCallback([this](Event& e) {
+			this->OnEvent(e);
+		});
+		InitImGuiAndGL();
+		m_Instance = this;
+		
 	}
 
 	void Application::Run()
@@ -93,17 +118,27 @@ namespace Biscuit
 
 		OnGameStart();
 		m_SpriteLayer->InitAllSprites();
-
+		OnSpriteInited();
+		
 		m_LastFrameTime = glfwGetTime();
 		while (m_IsRunning)
 		{
 			m_CurrentFrameTime = glfwGetTime();
 			deltaTime = (m_CurrentFrameTime - m_LastFrameTime);
 			m_LastFrameTime = m_CurrentFrameTime;
+			OnUpdate();
 			glClear(GL_COLOR_BUFFER_BIT);
 			glClearColor(0.8f, 0.8f, 0.9f, 1);
 			//drawable.Draw();
 			//drawable.SetPos(drawable.GetPos().GetX()+deltaTime*100, drawable.GetPos().GetY());
+
+
+			if (Input::IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT))
+			{
+				m_SpriteLayer->CheckMouseCollisions(Vec2(Input::GetMouseX(), Input::GetMouseY()));
+			}
+
+			m_SpriteLayer->CheckAllCollisions();
 			
 			// 遍历图层栈并更新每一图层
 			for (Layer* layer : m_LayerStack)

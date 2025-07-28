@@ -1,13 +1,19 @@
 ﻿#pragma once
-#include "Position.h"
+
 #include "Shader.h"
 #include "Texture.h"
+#include "Biscuit/Math/Vec3.h"
 
 namespace Biscuit
 {
     class Drawable
     {
     public:
+        
+        
+        Drawable(const Drawable&) = delete;
+        Drawable& operator=(const Drawable&) = delete;
+        
         virtual ~Drawable(){}
         /// <summary>
         /// 可以渲染图片材质并进行简单变换的类
@@ -56,7 +62,7 @@ namespace Biscuit
         /// 获得位置坐标
         /// </summary>
         /// <returns>位置坐标</returns>
-        inline Position GetPos() const
+        inline Vec3 GetPos() const
         {
             return m_Pos;
         }
@@ -98,6 +104,31 @@ namespace Biscuit
         {
             return m_Scale;
         }
+
+        inline float GetWidth() const
+        {
+            return m_CurTexture->picWidth * m_Scale;
+        }
+
+        inline float GetHeight() const
+        {
+            return m_CurTexture->picHeight * m_Scale;
+        }
+
+        inline Vec2 GetActualSize() const
+        {
+            return Vec2
+            (
+                m_CurTexture->picWidth * m_Scale,
+                m_CurTexture->picHeight * m_Scale
+            );
+        }
+        
+        bool AddTexture(const std::string& picSrc);
+
+        void SetTexture(unsigned int index);
+
+        void NextTexture();
     protected:
         /// <summary>
         /// 将屏幕坐标变换为NDC
@@ -107,15 +138,17 @@ namespace Biscuit
         bool m_Visble = true;
         int m_Pic_Width;
         int m_Pic_Height;
-        Position m_Pos;
+        Vec3 m_Pos;
         int m_Pic_NrChannels;
         unsigned int m_Texture;
         float m_Vertices[4 * 5];
         float m_Scale = 1.0f;
         std::string m_Name;
         bool m_VertexChanged = true;
-        std::vector<Texture*> m_Textures;
-        Texture* m_CurTexture;
+        std::vector<std::shared_ptr<Texture>> m_Textures;
+        std::shared_ptr<Texture> m_CurTexture;
+        int m_TextureCount = 0;
+        int m_TextureIndex = 0;
     private: 
         const unsigned int m_Indices[6] = {  
             0, 1, 3,  

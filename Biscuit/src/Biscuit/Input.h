@@ -2,7 +2,7 @@
 #include "Math/Vec2.h"
 namespace Biscuit
 {
-    class BISCUIT_API Input
+    class Input
     {
     public:
         static bool IsKeyPressed(int key);

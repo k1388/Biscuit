@@ -3,10 +3,11 @@
 #include "Widget.h"
 #include "Label.h"
 #include "Button.h"
+#include "ProgressBar.h"
 
 namespace Biscuit::BCUI
 {
-    class BISCUIT_API BCUI : public ImGuiLayer
+    class BCUI : public ImGuiLayer
     {
     public:
         void DrawContent() override;

@@ -7,7 +7,7 @@ namespace Biscuit
 	/// <summary>
 	/// 键盘事件类
 	/// </summary>
-	class BISCUIT_API KeyEvent : public Event
+	class KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() { return m_KeyCode; }
@@ -23,7 +23,7 @@ namespace Biscuit
 	/// <summary>
 	/// 按下键盘按键事件类
 	/// </summary>
-	class BISCUIT_API KeyPressedEvent : public KeyEvent
+	class KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keyCode, int repeatCount):KeyEvent(keyCode), m_repeatCount(repeatCount){}
@@ -46,7 +46,7 @@ namespace Biscuit
 	/// <summary>
 	/// 松开键盘按键事件类
 	/// </summary>
-	class BISCUIT_API KeyReleasedEvent : public KeyEvent
+	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int keyCode):KeyEvent(keyCode){}
