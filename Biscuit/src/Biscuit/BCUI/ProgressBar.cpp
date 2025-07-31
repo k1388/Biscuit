@@ -55,6 +55,11 @@ namespace Biscuit::BCUI
         m_Progress = percentage;
     }
 
+    void ProgressBar::SetLabelFont(std::shared_ptr<Font> font, int size)
+    {
+        m_Font = font->GetFontBySize(size);
+    }
+
     Widget::WidgetType ProgressBar::GetWidgetType() const
     {
         return Widget::WidgetType::ProgressBar;

@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "Application.h"
+
+#include "GlobalResources.h"
 #include "GLFW/glfw3.h"
 #include "imgui.h"
 #include "Input.h"
@@ -45,6 +47,11 @@ namespace Biscuit
 		m_SpriteLayer->RemoveSprite(sprite);
 	}
 
+	void Application::LoadFontFromFile(const std::string& filePath, const std::string& name)
+	{
+		UIFonts.push_back(std::make_shared<BCUI::Font>(filePath, name));
+	}
+	
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_IsRunning = false;
@@ -74,6 +81,7 @@ namespace Biscuit
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext(nullptr);
 		ImGuiIO& io = ImGui::GetIO();
+		io.Fonts->AddFontDefault();
 		(void)io;
 		ImGui::StyleColorsDark();
 		ImGui_ImplGlfw_InitForOpenGL(m_Window->GetWindow(), true);
@@ -81,6 +89,7 @@ namespace Biscuit
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // 标准的混合函数
 
+		
 	}
 
 
@@ -158,9 +167,7 @@ namespace Biscuit
 			glfwPollEvents();
 		}
 	}
-
 	
-
 	void Application::PushOverLay(Layer* overlay)
 	{
 		m_LayerStack.PushOverlay(overlay);

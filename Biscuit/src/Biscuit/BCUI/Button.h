@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "Font.h"
 #include "Widget.h"
 #include "Biscuit/Math/Vec4.h"
 
@@ -52,11 +53,20 @@ namespace Biscuit::BCUI
         void SetFrameRounding(float pixel);
 
         float GetFrameRounding();
+
+        void SetLabelFont(std::shared_ptr<Font> font, int size);
+
+        ImFont* Button::GetLabelFont() const
+        {
+            return m_Font;
+        }
+        
     private:
         
         CallbackFn m_Callback = nullptr;
         std::string m_Label;
         Vec4 m_Color = Vec4(0.2f, 0.8f, 0.2f, 1.0f);
         float m_FrameRounding = 0.0f;
+        ImFont* m_Font = nullptr;
     };
 }

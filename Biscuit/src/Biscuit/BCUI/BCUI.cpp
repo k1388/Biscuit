@@ -29,11 +29,22 @@ namespace Biscuit::BCUI
                         color.Z(),
                         color.W())
                         );
+                    ImFont* font = widget->GetLabelFont();
+                    bool hasFont = false;
+                    if (font != NULL)
+                    {
+                        ImGui::PushFont(font);
+                        hasFont = true;
+                    }
                     bool pressed = ImGui::Button
                     (
                         widget->GetLabel().c_str(),
                         ImVec2(i->GetSize().GetX(), i->GetSize().GetY())
                     );
+                    if (hasFont)
+                    {
+                        ImGui::PopFont();
+                    }
                     ImGui::PopStyleColor(1);
                     ImGui::PopStyleVar(1);
                     if (pressed)

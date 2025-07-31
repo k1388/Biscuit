@@ -7,7 +7,7 @@ using namespace Biscuit;
 /// 程序入口main()见src/Biscuit/EntryPoint.h
 /// </summary>
 
-class Sandbox : public Biscuit::Application
+class Sandbox : public Application
 {
 public:
 	Sandbox(const Window::WindowProps& props):Application(props){}
@@ -15,14 +15,18 @@ public:
 	void OnGameStart() override
 	{
 		AddSprite(drawable);
-
+		LoadFontFromFile("C:\\Windows\\Fonts\\Impact.ttf","abc");
+		LoadFontFromFile("C:\\Windows\\Fonts\\Arial.ttf","def");
 		auto UI = new BCUI::BCUI();
 		UI->Add(new BCUI::ProgressBar());
 		BCUI::Button* button = new BCUI::Button(Vec2(500,300),Vec2(200,50));
+		button->SetLabelFont(GetFont("abc"), 30);
 		UI->Add(button);
 		//button->SetColor(Vec4(0.3f,0.3f,0.2f,1.0f));
 		button->SetFrameRounding(15);
 		PushOverLay(UI);
+
+		
 	}
 
 	void OnSpriteInited() override

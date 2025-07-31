@@ -7,6 +7,7 @@ namespace Biscuit
     {
         m_Sprites.push_back(sprite);
         sprite->Init();
+        sprite->InOnAttachedToScene();
     }
 
     void SpriteLayer::OnUpdate()
@@ -174,6 +175,12 @@ namespace Biscuit
 
     void SpriteLayer::RemoveSprite(std::shared_ptr<Sprite> gameObject)
     {
-        m_Sprites.erase(find(m_Sprites.begin(), m_Sprites.end(), gameObject));
+        auto it = std::find(m_Sprites.begin(), m_Sprites.end(), gameObject);
+        if (it != m_Sprites.end())
+        {
+            gameObject->InOnRemoved();
+            m_Sprites.erase(it);
+        }
+        
     }
 }

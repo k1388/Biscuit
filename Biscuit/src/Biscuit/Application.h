@@ -8,6 +8,12 @@
 
 namespace Biscuit
 {
+	namespace BCUI
+	{
+		class Font;
+	}
+
+	class BCUI::Font;
 	/// <summary>
 	/// Application是游戏程序的最底层
 	/// </summary>
@@ -46,6 +52,9 @@ namespace Biscuit
 		void AddSprite(std::shared_ptr<Sprite> sprite);
 
 		void RemoveSprite(std::shared_ptr<Sprite> sprite);
+
+		static void LoadFontFromFile(const std::string& filePath, const std::string& name);
+		
 		/// <summary>
 		/// 游戏开始运行时会调用这个方法
 		/// 一般来说，该方法中应该调用AddSprite方法等将Sprite添加至场景
@@ -54,6 +63,7 @@ namespace Biscuit
 		virtual void OnGameStart() {}
 		virtual void OnSpriteInited() {}
 		virtual void OnUpdate() {}
+		
 	private:
 		/// <summary>
 		/// 应用对应的Window类(注意是对GLFWWindow的封装，获得渲染窗口调用m_window->GetWindow())
@@ -76,7 +86,6 @@ namespace Biscuit
 
 		bool InitGLFW();
 		void InitImGuiAndGL();
-		
 	};
 
 	Application* CreateApplication();

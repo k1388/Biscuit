@@ -162,6 +162,7 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClInclude Include="src\Biscuit\Application.h" />
     <ClInclude Include="src\Biscuit\BCUI\BCUI.h" />
     <ClInclude Include="src\Biscuit\BCUI\Button.h" />
+    <ClInclude Include="src\Biscuit\BCUI\Font.h" />
     <ClInclude Include="src\Biscuit\BCUI\Label.h" />
     <ClInclude Include="src\Biscuit\BCUI\ProgressBar.h" />
     <ClInclude Include="src\Biscuit\BCUI\Widget.h" />
@@ -170,6 +171,7 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClInclude Include="src\Biscuit\Event\Event.h" />
     <ClInclude Include="src\Biscuit\Event\KeyEvent.h" />
     <ClInclude Include="src\Biscuit\Event\MouseEvent.h" />
+    <ClInclude Include="src\Biscuit\GlobalResources.h" />
     <ClInclude Include="src\Biscuit\InGame\Prefab.h" />
     <ClInclude Include="src\Biscuit\Keycode.h" />
     <ClInclude Include="src\Biscuit\Math\Vec4.h" />
@@ -192,6 +194,7 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClCompile Include="src\Biscuit\Application.cpp" />
     <ClCompile Include="src\Biscuit\BCUI\BCUI.cpp" />
     <ClCompile Include="src\Biscuit\BCUI\Button.cpp" />
+    <ClCompile Include="src\Biscuit\BCUI\Font.cpp" />
     <ClCompile Include="src\Biscuit\BCUI\Label.cpp" />
     <ClCompile Include="src\Biscuit\BCUI\ProgressBar.cpp" />
     <ClCompile Include="src\Biscuit\BCUI\Widget.cpp" />

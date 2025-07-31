@@ -19,3 +19,5 @@
 #include "Biscuit/BCUI/BCUI.h"
 
 #include "Biscuit/Input.h"
+
+#include "Biscuit/GlobalResources.h"

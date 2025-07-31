@@ -1,5 +1,8 @@
 ﻿#include "pch.h"
 #include "Button.h"
+#include "BCUI.h"
+#include "Biscuit/GlobalResources.h"
+
 
 namespace Biscuit::BCUI
 {
@@ -51,6 +54,10 @@ namespace Biscuit::BCUI
         return m_FrameRounding;
     }
 
+    void Button::SetLabelFont(std::shared_ptr<Font> font, int size)
+    {
+        m_Font = font->GetFontBySize(size);
+    }
 
     Button::Button():
     Widget("NewButton",Vec2(0,0), Vec2(100,40)),

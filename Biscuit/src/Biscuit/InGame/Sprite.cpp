@@ -99,6 +99,7 @@ namespace Biscuit
         c->m_OnClick = m_OnClick;
         c->m_OnCollision = m_OnCollision;
         c->m_OnCreatedFn = m_OnCreatedFn;
+        c->InOnCreated();
         return c;
     }
 

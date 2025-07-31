@@ -139,6 +139,32 @@ namespace Biscuit
                 m_OnCreatedFn();
             }
         }
+
+        void OnAttachedToScene(CallbackFn fn)
+        {
+            m_OnAttachedToScene = fn;
+        }
+
+        virtual void InOnAttachedToScene()
+        {
+            if (m_OnAttachedToScene != nullptr)
+            {
+                m_OnAttachedToScene();
+            }
+        }
+
+        void OnRemoved(CallbackFn fn)
+        {
+            m_OnRemoved = fn;
+        }
+
+        virtual void InOnRemoved()
+        {
+            if (m_OnRemoved != nullptr)
+            {
+                m_OnRemoved();
+            }
+        }
     
     protected:
         friend class Prefab;
@@ -154,6 +180,8 @@ namespace Biscuit
         ClickCallbackFn m_OnClick = nullptr;
         CallbackFn m_OnCreatedFn = nullptr;
         std::string m_OriginalPicSrc = "";
+        CallbackFn m_OnAttachedToScene = nullptr;
+        CallbackFn m_OnRemoved = nullptr;
     };
 
 }

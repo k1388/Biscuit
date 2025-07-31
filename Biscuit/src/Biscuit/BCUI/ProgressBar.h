@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "Font.h"
 #include "Widget.h"
 
 namespace Biscuit::BCUI
@@ -35,11 +36,20 @@ namespace Biscuit::BCUI
         /// </summary>
         /// <param name="percentage">进度（浮点数）</param>
         void SetPercentage(float percentage);
+
+        
+        void SetLabelFont(std::shared_ptr<Font> font, int size);
+
+        ImFont* GetLabelFont() const
+        {
+            return m_Font;
+        }
         
         WidgetType GetWidgetType() const override;
     private:
         float m_Progress;
         std::string m_Text;
+        ImFont* m_Font = nullptr;
     };
 
 }

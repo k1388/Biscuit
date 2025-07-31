@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "Font.h"
 #include "Widget.h"
 #include "Biscuit/Math/Vec2.h"
 
@@ -26,9 +27,17 @@ namespace Biscuit::BCUI
         void SetText(const std::string& text);
         WidgetType GetWidgetType() const override;
         std::string ToString() const override;
+        
+        void SetLabelFont(std::shared_ptr<Font> font, int size);
 
+        ImFont* GetLabelFont() const
+        {
+            return m_Font;
+        }
+        
         
     private:
         std::string m_Text;
+        ImFont* m_Font = nullptr;
     };
 }

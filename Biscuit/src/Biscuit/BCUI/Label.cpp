@@ -64,4 +64,9 @@ namespace Biscuit::BCUI
        ss << "Label{" << """ << m_Name << "",pos:" << m_Position.ToString()<<"}"; 
        return ss.str();
     }
+
+    void Label::SetLabelFont(std::shared_ptr<Font> font, int size)
+    {
+       m_Font = font->GetFontBySize(size);
+    }
 }

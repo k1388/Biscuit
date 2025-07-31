@@ -35,6 +35,7 @@ namespace Biscuit
         void CheckMouseCollisions(Vec2 pos);
 
         void RemoveSprite(std::shared_ptr<Sprite> gameObject);
+        
     private:
         std::vector<std::shared_ptr<Sprite>> m_Sprites;
     };
