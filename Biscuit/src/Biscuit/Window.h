@@ -23,6 +23,12 @@ namespace Biscuit
 			int			Width;
 			int			Height;
 
+			/// <summary>
+			/// 窗口属性
+			/// </summary>
+			/// <param name="title">窗口标题</param>
+			/// <param name="width">窗口宽度</param>
+			/// <param name="height">窗口高度</param>
 			WindowProps
 			(
 				const std::string title = "Biscuit Engine",
@@ -221,6 +227,10 @@ namespace Biscuit
 			);
 		}
 
+		/// <summary>
+		/// 获得GLFW窗口指针
+		/// </summary>
+		/// <returns>GLFW窗口指针</returns>
 		GLFWwindow* GetWindow() const
 		{
 			return m_Window;

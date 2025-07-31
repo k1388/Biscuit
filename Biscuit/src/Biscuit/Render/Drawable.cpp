@@ -42,6 +42,10 @@ namespace Biscuit
 
     void Drawable::Init()
     {
+        if (m_HasInitialized)
+        {
+            return;
+        }
         //stbi_set_flip_vertically_on_load(true);
         unsigned char* t_Pic_Data = stbi_load(
             m_t_PicSrc.c_str(),
@@ -77,7 +81,7 @@ namespace Biscuit
         m_TextureCount++;
         stbi_image_free(t_Pic_Data);
         Load();
-        
+        m_HasInitialized = true;
     }
 
 

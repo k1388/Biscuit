@@ -40,6 +40,11 @@ namespace Biscuit
 		m_SpriteLayer->AddSprite(sprite);
 	}
 
+	void Application::RemoveSprite(std::shared_ptr<Sprite> sprite)
+	{
+		m_SpriteLayer->RemoveSprite(sprite);
+	}
+
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_IsRunning = false;
@@ -59,6 +64,7 @@ namespace Biscuit
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 		return true;
 	}
 

@@ -19,14 +19,26 @@ namespace Biscuit::BCUI
             {
             case Widget::WidgetType::Button:
                 {
-                    if (
-                        ImGui::Button(
-                            dynamic_cast<Button*>(i)->GetLabel().c_str(),
-                            ImVec2(i->GetSize().GetX(), i->GetSize().GetY())
-                        )
-                    )
+                    auto widget = dynamic_cast<Button*>(i);
+                    Vec4 color = widget->GetColor();
+                    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, widget->GetFrameRounding());
+                    ImGui::PushStyleColor(ImGuiCol_Button,ImVec4
+                        (
+                        color.X(),
+                        color.Y(),
+                        color.Z(),
+                        color.W())
+                        );
+                    bool pressed = ImGui::Button
+                    (
+                        widget->GetLabel().c_str(),
+                        ImVec2(i->GetSize().GetX(), i->GetSize().GetY())
+                    );
+                    ImGui::PopStyleColor(1);
+                    ImGui::PopStyleVar(1);
+                    if (pressed)
                     {
-                        dynamic_cast<Button*>(i)->OnClickEvent();
+                        widget->OnClickEvent();
                     }
 
                     break;

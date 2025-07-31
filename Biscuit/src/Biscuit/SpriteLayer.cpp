@@ -6,7 +6,7 @@ namespace Biscuit
     void SpriteLayer::AddSprite(std::shared_ptr<Sprite> sprite)
     {
         m_Sprites.push_back(sprite);
-        //sprite->Init();
+        sprite->Init();
     }
 
     void SpriteLayer::OnUpdate()
@@ -136,7 +136,6 @@ namespace Biscuit
 
     void SpriteLayer::CheckMouseCollisions(Vec2 pos)
     {
-        // 从后往前遍历，保证“上层”精灵先被点到
         for (auto it = m_Sprites.rbegin(); it != m_Sprites.rend(); ++it)
         {
             Sprite* sp = it->get();
@@ -144,18 +143,16 @@ namespace Biscuit
             Vec3  p  = sp->GetPos();
             Vec2  half = sp->GetActualSize() * 0.5f;
             
-            // 未旋转：直接 AABB 点检
             if (std::abs(sp->GetRotation()) < 0.001f)
             {
                 
                 if (pos.X() >= p.X() - half.X() && pos.X() <= p.X() + half.X() &&
                     pos.Y() >= p.Y() - half.Y() && pos.Y() <= p.Y() + half.Y())
                 {
-                    sp->InOnClick(pos);         // 触发回调/事件
-                    return;                     // 只处理最上层一个
+                    sp->InOnClick(pos);       
+                    return;                    
                 }
             }
-            // 已旋转：把鼠标点转到精灵本地坐标后做 AABB 判断
             else
             {
                 const float con = 3.1415926f / 180.0f;
@@ -173,5 +170,10 @@ namespace Biscuit
                 }
             }
         }
+    }
+
+    void SpriteLayer::RemoveSprite(std::shared_ptr<Sprite> gameObject)
+    {
+        m_Sprites.erase(find(m_Sprites.begin(), m_Sprites.end(), gameObject));
     }
 }

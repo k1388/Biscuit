@@ -170,6 +170,7 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClInclude Include="src\Biscuit\Event\Event.h" />
     <ClInclude Include="src\Biscuit\Event\KeyEvent.h" />
     <ClInclude Include="src\Biscuit\Event\MouseEvent.h" />
+    <ClInclude Include="src\Biscuit\InGame\Prefab.h" />
     <ClInclude Include="src\Biscuit\Keycode.h" />
     <ClInclude Include="src\Biscuit\Math\Vec4.h" />
     <ClInclude Include="src\Biscuit\Render\Texture.h" />
@@ -194,6 +195,7 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClCompile Include="src\Biscuit\BCUI\Label.cpp" />
     <ClCompile Include="src\Biscuit\BCUI\ProgressBar.cpp" />
     <ClCompile Include="src\Biscuit\BCUI\Widget.cpp" />
+    <ClCompile Include="src\Biscuit\InGame\Prefab.cpp" />
     <ClCompile Include="src\Biscuit\SpriteLayer.cpp" />
     <ClCompile Include="src\Biscuit\InGame\Sprite.cpp" />
     <ClCompile Include="src\Biscuit\ImGui\ImGuiLayer.cpp" />

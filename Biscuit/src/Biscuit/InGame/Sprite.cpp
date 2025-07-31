@@ -11,7 +11,7 @@ namespace Biscuit
         const float sh = float(Application::Get()->GetApplicationWindow().GetHeight());
 
         m_Pos = Vec2(sw/2,sh/2);
-
+        m_OriginalPicSrc = picSrc;
         //Application::Get()->GetSpriteLayer()->AddSprite(this);
     }
 
@@ -81,6 +81,25 @@ namespace Biscuit
         vertices[idx++] = 0.0f;
 
         return vertices;
+    }
+
+    std::shared_ptr<Sprite> Sprite::Clone()
+    {
+        std::shared_ptr<Sprite> c = std::make_shared<Sprite>(m_OriginalPicSrc);
+        c->m_Texture = m_Texture;
+        c->m_Scale = m_Scale;
+        c->m_Angle = m_Angle;
+        c->m_Pos = m_Pos;
+        c->m_CurTexture = m_CurTexture;
+        c->m_Collidable = m_Collidable;
+        c->m_Visble = m_Visble;
+        c->m_TextureCount = m_TextureCount;
+        c->m_TextureIndex = m_TextureIndex;
+        c->m_Callback = m_Callback;
+        c->m_OnClick = m_OnClick;
+        c->m_OnCollision = m_OnCollision;
+        c->m_OnCreatedFn = m_OnCreatedFn;
+        return c;
     }
 
     float* Sprite::GenerateRotateMatrix() const

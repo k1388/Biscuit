@@ -45,6 +45,7 @@ namespace Biscuit
 
 		void AddSprite(std::shared_ptr<Sprite> sprite);
 
+		void RemoveSprite(std::shared_ptr<Sprite> sprite);
 		/// <summary>
 		/// 游戏开始运行时会调用这个方法
 		/// 一般来说，该方法中应该调用AddSprite方法等将Sprite添加至场景

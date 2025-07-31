@@ -31,9 +31,29 @@ namespace Biscuit::BCUI
             m_Callback();
     }
 
+    void Button::SetColor(Vec4 color)
+    {
+        m_Color = color;
+    }
+
+    Vec4 Button::GetColor()
+    {
+        return m_Color;
+    }
+
+    void Button::SetFrameRounding(float pixel)
+    {
+        m_FrameRounding = pixel;
+    }
+
+    float Button::GetFrameRounding()
+    {
+        return m_FrameRounding;
+    }
+
 
     Button::Button():
-    Widget("NewButton",Vec2(0,0), Vec2(50,20)),
+    Widget("NewButton",Vec2(0,0), Vec2(100,40)),
     m_Label("NewButton")
     {
        ID++;
@@ -41,7 +61,7 @@ namespace Biscuit::BCUI
     }
 
     Button::Button(const std::string& label):
-    Widget("NewButton",Vec2(0,0), Vec2(50,20)),
+    Widget("NewButton",Vec2(0,0), Vec2(100,40)),
     m_Label(label)
     {
         ID++;
@@ -49,7 +69,7 @@ namespace Biscuit::BCUI
     }
 
     Button::Button(Vec2 position, Vec2 size):
-    Widget("NewButton",Vec2(0,0), size),
+    Widget("NewButton",position, size),
     m_Label("NewButton")
     {
         ID++;
@@ -57,7 +77,7 @@ namespace Biscuit::BCUI
     }
 
     Button::Button(const std::string& label, Vec2 position):
-    Widget("NewButton",position, Vec2(50,20)),
+    Widget("NewButton",position, Vec2(100,40)),
     m_Label(label)
     {
         ID++;

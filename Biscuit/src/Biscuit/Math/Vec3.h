@@ -18,14 +18,14 @@ namespace Biscuit
         inline float Dot(const Vec3& other = Vec3()) const
         {return m_X * other.m_X + m_Y * other.m_Y + m_Z * other.m_Z;}
         
-        // inline static Vec3 Add(const Vec3& a = Vec3(), const Vec3& b = Vec3())
-        // {return Vec3(a.m_X + b.m_X, a.m_Y + b.m_Y , a.m_Z + b.m_Z);}
-        //
-        // inline static Vec3 Sub(const Vec3& a = Vec3(), const Vec3& b = Vec3())
-        // {return Vec3(a.m_X - b.m_X, a.m_Y - b.m_Y , a.m_Z - b.m_Z);}
-        //
-        // inline static float Dot(const Vec3& a = Vec3(), const Vec3& b = Vec3())
-        // {return a.m_X * b.m_X + a.m_Y * b.m_Y + a.m_Z * b.m_Z;}
+        inline static Vec3 StaticAdd(const Vec3& a = Vec3(), const Vec3& b = Vec3())
+        {return Vec3(a.m_X + b.m_X, a.m_Y + b.m_Y , a.m_Z + b.m_Z);}
+        
+        inline static Vec3 StaticSub(const Vec3& a = Vec3(), const Vec3& b = Vec3())
+        {return Vec3(a.m_X - b.m_X, a.m_Y - b.m_Y , a.m_Z - b.m_Z);}
+        
+        inline static float StaticDot(const Vec3& a = Vec3(), const Vec3& b = Vec3())
+        {return a.m_X * b.m_X + a.m_Y * b.m_Y + a.m_Z * b.m_Z;}
         
         Vec3 operator+(const Vec3& other) const
         {return Vec3(m_X + other.m_X, m_Y + other.m_Y , m_Z + other.m_Z);}

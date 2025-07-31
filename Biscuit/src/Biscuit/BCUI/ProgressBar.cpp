@@ -50,6 +50,11 @@ namespace Biscuit::BCUI
         return m_Progress;
     }
 
+    void ProgressBar::SetPercentage(float percentage)
+    {
+        m_Progress = percentage;
+    }
+
     Widget::WidgetType ProgressBar::GetWidgetType() const
     {
         return Widget::WidgetType::ProgressBar;

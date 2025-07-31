@@ -38,6 +38,15 @@ namespace Biscuit
         }
 
         /// <summary>
+        /// 设置对象名称
+        /// </summary>
+        /// <param name="name">名称</param>
+        inline void SetName(const std::string& name)
+        {
+            m_Name = name;
+        }
+
+        /// <summary>
         /// 设置位置坐标
         /// </summary>
         /// <param name="position">坐标Vec2/Vec3</param>
@@ -85,36 +94,47 @@ namespace Biscuit
             return m_Visble;
         }
 
-        // inline void SetRotation(int angle)
-        // {
-        //     m_Angle = angle;
-        // }
-        //
-        // inline void SetScale(float scale)
-        // {
-        //     m_Scale = scale;
-        // }
+        /// <summary>
+        /// 设置缩放
+        /// </summary>
+        /// <param name="scale">缩放系数</param>
         inline void SetScale(float scale) 
         {
             m_Scale = scale;
             m_VertexChanged = true;
         }
         
+        /// <summary>
+        /// 获得缩放系数
+        /// </summary>
+        /// <returns>缩放系数</returns>
         inline float GetScale() const
         {
             return m_Scale;
         }
 
+        /// <summary>
+        /// 获得实际显示的像素宽度
+        /// </summary>
+        /// <returns>宽度</returns>
         inline float GetWidth() const
         {
             return m_CurTexture->picWidth * m_Scale;
         }
 
+        /// <summary>
+        /// 获得实际显示的像素高度
+        /// </summary>
+        /// <returns>高度</returns>
         inline float GetHeight() const
         {
             return m_CurTexture->picHeight * m_Scale;
         }
 
+        /// <summary>
+        /// 获得实际显示的像素大小
+        /// </summary>
+        /// <returns>大小</returns>
         inline Vec2 GetActualSize() const
         {
             return Vec2
@@ -123,12 +143,34 @@ namespace Biscuit
                 m_CurTexture->picHeight * m_Scale
             );
         }
+
+        /// <summary>
+        /// 获得材质数
+        /// </summary>
+        /// <returns>材质数</returns>
+        inline int GetTextureCount() const
+        {
+            return m_TextureCount;
+        }
         
+        /// <summary>
+        /// 新增材质
+        /// </summary>
+        /// <param name="picSrc">图片路径</param>
+        /// <returns>是否成功</returns>
         bool AddTexture(const std::string& picSrc);
 
+        /// <summary>
+        /// 设置当前材质
+        /// </summary>
+        /// <param name="index">材质编号</param>
         void SetTexture(unsigned int index);
 
+        /// <summary>
+        /// 切换到下一个材质
+        /// </summary>
         void NextTexture();
+
     protected:
         /// <summary>
         /// 将屏幕坐标变换为NDC
@@ -159,7 +201,7 @@ namespace Biscuit
         unsigned int m_VBO;
         unsigned int m_EBO;
         std::unique_ptr<Shader> m_Shader; // 管理着色器生命周期
-        
+        bool m_HasInitialized = false;
         /// <summary>
         /// 加载顶点，着色器，初始化VBO，EBO
         /// </summary>

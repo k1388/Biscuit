@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include "Widget.h"
+#include "Biscuit/Math/Vec4.h"
+
 namespace Biscuit::BCUI
 {
     class Button : public Widget
@@ -42,9 +44,19 @@ namespace Biscuit::BCUI
         /// 触发回调
         /// </summary>
         void OnClickEvent();
+
+        void SetColor(Vec4 color);
+
+        Vec4 GetColor();
+
+        void SetFrameRounding(float pixel);
+
+        float GetFrameRounding();
     private:
         
         CallbackFn m_Callback = nullptr;
         std::string m_Label;
+        Vec4 m_Color = Vec4(0.2f, 0.8f, 0.2f, 1.0f);
+        float m_FrameRounding = 0.0f;
     };
 }

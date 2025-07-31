@@ -17,14 +17,14 @@ namespace Biscuit
         inline float Dot(const Vec2& other = Vec2()) const
         {return m_X * other.m_X + m_Y * other.m_Y;}
         
-        // inline static Vec2 Add(const Vec2& a = Vec2(), const Vec2& b = Vec2())
-        // {return Vec2(a.m_X + b.m_X, a.m_Y + b.m_Y);}
-        //
-        // inline static Vec2 Sub(const Vec2& a = Vec2(), const Vec2& b = Vec2())
-        // {return Vec2(a.m_X - b.m_X, a.m_Y - b.m_Y);}
-        //
-        // inline static float Dot(const Vec2& a = Vec2(), const Vec2& b = Vec2())
-        // {return a.m_X * b.m_X + a.m_Y * b.m_Y;}
+        inline static Vec2 StaticAdd(const Vec2& a = Vec2(), const Vec2& b = Vec2())
+        {return Vec2(a.m_X + b.m_X, a.m_Y + b.m_Y);}
+        
+        inline static Vec2 StaticSub(const Vec2& a = Vec2(), const Vec2& b = Vec2())
+        {return Vec2(a.m_X - b.m_X, a.m_Y - b.m_Y);}
+        
+        inline static float StaticDot(const Vec2& a = Vec2(), const Vec2& b = Vec2())
+        {return a.m_X * b.m_X + a.m_Y * b.m_Y;}
         
         Vec2 operator+(const Vec2& other) const
         {return Vec2(m_X + other.m_X, m_Y + other.m_Y);}

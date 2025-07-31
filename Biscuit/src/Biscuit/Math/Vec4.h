@@ -8,7 +8,7 @@ namespace Biscuit
     class Vec4
     {
     public:
-        Vec4(float x = 0, float y = 0, float z = 0, float w = 0):m_X(x), m_Y(y), m_Z(z), m_W(0) {}
+        Vec4(float x = 0, float y = 0, float z = 0, float w = 0):m_X(x), m_Y(y), m_Z(z), m_W(w) {}
         
         inline Vec4 Add(const Vec4& other = Vec4()) const
         {return Vec4(m_X + other.m_X, m_Y + other.m_Y , m_Z + other.m_Z, m_W + other.m_W);}
@@ -19,14 +19,14 @@ namespace Biscuit
         inline float Dot(const Vec4& other = Vec4()) const
         {return m_X * other.m_X + m_Y * other.m_Y + m_Z * other.m_Z + m_W * other.m_W;}
         
-        // inline static Vec4 Add(const Vec4& a = Vec4(), const Vec4& b = Vec4())
-        // {return Vec4(a.m_X + b.m_X, a.m_Y + b.m_Y , a.m_Z + b.m_Z, a.m_W + b.m_W);}
-        //
-        // inline static Vec4 Sub(const Vec4& a = Vec4(), const Vec4& b = Vec4())
-        // {return Vec4(a.m_X - b.m_X, a.m_Y - b.m_Y , a.m_Z - b.m_Z, a.m_W - b.m_W);}
-        //
-        // inline static float Dot(const Vec4& a = Vec4(), const Vec4& b = Vec4())
-        // {return a.m_X * b.m_X + a.m_Y * b.m_Y + a.m_Z * b.m_Z + a.m_W * b.m_W;}
+        inline static Vec4 StaticAdd(const Vec4& a = Vec4(), const Vec4& b = Vec4())
+        {return Vec4(a.m_X + b.m_X, a.m_Y + b.m_Y , a.m_Z + b.m_Z, a.m_W + b.m_W);}
+        
+        inline static Vec4 StaticSub(const Vec4& a = Vec4(), const Vec4& b = Vec4())
+        {return Vec4(a.m_X - b.m_X, a.m_Y - b.m_Y , a.m_Z - b.m_Z, a.m_W - b.m_W);}
+        
+        inline static float StaticDot(const Vec4& a = Vec4(), const Vec4& b = Vec4())
+        {return a.m_X * b.m_X + a.m_Y * b.m_Y + a.m_Z * b.m_Z + a.m_W * b.m_W;}
         
         Vec4 operator+(const Vec4& other) const
         {return Vec4(m_X + other.m_X, m_Y + other.m_Y , m_Z + other.m_Z, m_W + other.m_W);}
