@@ -15,11 +15,14 @@ namespace Biscuit
         Drawable& operator=(const Drawable&) = delete;
         
         virtual ~Drawable(){}
+        
         /// <summary>
-        /// 可以渲染图片材质并进行简单变换的类
+        /// 可以渲染图片材质并进行简单变换的类 (已弃用)
         /// </summary>
         /// <param name="picSrc">图片材质路径</param>
         Drawable(const std::string& picSrc);
+
+        Drawable(const std::shared_ptr<Texture>& texture);
 
         /// <summary>
         /// 绘制该对象

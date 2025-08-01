@@ -51,7 +51,13 @@ namespace Biscuit
 	{
 		UIFonts.push_back(std::make_shared<BCUI::Font>(filePath, name));
 	}
-	
+
+	void Application::LoadTextureFromFile(const std::string& filePath, const std::string& name)
+	{
+
+		Textures.push_back(std::make_shared<Texture>(filePath, name));
+	}
+
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_IsRunning = false;

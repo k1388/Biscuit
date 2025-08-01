@@ -15,6 +15,15 @@ namespace Biscuit
         //Application::Get()->GetSpriteLayer()->AddSprite(this);
     }
 
+    Sprite::Sprite(const std::shared_ptr<Texture>& texture): Drawable(texture)
+    {
+        const float sw = float(Application::Get()->GetApplicationWindow().GetWidth());
+        const float sh = float(Application::Get()->GetApplicationWindow().GetHeight());
+
+        m_Pos = Vec2(sw/2,sh/2);
+        //m_OriginalPicSrc = picSrc;
+    }
+
     float* Sprite::CoordTransform()
     {
         const float sw = float(Application::Get()->GetApplicationWindow().GetWidth());

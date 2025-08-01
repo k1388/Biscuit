@@ -8,6 +8,8 @@
 #include <memory>
 #include <vector>
 #include <array>
+#include <Glad/glad.h>
+
 
 #ifdef BC_DEBUG
 

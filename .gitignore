@@ -4,5 +4,6 @@ bin/
 bin-int/
 .idea/
 .cmake-build-debug-visual-studio/
+BPbin/
 # Files
 *.user

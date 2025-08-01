@@ -1,11 +1,9 @@
 ﻿#include "pch.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
 #include "Drawable.h"
 #include "Shader.h"
 #include "Biscuit/Application.h"
 #include "Biscuit/Math/Vec2.h"
-#include "Glad/glad.h"
+#include "stb_image.h"
 
 namespace Biscuit
 {
@@ -16,6 +14,21 @@ namespace Biscuit
         m_Name = "null";
     }
 
+    Drawable::Drawable(const std::shared_ptr<Texture>& texture)
+    {
+        m_Textures.push_back(texture);
+        m_CurTexture = m_Textures[0];
+        m_TextureCount++;
+        m_HasInitialized = true;
+        m_Pos = Vec2(100,100);
+        m_Name = "null";
+        m_Pic_Height = texture->picHeight;
+        m_Pic_Width = texture->picWidth;
+        m_Pic_NrChannels = texture->picChannels;
+        m_Texture = texture->textureID;
+        
+        Load();
+    }
 
     void Drawable::Draw()
     {

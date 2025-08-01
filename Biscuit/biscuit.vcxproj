@@ -172,21 +172,21 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClInclude Include="src\Biscuit\Event\KeyEvent.h" />
     <ClInclude Include="src\Biscuit\Event\MouseEvent.h" />
     <ClInclude Include="src\Biscuit\GlobalResources.h" />
-    <ClInclude Include="src\Biscuit\InGame\Prefab.h" />
-    <ClInclude Include="src\Biscuit\Keycode.h" />
-    <ClInclude Include="src\Biscuit\Math\Vec4.h" />
-    <ClInclude Include="src\Biscuit\Render\Texture.h" />
-    <ClInclude Include="src\Biscuit\SpriteLayer.h" />
-    <ClInclude Include="src\Biscuit\InGame\Sprite.h" />
     <ClInclude Include="src\Biscuit\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="src\Biscuit\InGame\Prefab.h" />
+    <ClInclude Include="src\Biscuit\InGame\Sprite.h" />
     <ClInclude Include="src\Biscuit\Input.h" />
+    <ClInclude Include="src\Biscuit\Keycode.h" />
     <ClInclude Include="src\Biscuit\Layer.h" />
     <ClInclude Include="src\Biscuit\LayerStack.h" />
     <ClInclude Include="src\Biscuit\Log.h" />
     <ClInclude Include="src\Biscuit\Math\Vec2.h" />
     <ClInclude Include="src\Biscuit\Math\Vec3.h" />
+    <ClInclude Include="src\Biscuit\Math\Vec4.h" />
     <ClInclude Include="src\Biscuit\Render\Drawable.h" />
     <ClInclude Include="src\Biscuit\Render\Shader.h" />
+    <ClInclude Include="src\Biscuit\Render\Texture.h" />
+    <ClInclude Include="src\Biscuit\SpriteLayer.h" />
     <ClInclude Include="src\Biscuit\Window.h" />
     <ClInclude Include="src\pch.h" />
   </ItemGroup>
@@ -198,16 +198,17 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClCompile Include="src\Biscuit\BCUI\Label.cpp" />
     <ClCompile Include="src\Biscuit\BCUI\ProgressBar.cpp" />
     <ClCompile Include="src\Biscuit\BCUI\Widget.cpp" />
-    <ClCompile Include="src\Biscuit\InGame\Prefab.cpp" />
-    <ClCompile Include="src\Biscuit\SpriteLayer.cpp" />
-    <ClCompile Include="src\Biscuit\InGame\Sprite.cpp" />
     <ClCompile Include="src\Biscuit\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Biscuit\InGame\Prefab.cpp" />
+    <ClCompile Include="src\Biscuit\InGame\Sprite.cpp" />
     <ClCompile Include="src\Biscuit\Input.cpp" />
     <ClCompile Include="src\Biscuit\Layer.cpp" />
     <ClCompile Include="src\Biscuit\LayerStack.cpp" />
     <ClCompile Include="src\Biscuit\Log.cpp" />
     <ClCompile Include="src\Biscuit\Render\Drawable.cpp" />
     <ClCompile Include="src\Biscuit\Render\Shader.cpp" />
+    <ClCompile Include="src\Biscuit\Render\Texture.cpp" />
+    <ClCompile Include="src\Biscuit\SpriteLayer.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

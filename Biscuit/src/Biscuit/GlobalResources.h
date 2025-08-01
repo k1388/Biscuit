@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "BCUI/Font.h"
+#include "Render/Texture.h"
 
 namespace Biscuit
 {
@@ -8,11 +9,24 @@ namespace Biscuit
     {
         auto it = std::find_if(
             UIFonts.begin(), UIFonts.end(),
-            [&name](const std::shared_ptr<BCUI::Font>& font)   // 加 const
+            [&name](const std::shared_ptr<BCUI::Font>& font) 
             {
-                return font && font->GetFontName() == name;   // 判空
+                return font && font->GetFontName() == name;  
             });
 
         return (it != UIFonts.end()) ? *it : nullptr;
+    }
+
+    inline std::vector<std::shared_ptr<Texture>> Textures;
+    inline std::shared_ptr<Texture> GetTexture(const std::string& name)
+    {
+        auto it = std::find_if(
+        Textures.begin(), Textures.end(),
+        [&name](const std::shared_ptr<Texture>& texture)   
+        {
+            return texture && texture->name == name;   
+        });
+
+        return (it != Textures.end()) ? *it : nullptr;
     }
 }

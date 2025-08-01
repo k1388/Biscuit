@@ -13,8 +13,17 @@ namespace Biscuit
         using CollideCallbackFn = std::function<void(std::shared_ptr<Sprite>)>;
 
         using ClickCallbackFn = std::function<void(Vec2)>;
+        
+        [[deprecated("动态生成材质会造成性能问题")]] static std::shared_ptr<Sprite> Create(const std::string& picSrc)
+        {
+            return std::make_shared<Sprite>(picSrc);
+        }
 
-        Sprite(const std::string& picSrc);
+        static std::shared_ptr<Sprite> Create(const std::shared_ptr<Texture>& texture)
+        {
+            return std::make_shared<Sprite>(texture);
+        }
+        
         float* CoordTransform() override;
 
         /// <summary>
@@ -165,12 +174,18 @@ namespace Biscuit
                 m_OnRemoved();
             }
         }
-    
+        
+        Sprite(const std::string& picSrc);
+        
+        Sprite(const std::shared_ptr<Texture>& texture);
     protected:
+        friend class make_shared_enabler;
         friend class Prefab;
         virtual std::shared_ptr<Sprite> Clone();
+
         
     private:
+        class make_shared_enabler;
         const float PI = 3.1415926f;
         float m_Angle = 0.0f;
         float* GenerateRotateMatrix() const;

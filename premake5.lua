@@ -146,3 +146,41 @@ project "Sandbox"
 		runtime "Release"
 		optimize "on"
 
+project "BiscuitPresetter"
+	location "BiscuitPresetter"
+	kind "ConsoleApp"
+	language "C"
+
+	targetdir ("BPbin/" .. outputdir .. "/%{prj.name}")
+	objdir ("BPbin/int/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/**.h",
+		"%{prj.name}/**.cpp",
+		"%{prj.name}/**.c"
+	}
+
+	filter "system:windows"
+		systemversion "10.0"
+
+		defines
+		{
+			"BC_PLATFORM_WINDOWS"
+		}
+	
+	filter "configurations:Debug"
+		defines "BC_DEBUG"
+		runtime "Debug"
+		symbols "on"
+
+
+	filter "configurations:Release"
+		defines "BC_RELEASE"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "BC_DIST"
+		runtime "Release"
+		optimize "on"

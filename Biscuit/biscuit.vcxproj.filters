@@ -13,6 +13,9 @@
     <Filter Include="Biscuit\ImGui">
       <UniqueIdentifier>{829354E8-EE53-D01E-B78E-199C230E15FB}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Biscuit\InGame">
+      <UniqueIdentifier>{18C8F8F2-0496-ECF8-ED29-5D1FD996C85D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Biscuit\Math">
       <UniqueIdentifier>{31181426-1D7B-A3CA-C600-DC80B2426F4D}</UniqueIdentifier>
     </Filter>
@@ -31,14 +34,17 @@
     <ClInclude Include="src\Biscuit\BCUI\Button.h">
       <Filter>Biscuit\BCUI</Filter>
     </ClInclude>
+    <ClInclude Include="src\Biscuit\BCUI\Font.h">
+      <Filter>Biscuit\BCUI</Filter>
+    </ClInclude>
     <ClInclude Include="src\Biscuit\BCUI\Label.h">
+      <Filter>Biscuit\BCUI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\BCUI\ProgressBar.h">
       <Filter>Biscuit\BCUI</Filter>
     </ClInclude>
     <ClInclude Include="src\Biscuit\BCUI\Widget.h">
       <Filter>Biscuit\BCUI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Biscuit\Core.h">
-      <Filter>Biscuit</Filter>
     </ClInclude>
     <ClInclude Include="src\Biscuit\EntryPoint.h">
       <Filter>Biscuit</Filter>
@@ -55,10 +61,22 @@
     <ClInclude Include="src\Biscuit\Event\MouseEvent.h">
       <Filter>Biscuit\Event</Filter>
     </ClInclude>
+    <ClInclude Include="src\Biscuit\GlobalResources.h">
+      <Filter>Biscuit</Filter>
+    </ClInclude>
     <ClInclude Include="src\Biscuit\ImGui\ImGuiLayer.h">
       <Filter>Biscuit\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Biscuit\InGame\Prefab.h">
+      <Filter>Biscuit\InGame</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\InGame\Sprite.h">
+      <Filter>Biscuit\InGame</Filter>
+    </ClInclude>
     <ClInclude Include="src\Biscuit\Input.h">
+      <Filter>Biscuit</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\Keycode.h">
       <Filter>Biscuit</Filter>
     </ClInclude>
     <ClInclude Include="src\Biscuit\Layer.h">
@@ -76,14 +94,20 @@
     <ClInclude Include="src\Biscuit\Math\Vec3.h">
       <Filter>Biscuit\Math</Filter>
     </ClInclude>
-    <ClInclude Include="src\Biscuit\Render\Drawable.h">
-      <Filter>Biscuit\Render</Filter>
+    <ClInclude Include="src\Biscuit\Math\Vec4.h">
+      <Filter>Biscuit\Math</Filter>
     </ClInclude>
-    <ClInclude Include="src\Biscuit\Render\Position.h">
+    <ClInclude Include="src\Biscuit\Render\Drawable.h">
       <Filter>Biscuit\Render</Filter>
     </ClInclude>
     <ClInclude Include="src\Biscuit\Render\Shader.h">
       <Filter>Biscuit\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\Render\Texture.h">
+      <Filter>Biscuit\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Biscuit\SpriteLayer.h">
+      <Filter>Biscuit</Filter>
     </ClInclude>
     <ClInclude Include="src\Biscuit\Window.h">
       <Filter>Biscuit</Filter>
@@ -100,7 +124,13 @@
     <ClCompile Include="src\Biscuit\BCUI\Button.cpp">
       <Filter>Biscuit\BCUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Biscuit\BCUI\Font.cpp">
+      <Filter>Biscuit\BCUI</Filter>
+    </ClCompile>
     <ClCompile Include="src\Biscuit\BCUI\Label.cpp">
+      <Filter>Biscuit\BCUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\BCUI\ProgressBar.cpp">
       <Filter>Biscuit\BCUI</Filter>
     </ClCompile>
     <ClCompile Include="src\Biscuit\BCUI\Widget.cpp">
@@ -108,6 +138,12 @@
     </ClCompile>
     <ClCompile Include="src\Biscuit\ImGui\ImGuiLayer.cpp">
       <Filter>Biscuit\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\InGame\Prefab.cpp">
+      <Filter>Biscuit\InGame</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\InGame\Sprite.cpp">
+      <Filter>Biscuit\InGame</Filter>
     </ClCompile>
     <ClCompile Include="src\Biscuit\Input.cpp">
       <Filter>Biscuit</Filter>
@@ -124,11 +160,14 @@
     <ClCompile Include="src\Biscuit\Render\Drawable.cpp">
       <Filter>Biscuit\Render</Filter>
     </ClCompile>
-    <ClCompile Include="src\Biscuit\Render\Position.cpp">
-      <Filter>Biscuit\Render</Filter>
-    </ClCompile>
     <ClCompile Include="src\Biscuit\Render\Shader.cpp">
       <Filter>Biscuit\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\Render\Texture.cpp">
+      <Filter>Biscuit\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\SpriteLayer.cpp">
+      <Filter>Biscuit</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp" />
   </ItemGroup>

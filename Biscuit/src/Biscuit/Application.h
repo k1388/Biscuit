@@ -54,6 +54,8 @@ namespace Biscuit
 		void RemoveSprite(std::shared_ptr<Sprite> sprite);
 
 		static void LoadFontFromFile(const std::string& filePath, const std::string& name);
+
+		static void LoadTextureFromFile(const std::string& filePath, const std::string& name);
 		
 		/// <summary>
 		/// 游戏开始运行时会调用这个方法

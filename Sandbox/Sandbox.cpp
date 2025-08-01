@@ -11,22 +11,16 @@ class Sandbox : public Application
 {
 public:
 	Sandbox(const Window::WindowProps& props):Application(props){}
-	std::shared_ptr<Sprite> drawable = std::make_shared<Sprite>("C:/Users/kanho/OneDrive/Desktop/41903-1859816609.png");
+	std::shared_ptr<Sprite> drawable = nullptr;
 	void OnGameStart() override
 	{
-		AddSprite(drawable);
+		
 		LoadFontFromFile("C:\\Windows\\Fonts\\Impact.ttf","abc");
 		LoadFontFromFile("C:\\Windows\\Fonts\\Arial.ttf","def");
-		auto UI = new BCUI::BCUI();
-		UI->Add(new BCUI::ProgressBar());
-		BCUI::Button* button = new BCUI::Button(Vec2(500,300),Vec2(200,50));
-		button->SetLabelFont(GetFont("abc"), 30);
-		UI->Add(button);
-		//button->SetColor(Vec4(0.3f,0.3f,0.2f,1.0f));
-		button->SetFrameRounding(15);
-		PushOverLay(UI);
-
+		LoadTextureFromFile("C:/Users/kanho/OneDrive/Desktop/7-3-2025_10-52-21_PM.png", "111");
 		
+		drawable = Sprite::Create(GetTexture("111"));
+		AddSprite(drawable);
 	}
 
 	void OnSpriteInited() override
