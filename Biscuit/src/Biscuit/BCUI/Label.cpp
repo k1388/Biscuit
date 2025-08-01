@@ -20,7 +20,7 @@ namespace Biscuit::BCUI
     }
 
     Label::Label(Vec2 position, Vec2 size):
-    Widget("NewButton",Vec2(0,0), size),
+    Widget("NewButton",position, size),
     m_Text("NewButton")
     {
         ID++;

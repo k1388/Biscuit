@@ -136,7 +136,7 @@ namespace Biscuit
 	{
 		m_SpriteLayer = std::make_shared<SpriteLayer>();
 		this->PushLayer(m_SpriteLayer.get());
-
+		OnInit();
 		OnGameStart();
 		m_SpriteLayer->InitAllSprites();
 		OnSpriteInited();

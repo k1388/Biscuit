@@ -57,11 +57,23 @@ namespace Biscuit::BCUI
                     
             case Widget::WidgetType::Label:
                 {
+                    auto widget = dynamic_cast<Label*>(i);
+                    ImFont* font = widget->GetLabelFont();
+                    bool hasFont = false;
+                    if (font != NULL)
+                    {
+                        ImGui::PushFont(font);
+                        hasFont = true;
+                    }
                     if (i->GetVisible())
                     ImGui::Text(
-                        dynamic_cast<Label*>(i)->GetText().c_str(),
+                        widget->GetText().c_str(),
                         ImVec2(i->GetSize().GetX(), i->GetSize().GetY())
                     );
+                    if (hasFont)
+                    {
+                        ImGui::PopFont();
+                    }
                     break;
                 }
             case Widget::WidgetType::ProgressBar:

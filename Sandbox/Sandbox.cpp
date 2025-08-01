@@ -1,55 +1,35 @@
 ﻿#include "Biscuit.h"
-#include "Biscuit/BCUI/BCUI.h"
-#include "Biscuit/BCUI/Label.h"
 
 using namespace Biscuit;
-/// <summary>
-/// 程序入口main()见src/Biscuit/EntryPoint.h
-/// </summary>
 
 class Sandbox : public Application
 {
 public:
 	Sandbox(const Window::WindowProps& props):Application(props){}
-	std::shared_ptr<Sprite> drawable = nullptr;
+
+	void OnInit() override
+	{
+		LoadFontFromFile("C:\\Windows\\Fonts\\Impact.ttf","Impact");
+	}
+	
 	void OnGameStart() override
 	{
+		auto ui = new BCUI::BCUI();
 		
-		LoadFontFromFile("C:\\Windows\\Fonts\\Impact.ttf","abc");
-		LoadFontFromFile("C:\\Windows\\Fonts\\Arial.ttf","def");
-		LoadTextureFromFile("C:/Users/kanho/OneDrive/Desktop/7-3-2025_10-52-21_PM.png", "111");
+		auto label = new BCUI::Label(Vec2(400,320),Vec2(400,100));
+		label->SetText("Label");
+		label->SetLabelFont(GetFont("Impact"), 42);
 		
-		drawable = Sprite::Create(GetTexture("111"));
-		AddSprite(drawable);
-	}
-
-	void OnSpriteInited() override
-	{
-		drawable->AddTexture("C:/Users/kanho/OneDrive/Desktop/7-3-2025_10-52-21_PM.png");
-		drawable->OnClick([](Vec2 position)
+		auto button = new BCUI::Button(Vec2(500,300),Vec2(400,100));
+		button->SetLabelFont(GetFont("Impact"), 20);
+		button->OnClick([]()
 		{
-			BC_INFO("aaa!");
+			BC_TRACE("Clicked!");
 		});
-		drawable->OnUpdate([=]()
-		{
-			float speed = 300;
-			if (Input::IsKeyPressed(KEY_W))
-			{
-				drawable->SetPos(drawable->GetPos() + Vec2(0, -speed * deltaTime));
-			}
-			if (Input::IsKeyPressed(KEY_A))
-			{
-				drawable->SetPos(drawable->GetPos() + Vec2(-speed * deltaTime, 0 ));
-			}
-			if (Input::IsKeyPressed(KEY_S))
-			{
-				drawable->SetPos(drawable->GetPos() + Vec2(0, speed * deltaTime));
-			}
-			if (Input::IsKeyPressed(KEY_D))
-			{
-				drawable->SetPos(drawable->GetPos() + Vec2(speed * deltaTime, 0 ));
-			}
-		});
+		
+		ui->Add(label);
+		ui->Add(button);
+		PushOverLay(ui);
 	}
 };
 

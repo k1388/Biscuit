@@ -65,7 +65,7 @@ namespace Biscuit
 		virtual void OnGameStart() {}
 		virtual void OnSpriteInited() {}
 		virtual void OnUpdate() {}
-		
+		virtual void OnInit() {}
 	private:
 		/// <summary>
 		/// 应用对应的Window类(注意是对GLFWWindow的封装，获得渲染窗口调用m_window->GetWindow())
