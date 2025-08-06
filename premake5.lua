@@ -1,3 +1,4 @@
+--对引擎本身进行改动时应该去除所有被注释的内容
 workspace "Biscuit"
 	architecture "x64"
 	startproject "Sandbox"
@@ -14,7 +15,6 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Biscuit/vendor/GLFW/include"
 IncludeDir["Glad"] = "Biscuit/vendor/Glad/include"
 IncludeDir["ImGui"] = "Biscuit/vendor/imgui"
---IncludeDir["glm"] = "Biscuit/vendor/glm"
 IncludeDir["stb"] = "Biscuit/vendor/stb"
 IncludeDir["libdir"] = "Biscuit/vendor-bin"
 
