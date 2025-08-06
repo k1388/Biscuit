@@ -16,22 +16,22 @@ using namespace Biscuit;
 class Sandbox : public Application
 {
 public:
-	std::shared_ptr<Sprite> gameObj = nullptr;
+    std::shared_ptr<Sprite> gameObj = nullptr;
 
     void OnInit() override 
     {
         // Sprite的生成依赖材质，材质需要在程序最开始生成
-		LoadTextureFromFile("本地图片路径", "111");
+	    LoadTextureFromFile("本地图片路径", "111");
     }
 
-	void OnGameStart() override
+    void OnGameStart() override
 	{
         // 通过调用Sprite的工厂函数生成Sprite游戏对象并获得指针
-		gameObj = Sprite::Create(GetTexture("111"));
+	    gameObj = Sprite::Create(GetTexture("111"));
 
         // 将您的Sprite游戏对象添加到场景
-		AddSprite(gameObj);
-	}
+	    AddSprite(gameObj);
+    }
 }
 
 // 声明创建一个游戏程序对象
@@ -48,22 +48,22 @@ Biscuit引擎推荐进行组合式编程，如果您需要为游戏对象编写�
 ```C++
 gameObj->OnUpdate([=]()
 {
-	float speed = 300;
-	if (Input::IsKeyPressed(KEY_W))
+    float speed = 300;
+    if (Input::IsKeyPressed(KEY_W))
+    {
+        gameObj->SetPos(gameObj->GetPos() + Vec2(0, -speed * deltaTime));
+    }
+    if (Input::IsKeyPressed(KEY_A))
+    {
+        gameObj->SetPos(gameObj->GetPos() + Vec2(-speed * deltaTime, 0 ));
+    }
+    if (Input::IsKeyPressed(KEY_S))
+    {
+        gameObj->SetPos(gameObj->GetPos() + Vec2(0, speed * deltaTime));
+    }
+    if (Input::IsKeyPressed(KEY_D))
 	{
-		gameObj->SetPos(gameObj->GetPos() + Vec2(0, -speed * deltaTime));
-	}
-	if (Input::IsKeyPressed(KEY_A))
-	{
-		gameObj->SetPos(gameObj->GetPos() + Vec2(-speed * deltaTime, 0 ));
-	}
-	if (Input::IsKeyPressed(KEY_S))
-	{
-		gameObj->SetPos(gameObj->GetPos() + Vec2(0, speed * deltaTime));
-	}
-	if (Input::IsKeyPressed(KEY_D))
-	{
-		gameObj->SetPos(gameObj->GetPos() + Vec2(speed * deltaTime, 0 ));
+        gameObj->SetPos(gameObj->GetPos() + Vec2(speed * deltaTime, 0 ));
 	}
 });
 ```
@@ -107,38 +107,38 @@ using namespace Biscuit;
 class Sandbox : public Application
 {
 public:
-	Sandbox(const Window::WindowProps& props):Application(props){}
+    Sandbox(const Window::WindowProps& props):Application(props){}
 
-	void OnInit() override
-	{
-		LoadFontFromFile("C:\\Windows\\Fonts\\Impact.ttf","Impact");
-	}
+    void OnInit() override
+    {
+        LoadFontFromFile("C:\\Windows\\Fonts\\Impact.ttf","Impact");
+    }
 	
-	void OnGameStart() override
-	{
-		auto ui = new BCUI::BCUI();
+    void OnGameStart() override
+    {
+        auto ui = new BCUI::BCUI();
 		
-		auto label = new BCUI::Label(Vec2(400,320),Vec2(400,100));
-		label->SetText("Label");
-		label->SetLabelFont(GetFont("Impact"), 42);
+        auto label = new BCUI::Label(Vec2(400,320),Vec2(400,100));
+        label->SetText("Label");
+        label->SetLabelFont(GetFont("Impact"), 42);
 		
-		auto button = new BCUI::Button(Vec2(500,300),Vec2(400,100));
-		button->SetLabelFont(GetFont("Impact"), 20);
-		button->OnClick([]()
-		{
-			BC_TRACE("Clicked!");
-		});
-		
-		ui->Add(label);
-		ui->Add(button);
-		PushOverLay(ui);
-	}
+        auto button = new BCUI::Button(Vec2(500,300),Vec2(400,100));
+        button->SetLabelFont(GetFont("Impact"), 20);
+        button->OnClick([]()
+        {
+            BC_TRACE("Clicked!");
+        });
+              
+        ui->Add(label);
+        ui->Add(button);
+        PushOverLay(ui);
+    }
 };
 
 Biscuit::Application* Biscuit::CreateApplication()
 {
-	Window::WindowProps* props = new Window::WindowProps("Game",1920,1080);
-	return new Sandbox(*props);
+    Window::WindowProps* props = new Window::WindowProps("Game",1920,1080);
+    return new Sandbox(*props);
 }
 
 ```
