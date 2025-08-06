@@ -89,7 +89,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GLFW.lib;Glad.lib;ImGui.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>vendor-bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
       <Command>echo Copying DLL to: $(SolutionDir)bin\Debug-windows-x86_64\Sandbox\
@@ -119,7 +120,8 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Debug-windows-x86_64
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GLFW.lib;Glad.lib;ImGui.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>vendor-bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
       <Command>echo Copying DLL to: $(SolutionDir)bin\Release-windows-x86_64\Sandbox\
@@ -149,7 +151,8 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Release-windows-x86_
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GLFW.lib;Glad.lib;ImGui.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>vendor-bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
       <Command>echo Copying DLL to: $(SolutionDir)bin\Dist-windows-x86_64\Sandbox\
@@ -212,17 +215,6 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="vendor\GLFW\GLFW.vcxproj">
-      <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\Glad\Glad.vcxproj">
-      <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\imgui\ImGui.vcxproj">
-      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

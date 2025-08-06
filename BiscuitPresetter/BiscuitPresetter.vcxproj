@@ -128,15 +128,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="code_gen.h" />
-    <ClInclude Include="data_struct.h" />
-    <ClInclude Include="iniio.h" />
+    <ClInclude Include="src\code_gen.h" />
+    <ClInclude Include="src\data_struct.h" />
+    <ClInclude Include="src\iniio.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="code_gen.c" />
-    <ClCompile Include="data_struct.c" />
-    <ClCompile Include="iniio.c" />
-    <ClCompile Include="main.c" />
+    <ClCompile Include="src\code_gen.c" />
+    <ClCompile Include="src\data_struct.c" />
+    <ClCompile Include="src\iniio.c" />
+    <ClCompile Include="src\main.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

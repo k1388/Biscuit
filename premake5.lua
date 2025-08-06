@@ -14,12 +14,13 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Biscuit/vendor/GLFW/include"
 IncludeDir["Glad"] = "Biscuit/vendor/Glad/include"
 IncludeDir["ImGui"] = "Biscuit/vendor/imgui"
-IncludeDir["glm"] = "Biscuit/vendor/glm"
+--IncludeDir["glm"] = "Biscuit/vendor/glm"
 IncludeDir["stb"] = "Biscuit/vendor/stb"
+IncludeDir["libdir"] = "Biscuit/vendor-bin"
 
-include "Biscuit/vendor/GLFW"
-include "Biscuit/vendor/Glad"
-include "Biscuit/vendor/imgui"
+--include "Biscuit/vendor/GLFW"
+--include "Biscuit/vendor/Glad"
+--include "Biscuit/vendor/imgui"
 
 project "Biscuit"
 	location "Biscuit"
@@ -47,10 +48,15 @@ project "Biscuit"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}",
+		--"%{IncludeDir.glm}",
 		"%{IncludeDir.stb}"
 	}
 
+
+	libdirs
+	{
+		"%{IncludeDir.libdir}"
+	}
 	links
 	{
 		"GLFW",
