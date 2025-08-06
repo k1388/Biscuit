@@ -21,16 +21,16 @@ public:
     void OnInit() override 
     {
         // Sprite的生成依赖材质，材质需要在程序最开始生成
-	    LoadTextureFromFile("本地图片路径", "111");
+        LoadTextureFromFile("本地图片路径", "111");
     }
 
     void OnGameStart() override
 	{
         // 通过调用Sprite的工厂函数生成Sprite游戏对象并获得指针
-	    gameObj = Sprite::Create(GetTexture("111"));
+        gameObj = Sprite::Create(GetTexture("111"));
 
         // 将您的Sprite游戏对象添加到场景
-	    AddSprite(gameObj);
+        AddSprite(gameObj);
     }
 }
 
@@ -62,9 +62,9 @@ gameObj->OnUpdate([=]()
         gameObj->SetPos(gameObj->GetPos() + Vec2(0, speed * deltaTime));
     }
     if (Input::IsKeyPressed(KEY_D))
-	{
+    {
         gameObj->SetPos(gameObj->GetPos() + Vec2(speed * deltaTime, 0 ));
-	}
+    }
 });
 ```
 这段代码使您的Sprite可以响应按键进行四向移动，其中OnUpdate()每帧被调用，接受一个void()回调函数作为参数。
