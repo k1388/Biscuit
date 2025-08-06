@@ -14,6 +14,7 @@ namespace Biscuit
 	}
 
 	class BCUI::Font;
+
 	/// <summary>
 	/// Application是游戏程序的最底层
 	/// </summary>

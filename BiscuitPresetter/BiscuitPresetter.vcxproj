@@ -14,9 +14,6 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.c" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{16360421-022F-2373-2B61-08F817B9027F}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
@@ -130,6 +127,17 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="code_gen.h" />
+    <ClInclude Include="data_struct.h" />
+    <ClInclude Include="iniio.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="code_gen.c" />
+    <ClCompile Include="data_struct.c" />
+    <ClCompile Include="iniio.c" />
+    <ClCompile Include="main.c" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

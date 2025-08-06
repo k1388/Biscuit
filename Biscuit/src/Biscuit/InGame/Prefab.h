@@ -3,6 +3,9 @@
 
 namespace Biscuit
 {
+    /// <summary>
+    /// 预制体，用于Sprite的克隆，需要一个Sprite作为模板
+    /// </summary>
     class Prefab
     {
     public:

@@ -5,6 +5,9 @@
 
 namespace Biscuit::BCUI
 {
+    /// <summary>
+    /// 按钮控件
+    /// </summary>
     class Button : public Widget
     {
     public:

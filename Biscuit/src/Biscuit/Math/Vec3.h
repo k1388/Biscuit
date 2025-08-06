@@ -4,6 +4,10 @@
 namespace Biscuit
 {
     class Vec4;
+
+    /// <summary>
+    /// 三维向量
+    /// </summary>
     class Vec3
     {
     public:

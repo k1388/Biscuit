@@ -4,6 +4,9 @@
 
 namespace Biscuit
 {
+    /// <summary>
+    /// 渲染游戏对象的层
+    /// </summary>
     class SpriteLayer : public Layer
     {
     public:

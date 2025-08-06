@@ -5,6 +5,9 @@
 
 namespace Biscuit::BCUI
 {
+    /// <summary>
+    /// 标签控件
+    /// </summary>
     class Label : public Widget
     {
     public:

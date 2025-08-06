@@ -4,6 +4,9 @@
 
 namespace Biscuit::BCUI
 {
+    /// <summary>
+    /// 进度条控件
+    /// </summary>
     class ProgressBar : public Widget
     {
     public:

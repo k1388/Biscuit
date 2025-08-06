@@ -4,6 +4,9 @@
 
 namespace Biscuit
 {
+	/// <summary>
+	/// 在应用程序上的层
+	/// </summary>
 	class Layer
 	{
 	public:

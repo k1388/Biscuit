@@ -4,6 +4,10 @@
 namespace Biscuit
 {
     class Prefab;
+
+    /// <summary>
+    /// 游戏角色/对象
+    /// </summary>
     class Sprite :public Drawable
     {
     public:

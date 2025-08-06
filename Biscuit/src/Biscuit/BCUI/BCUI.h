@@ -7,6 +7,9 @@
 
 namespace Biscuit::BCUI
 {
+    /// <summary>
+    /// UI层，调用PushOverlay从而显示该层
+    /// </summary>
     class BCUI : public ImGuiLayer
     {
     public:

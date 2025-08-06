@@ -6,6 +6,8 @@ Biscuit是一个轻量级的，C/C++环境下基于OpenGL的2D游戏引擎/框�
 
 ```C++
 #include "Biscuit.h"
+using namespace Biscuit;
+
 class Sandbox : public Application
 {
 public:
@@ -28,7 +30,7 @@ public:
 }
 
 // 声明创建一个游戏程序对象
-Biscuit::Application* Biscuit::CreateApplication()
+Application* CreateApplication()
 {
 	return new Sandbox();
 }
@@ -40,25 +42,25 @@ Biscuit::Application* Biscuit::CreateApplication()
 Biscuit引擎推荐进行组合式编程，如果您需要为游戏对象编写行为脚本，您可以编写类似下面的程序
 ```C++
 gameObj->OnUpdate([=]()
-		{
-			float speed = 300;
-			if (Input::IsKeyPressed(KEY_W))
-			{
-				gameObj->SetPos(gameObj->GetPos() + Vec2(0, -speed * deltaTime));
-			}
-			if (Input::IsKeyPressed(KEY_A))
-			{
-				gameObj->SetPos(gameObj->GetPos() + Vec2(-speed * deltaTime, 0 ));
-			}
-			if (Input::IsKeyPressed(KEY_S))
-			{
-				gameObj->SetPos(gameObj->GetPos() + Vec2(0, speed * deltaTime));
-			}
-			if (Input::IsKeyPressed(KEY_D))
-			{
-				gameObj->SetPos(gameObj->GetPos() + Vec2(speed * deltaTime, 0 ));
-			}
-		});
+{
+	float speed = 300;
+	if (Input::IsKeyPressed(KEY_W))
+	{
+		gameObj->SetPos(gameObj->GetPos() + Vec2(0, -speed * deltaTime));
+	}
+	if (Input::IsKeyPressed(KEY_A))
+	{
+		gameObj->SetPos(gameObj->GetPos() + Vec2(-speed * deltaTime, 0 ));
+	}
+	if (Input::IsKeyPressed(KEY_S))
+	{
+		gameObj->SetPos(gameObj->GetPos() + Vec2(0, speed * deltaTime));
+	}
+	if (Input::IsKeyPressed(KEY_D))
+	{
+		gameObj->SetPos(gameObj->GetPos() + Vec2(speed * deltaTime, 0 ));
+	}
+});
 ```
 这段代码使您的Sprite可以响应按键进行四向移动，其中OnUpdate()每帧被调用，接受一个void()回调函数作为参数。
 

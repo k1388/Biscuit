@@ -5,6 +5,10 @@
 
 namespace Biscuit
 {
+
+    /// <summary>
+    /// 四维向量
+    /// </summary>
     class Vec4
     {
     public:
