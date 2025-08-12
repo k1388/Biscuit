@@ -43,7 +43,7 @@ namespace Biscuit
 		/// <param name="layer">图层</param>
 		void PopLayer(Layer* layer);
 	private:
-		LayerVec m_LayerVec;
-		LayerVec::iterator m_It;
+		LayerVec			m_LayerVec;
+		LayerVec::iterator	m_It;
 	};
 }

@@ -236,9 +236,9 @@ namespace Biscuit
 			return m_Window;
 		}
 	private:
-		GLFWwindow *m_Window;
-		WindowProps m_Props;
-		EventCallbackFn m_Callback;
-		bool m_IsVSync;
+		GLFWwindow		   *m_Window;
+		WindowProps			m_Props;
+		EventCallbackFn		m_Callback;
+		bool				m_IsVSync;
 	};
 }

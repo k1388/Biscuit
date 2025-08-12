@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #define UI_ELEMENTS "UIElements"
 #define SPRITE_ELEMENTS "SpriteElements"
@@ -29,6 +30,24 @@
 #define UI_LABEL_FONT "labelFont"
 #define UI_LABEL_FONT_SIZE "labelFontSize"
 #define UI_LABEL_COLOR "labelFontColor"
+
+#define FONT(str) "Font:" #str
+#define FONT_PATH "path"
+
+#define TEXTURE(str) "Texture:" #str
+#define TEXTURE_PATH "path"
+
+
+char* SEC_NAMES[] = {
+    "Sprite:", "UI:", UI_ELEMENTS, SPRITE_ELEMENTS, "Font:", "Texture:"
+};
+
+char* KEY_NAMES[] = {
+    S_POS_X, S_POS_Y, S_SCALE, S_ROTATE, S_ORIGIN_PIC, "otherPic:", S_VISIBLE, S_SCRIPT_PATH
+    
+}
+
+//const char* LOCAL_TEMP_FILE = "./temp/iniTemp.ini";
 
 /// <summary>
 /// 读取一个结构为.ini规范的文件

@@ -3,7 +3,7 @@ Biscuit是一个轻量级的，C/C++环境下基于OpenGL的2D游戏引擎/框�
 
 **如何构建工程文件？**
 
-运行generateProjects，之后会自动生成解决方案，您可以使用Rider、Visuial Studio等IDE打开生成的biscuit.sln
+运行generateProjects.bat，之后会自动生成解决方案，您可以使用Rider、Visuial Studio等IDE打开生成的biscuit.sln
 
 其中，Biscuit项目为引擎源项目，Sandbox为您的游戏项目
 ## 开始
@@ -25,7 +25,7 @@ public:
     }
 
     void OnGameStart() override
-	{
+    {
         // 通过调用Sprite的工厂函数生成Sprite游戏对象并获得指针
         gameObj = Sprite::Create(GetTexture("111"));
 
@@ -37,7 +37,7 @@ public:
 // 声明创建一个游戏程序对象
 Application* CreateApplication()
 {
-	return new Sandbox();
+    return new Sandbox();
 }
 ```
 

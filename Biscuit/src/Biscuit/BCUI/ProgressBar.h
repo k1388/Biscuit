@@ -50,9 +50,9 @@ namespace Biscuit::BCUI
         
         WidgetType GetWidgetType() const override;
     private:
-        float m_Progress;
-        std::string m_Text;
-        ImFont* m_Font = nullptr;
+        float           m_Progress;
+        std::string     m_Text;
+        ImFont*         m_Font = nullptr;
     };
 
 }

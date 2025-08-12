@@ -16,13 +16,21 @@ int main(int argc, char *argv[])
     printf("DEBUGING!\n");
     char* path = "C:\\Users\\kanho\\OneDrive\\Desktop\\test.ini";
     char value[109];
-    if (ini_read(path, "Test1", "abc", &value))
+    // if (ini_read(path, "Test2", "aaa", &value))
+    // {
+    //     printf("%s\n", value);
+    // }
+    // else
+    // {
+    //     printf("notfound\n");
+    // }
+    if (ini_write(path, "t1", "aa", "123"))
     {
-        printf("%s\n", value);
+        //printf("%s\n", value);
     }
     else
     {
-        printf("notfound\n");
+        printf("failed\n");
     }
 
 #elif

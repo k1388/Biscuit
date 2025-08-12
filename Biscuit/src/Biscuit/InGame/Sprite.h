@@ -183,24 +183,24 @@ namespace Biscuit
         
         Sprite(const std::shared_ptr<Texture>& texture);
     protected:
-        friend class make_shared_enabler;
         friend class Prefab;
+        
         virtual std::shared_ptr<Sprite> Clone();
 
         
     private:
-        class make_shared_enabler;
-        const float PI = 3.1415926f;
-        float m_Angle = 0.0f;
+        const float         PI = 3.1415926f;
+        float               m_Angle = 0.0f;
+        CallbackFn          m_Callback = nullptr;
+        CollideCallbackFn   m_OnCollision = nullptr;
+        bool                m_Collidable = false;
+        ClickCallbackFn     m_OnClick = nullptr;
+        CallbackFn          m_OnCreatedFn = nullptr;
+        std::string         m_OriginalPicSrc = "";
+        CallbackFn          m_OnAttachedToScene = nullptr;
+        CallbackFn          m_OnRemoved = nullptr;
+        
         float* GenerateRotateMatrix() const;
-        CallbackFn m_Callback = nullptr;
-        CollideCallbackFn m_OnCollision = nullptr;
-        bool m_Collidable = false;
-        ClickCallbackFn m_OnClick = nullptr;
-        CallbackFn m_OnCreatedFn = nullptr;
-        std::string m_OriginalPicSrc = "";
-        CallbackFn m_OnAttachedToScene = nullptr;
-        CallbackFn m_OnRemoved = nullptr;
     };
 
 }

@@ -43,6 +43,7 @@ namespace Biscuit
         float GetMouseXImpl();
         float GetMouseYImpl();
         Vec2 GetMousePosImpl();
+        
         static Input* m_Instance;
     };
 }

@@ -66,10 +66,10 @@ namespace Biscuit::BCUI
         
     private:
         
-        CallbackFn m_Callback = nullptr;
-        std::string m_Label;
-        Vec4 m_Color = Vec4(0.2f, 0.8f, 0.2f, 1.0f);
-        float m_FrameRounding = 0.0f;
-        ImFont* m_Font = nullptr;
+        CallbackFn      m_Callback = nullptr;
+        std::string     m_Label;
+        Vec4            m_Color = Vec4(0.2f, 0.8f, 0.2f, 1.0f);
+        float           m_FrameRounding = 0.0f;
+        ImFont*         m_Font = nullptr;
     };
 }

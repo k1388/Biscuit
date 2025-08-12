@@ -7,6 +7,8 @@ class Sandbox : public Application
 public:
 	Sandbox(const Window::WindowProps& props):Application(props){}
 
+	//std::shared_ptr<Sprite> aa = std::make_shared<Sprite>();
+	
 	void OnInit() override
 	{
 		LoadFontFromFile("C:\\Windows\\Fonts\\Impact.ttf","Impact");

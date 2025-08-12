@@ -21,6 +21,6 @@ namespace Biscuit::BCUI
         /// <param name="widget">组件</param>
         void Add(Widget* widget);
     private:
-        std::vector<Widget*> m_Wdgets;
+        std::vector<Widget*>    m_Wdgets;
     };
 }

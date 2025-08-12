@@ -52,10 +52,10 @@ namespace Biscuit::BCUI
         
     private:
        
-        std::string m_FontPath;
-        ImFont* m_Fonts[103];
-        bool m_IsInitialized = false;
-        std::string m_FontName;
+        std::string     m_FontPath;
+        ImFont*         m_Fonts[103];
+        bool            m_IsInitialized = false;
+        std::string     m_FontName;
     };
 
 }

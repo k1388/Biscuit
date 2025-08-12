@@ -40,7 +40,7 @@ namespace Biscuit::BCUI
         
         
     private:
-        std::string m_Text;
-        ImFont* m_Font = nullptr;
+        std::string     m_Text;
+        ImFont*         m_Font = nullptr;
     };
 }

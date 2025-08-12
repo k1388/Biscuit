@@ -129,3 +129,25 @@ int list_find_if(struct list_node* head, int (*func)(void* data))
     
     return 0;
 }
+
+int list_get_next(struct list_node* node, void** _data, data_class* kind)
+{
+    if (node->next == NULL)
+    {
+        return 0;
+    }
+    *_data = node->next->data;
+    *kind = node->next->kind;
+    return 1;
+}
+
+int list_get_prev(struct list_node* node, void** _data, data_class* kind)
+{
+    if (node->prev == NULL)
+    {
+        return 0;
+    }
+    *_data = node->prev->data;
+    *kind = node->prev->kind;
+    return 1;
+}

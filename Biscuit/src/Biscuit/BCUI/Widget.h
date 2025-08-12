@@ -76,10 +76,10 @@ namespace Biscuit::BCUI
         /// <returns>可视性</returns>
         bool GetVisible() const;
     protected:
-        Vec2 m_Position;
-        Vec2 m_Size;
-        std::string m_Name;
-        bool m_IsVisible = true;
+        Vec2            m_Position;
+        Vec2            m_Size;
+        std::string     m_Name;
+        bool            m_IsVisible = true;
     };
     
     

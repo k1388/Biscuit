@@ -175,42 +175,44 @@ namespace Biscuit
         void NextTexture();
 
     protected:
+        bool                                    m_Visble = true;
+        int                                     m_Pic_Width;
+        int                                     m_Pic_Height;
+        Vec3                                    m_Pos;
+        int                                     m_Pic_NrChannels;
+        unsigned int                            m_Texture;
+        float                                   m_Vertices[4 * 5];
+        float                                   m_Scale = 1.0f;
+        std::string                             m_Name;
+        bool                                    m_VertexChanged = true;
+        std::vector<std::shared_ptr<Texture>>   m_Textures;
+        std::shared_ptr<Texture>                m_CurTexture;
+        int                                     m_TextureCount = 0;
+        int                                     m_TextureIndex = 0;
+
         /// <summary>
         /// 将屏幕坐标变换为NDC
         /// </summary>
         /// <returns>顶点NDC数组</returns>
         virtual float* CoordTransform();
-        bool m_Visble = true;
-        int m_Pic_Width;
-        int m_Pic_Height;
-        Vec3 m_Pos;
-        int m_Pic_NrChannels;
-        unsigned int m_Texture;
-        float m_Vertices[4 * 5];
-        float m_Scale = 1.0f;
-        std::string m_Name;
-        bool m_VertexChanged = true;
-        std::vector<std::shared_ptr<Texture>> m_Textures;
-        std::shared_ptr<Texture> m_CurTexture;
-        int m_TextureCount = 0;
-        int m_TextureIndex = 0;
+        
     private: 
         const unsigned int m_Indices[6] = {  
             0, 1, 3,  
             1, 2, 3   
         };
-        unsigned int m_ShaderProgram;
-        unsigned int m_VAO;
-        unsigned int m_VBO;
-        unsigned int m_EBO;
+        unsigned int            m_ShaderProgram;
+        unsigned int            m_VAO;
+        unsigned int            m_VBO;
+        unsigned int            m_EBO;
         std::unique_ptr<Shader> m_Shader; // 管理着色器生命周期
-        bool m_HasInitialized = false;
+        bool                    m_HasInitialized = false;
+        std::string             m_t_PicSrc;
+        
         /// <summary>
         /// 加载顶点，着色器，初始化VBO，EBO
         /// </summary>
         void Load();
-
-        std::string m_t_PicSrc;
         
     };
 }

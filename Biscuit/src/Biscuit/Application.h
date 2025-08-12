@@ -49,13 +49,31 @@ namespace Biscuit
 		{
 			return m_SpriteLayer;
 		}
-
+		
+		/// <summary>
+		/// 将Sprite添加到应用程序渲染层
+		/// </summary>
+		/// <param name="sprite">Sprite游戏对象指针</param>
 		void AddSprite(std::shared_ptr<Sprite> sprite);
 
+		/// <summary>
+		/// 移除Sprite
+		/// </summary>
+		/// <param name="sprite">Sprite游戏对象指针</param>
 		void RemoveSprite(std::shared_ptr<Sprite> sprite);
 
+		/// <summary>
+		/// 加载字体文件到全局资源
+		/// </summary>
+		/// <param name="filePath">字体路径</param>
+		/// <param name="name">字体名</param>
 		static void LoadFontFromFile(const std::string& filePath, const std::string& name);
 
+		/// <summary>
+		/// 加载材质文件到全局资源
+		/// </summary>
+		/// <param name="filePath">材质图片路径</param>
+		/// <param name="name">材质名</param>
 		static void LoadTextureFromFile(const std::string& filePath, const std::string& name);
 		
 		/// <summary>
@@ -64,28 +82,27 @@ namespace Biscuit
 		/// 注意不要在此方法中调用AddTexture以及相关的方法
 		/// </summary>
 		virtual void OnGameStart() {}
+
 		virtual void OnSpriteInited() {}
+
+		/// <summary>
+		/// 每帧调用
+		/// </summary>
 		virtual void OnUpdate() {}
+
+		/// <summary>
+		/// 游戏开始前调用一次
+		/// </summary>
 		virtual void OnInit() {}
 	private:
-		/// <summary>
-		/// 应用对应的Window类(注意是对GLFWWindow的封装，获得渲染窗口调用m_window->GetWindow())
-		/// </summary>
-		std::unique_ptr<Window> m_Window;
-
-		/// <summary>
-		/// 控制引擎循环
-		/// </summary>
-		bool m_IsRunning = true;
-
-		bool OnWindowClose(WindowCloseEvent& e);
-		LayerStack m_LayerStack;	// 如果将来有Level或者Scene的概念，图层栈应该放到那里面 --7.9
-
-		std::shared_ptr<SpriteLayer> m_SpriteLayer;
-		static Application* m_Instance;
-
-		double m_LastFrameTime = 0.0f;
-		double m_CurrentFrameTime = 0.0f;
+		std::unique_ptr<Window>			m_Window;
+		bool							m_IsRunning = true;
+		bool							OnWindowClose(WindowCloseEvent& e);
+		LayerStack						m_LayerStack;	// 如果将来有Level或者Scene的概念，图层栈应该放到那里面 --7.9
+		std::shared_ptr<SpriteLayer>	m_SpriteLayer;
+		static Application*				m_Instance;
+		double							m_LastFrameTime = 0.0f;
+		double							m_CurrentFrameTime = 0.0f;
 
 		bool InitGLFW();
 		void InitImGuiAndGL();
