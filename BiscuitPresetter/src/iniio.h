@@ -18,6 +18,10 @@
 #define S_VISIBLE "visible"
 #define S_SCRIPT_PATH "scriptPath"
 
+#define UI_TYPE "UItype"
+#define UI_TYPE_LABEL "Label"
+#define UI_TYPE_BUTTON "Button"
+#define UI_TYPE_PROGRESSBAR "ProgressBar"
 #define UI_POS_X "positionX"
 #define UI_POS_Y "positionY"
 #define UI_WIDTH "width"
@@ -37,15 +41,6 @@
 #define TEXTURE(str) "Texture:" #str
 #define TEXTURE_PATH "path"
 
-
-char* SEC_NAMES[] = {
-    "Sprite:", "UI:", UI_ELEMENTS, SPRITE_ELEMENTS, "Font:", "Texture:"
-};
-
-char* KEY_NAMES[] = {
-    S_POS_X, S_POS_Y, S_SCALE, S_ROTATE, S_ORIGIN_PIC, "otherPic:", S_VISIBLE, S_SCRIPT_PATH
-    
-}
 
 //const char* LOCAL_TEMP_FILE = "./temp/iniTemp.ini";
 

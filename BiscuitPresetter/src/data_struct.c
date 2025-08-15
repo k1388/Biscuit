@@ -75,8 +75,25 @@ void list_print(struct list_node* head)
     
     while (p->next != NULL)
     {
-        printf("%p\n", p->next->data);
+        switch (p->next->kind)
+        {
+        case SpriteSec:
+        case FontSec:
+        case UISec:
+        case UnnamedSec:
+        case TextureSEC:
+            printf("\nsec:");
+            break;
+        case VALUE:
+            printf("--------val:");
+            break;
+        case KEY:
+            printf("----key:");
+            break;
+        }
+        printf(" %s\n", (char*)p->next->data);
         p = p->next;
+        count++;
     }
 
     printf("共%llu项\n", count);

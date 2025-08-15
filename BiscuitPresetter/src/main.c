@@ -4,6 +4,7 @@
 #include <io.h>
 #include <string.h>
 #include "iniio.h"
+#include "code_gen.h"
 
 #define DEBUG
 
@@ -14,25 +15,15 @@ int main(int argc, char *argv[])
     
 #ifdef DEBUG
     printf("DEBUGING!\n");
+    
     char* path = "C:\\Users\\kanho\\OneDrive\\Desktop\\test.ini";
-    char value[109];
-    // if (ini_read(path, "Test2", "aaa", &value))
-    // {
-    //     printf("%s\n", value);
-    // }
-    // else
-    // {
-    //     printf("notfound\n");
-    // }
-    if (ini_write(path, "t1", "aa", "123"))
-    {
-        //printf("%s\n", value);
-    }
-    else
-    {
-        printf("failed\n");
-    }
-
+    char* readonlyPath = "C:\\Users\\kanho\\OneDrive\\Desktop\\bcp.ini";
+    char* tempCode = "C:\\Users\\kanho\\OneDrive\\Desktop\\tempCode.ini";
+    
+    struct list_node* list = gen_list(readonlyPath);
+    //printf("mes\n");
+    list_print(list);
+    gen_sandbox(list, tempCode);
 #elif
     char *projPath[200];
     int isRunning = 1;

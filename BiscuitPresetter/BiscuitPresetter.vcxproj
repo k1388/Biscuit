@@ -131,6 +131,7 @@
     <ClInclude Include="src\code_gen.h" />
     <ClInclude Include="src\data_struct.h" />
     <ClInclude Include="src\iniio.h" />
+    <ClInclude Include="src\list_sort.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\code_gen.c" />

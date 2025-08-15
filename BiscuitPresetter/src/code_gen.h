@@ -1,3 +1,4 @@
+#pragma once
 #include "data_struct.h"
 #include "iniio.h"
 
