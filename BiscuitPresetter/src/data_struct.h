@@ -1,12 +1,19 @@
 ﻿#pragma once
 #define LIST_CREATE_NODE (struct list_node*)malloc(sizeof(struct list_node))
+#define BIT(x) (1 << (x))
 
 /// <summary>
 /// 声明了链表节点中存放哪种数据
 /// </summary>
 typedef enum data_class
 {
-    TextureSEC, FontSec, SpriteSec, UISec, UnnamedSec, KEY, VALUE
+    TextureSEC =    BIT(1) | BIT(0),
+    FontSec =       BIT(2) | BIT(0),
+    SpriteSec =     BIT(3) | BIT(0),
+    UISec =         BIT(4) | BIT(0),
+    UnnamedSec =    BIT(5) | BIT(0),
+    KEY =           BIT(6),
+    VALUE =         BIT(7),
 }data_class;
 
 typedef struct list_node

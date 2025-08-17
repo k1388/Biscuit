@@ -7,15 +7,11 @@ class Sandbox : public Application
 public:
 	Sandbox(const Window::WindowProps& props):Application(props){}
 
-	//std::shared_ptr<Sprite> aa = std::make_shared<Sprite>();
+	std::shared_ptr<Sprite> aa = std::make_shared<Sprite>("");
 	
 	void OnInit() override
 	{
 		LoadFontFromFile("C:\\Windows\\Fonts\\Impact.ttf","Impact");
-	}
-	
-	void OnGameStart() override
-	{
 		auto ui = new BCUI::BCUI();
 		
 		auto label = new BCUI::Label(Vec2(400,320),Vec2(400,100));
@@ -33,9 +29,14 @@ public:
 		ui->Add(button);
 		PushOverLay(ui);
 	}
+	
+	void OnGameStart() override
+	{
+		
+	}
 };
 
-Biscuit::Application* Biscuit::CreateApplication()
+Application* Biscuit::CreateApplication()
 {
 	Window::WindowProps* props = new Window::WindowProps("Game",1920,1080);
 	return new Sandbox(*props);

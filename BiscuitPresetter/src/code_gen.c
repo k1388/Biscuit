@@ -122,29 +122,37 @@ int gen_sandbox(struct list_node* head, char* programPath)
     int spriteCount = 0;
     int texturesCount = 0;
     int fontsCount = 0;
-    int uisCount = 0;
+    int uiCount = 0;
     
-    FILE* fp = fopen(programPath, "r");
+    FILE* fp = fopen(programPath, "w");
     struct list_node* p = head;
 
+    fprintf(fp, "#include \"Biscuit.h\"\n\n");
+    fprintf(fp, "using namespace Biscuit;\n\n");
+    fprintf(fp, "class Sandbox : public Application\n");
+    fprintf(fp, "{\n");
+    fprintf(fp, "public:\n");
+    fprintf(fp, "\tSandbox(const Window::WindowProps& props):Application(props){}\n\n");
+    
     //查找所有Sprite
     while (p->next != NULL)
     {
         if (p->next->kind == SpriteSec)
         {
-            fprintf(fp, "std::shared_ptr<Sprite> %s;\n", (char*)p->next->data);
+            fprintf(fp, "\tstd::shared_ptr<Sprite> %s;\n", (char*)p->next->data);
             sprites[spriteCount] = (char*)p->next->data;
             spriteCount++;
         }
         p = p->next;
     }
-
+    
     //查找所有UI
+    p = head;
     while (p->next != NULL)
     {
-        if (p->next->kind == SpriteSec)
+        if (p->next->kind == UISec)
         {
-            sprites[spriteCount] = (char*)p->next->data;
+            uis[uiCount] = (char*)p->next->data;
             char cl[100] = {0};
             
             p = p->next;
@@ -152,45 +160,77 @@ int gen_sandbox(struct list_node* head, char* programPath)
             {
                 p = p->next;
             }
+            if (p->next->next == NULL)
+            {
+                break;
+            }
             char* t = (char*)p->next->next->data;
-            fprintf(fp, "std::shared_ptr<BCUI::%s> %s;\n", t, sprites[spriteCount]);
-            spriteCount++;
-            p = p->next;
+            fprintf(fp, "\tstd::shared_ptr<BCUI::%s> %s;\n", t, uis[uiCount]);
+            uiCount++;
+            //p = p->next;
         }
+        p = p->next;
     }
     
     //生成OnInit()方法
-    fprintf(fp, "\n\tvoid OnInit() override\n{\n");
+    fprintf(fp, "\n\tvoid OnInit() override\n\t{\n");
+    p = head;
     while (p->next != NULL)
     {
         if (p->next->kind == FontSec)
         {
-            fprintf(fp, "LoadFontFromFile(%s, %s);\n", (char*)p->next->next->data, (char*)p->next->data);
+            fprintf(fp, "\t\tLoadFontFromFile(%s, %s);\n", (char*)p->next->next->data, (char*)p->next->data);
             fonts[fontsCount] = (char*)p->next->next->data;
             fontsCount++;
         }
         else if (p->next->kind == TextureSEC)
         {
-            fprintf(fp, "LoadTextureFromFile(%s, %s);\n", (char*)p->next->next->data, (char*)p->next->data);
+            fprintf(fp, "\t\tLoadTextureFromFile(\"%s\", \"%s\");\n", (char*)p->next->next->next->data, (char*)p->next->data);
             textures[texturesCount] = (char*)p->next->next->data;
             texturesCount++;
         }
-        else if (p->next->kind == SpriteSec)
+        p = p->next;
+    }
+    p = head;
+    while (p->next != NULL)
+    {
+        struct list_node* tmp;
+        if (p->next->kind == SpriteSec)
         {
+            tmp = p->next;
             char* spriteName = (char*)p->next->data;
             p = p->next;
             while (strcmp(p->next->data, S_ORIGIN_PIC) && p->next != NULL)
             {
                 p = p->next;
             }
-            char* texName = (char*)p->next->data;
-            fprintf(fp, "%s = make_shared<Sprite>(%s);\n", spriteName, texName);
-        }
-        
-        
-        
-        p = p->next;
+            char* texName = (char*)p->next->next->data;
+            fprintf(fp, "\t\t%s = make_shared<Sprite>(\"%s\");\n", spriteName, texName);
 
-        
+            p = tmp->next;
+            char* keys[] = {
+                S_COLLISION, S_POS_X, S_POS_Y, S_ROTATE, S_SCALE, S_VISIBLE
+            };
+            while (p->next->kind & (KEY|VALUE))
+            {
+                if (p->next->kind == KEY)
+                {
+                    for (int i = 0; i < 6; i++)
+                    {
+                           
+                    } 
+                }
+
+            }
+        }
+        p = p->next;
     }
+    
+    fprintf(fp, "\t}\n");
+    fprintf(fp, "};\n\n");
+    fprintf(fp, "Application* Biscuit::CreateApplication()\n");
+    fprintf(fp, "{\n");
+    fprintf(fp, "\tWindow::WindowProps* props = new Window::WindowProps(\"Game\", 1920, 1080);\n");
+    fprintf(fp, "\treturn new Sandbox(*props);\n");
+    fprintf(fp, "}\n\n");
 }

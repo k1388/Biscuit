@@ -17,6 +17,8 @@
 #define S_OTHER_PIC(str) "otherPic" #str
 #define S_VISIBLE "visible"
 #define S_SCRIPT_PATH "scriptPath"
+#define S_COLLISION "collision"
+
 
 #define UI_TYPE "UItype"
 #define UI_TYPE_LABEL "Label"
