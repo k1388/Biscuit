@@ -7,38 +7,24 @@ class Sandbox : public Application
 public:
 	Sandbox(const Window::WindowProps& props):Application(props){}
 
-	std::shared_ptr<Sprite> aa = std::make_shared<Sprite>("");
-	
+	std::shared_ptr<Sprite> testSprite;
+	std::shared_ptr<BCUI::Button> testUI = std::make_shared<BCUI::Button>();
+
 	void OnInit() override
 	{
-		LoadFontFromFile("C:\\Windows\\Fonts\\Impact.ttf","Impact");
 		auto ui = new BCUI::BCUI();
-		
-		auto label = new BCUI::Label(Vec2(400,320),Vec2(400,100));
-		label->SetText("Label");
-		label->SetLabelFont(GetFont("Impact"), 42);
-		
-		auto button = new BCUI::Button(Vec2(500,300),Vec2(400,100));
-		button->SetLabelFont(GetFont("Impact"), 20);
-		button->OnClick([]()
-		{
-			BC_TRACE("Clicked!");
-		});
-		
-		ui->Add(label);
-		ui->Add(button);
+
+		LoadTextureFromFile("C:/Users/kanho/OneDrive/Desktop/7-3-2025_10-52-21_PM.png", "tex1");
+		testSprite = std::make_shared<Sprite>(GetTexture("tex1"));
+		testSprite->SetRotation(90);
+		AddSprite(testSprite);
 		PushOverLay(ui);
-	}
-	
-	void OnGameStart() override
-	{
-		
 	}
 };
 
 Application* Biscuit::CreateApplication()
 {
-	Window::WindowProps* props = new Window::WindowProps("Game",1920,1080);
+	Window::WindowProps* props = new Window::WindowProps("Game", 1920, 1080);
 	return new Sandbox(*props);
 }
 

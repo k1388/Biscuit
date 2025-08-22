@@ -70,6 +70,18 @@ namespace Biscuit
             m_VertexChanged = true;
         }
 
+        inline void SetPosX(float x)
+        {
+            m_Pos = Vec3(x, m_Pos.Y());
+            m_VertexChanged = true;
+        }
+
+        inline void SetPosY(float y)
+        {
+            m_Pos = Vec3(m_Pos.X(), y);
+            m_VertexChanged = true;
+        }
+
         /// <summary>
         /// 获得位置坐标
         /// </summary>

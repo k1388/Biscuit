@@ -165,7 +165,7 @@ int gen_sandbox(struct list_node* head, char* programPath)
                 break;
             }
             char* t = (char*)p->next->next->data;
-            fprintf(fp, "\tstd::shared_ptr<BCUI::%s> %s;\n", t, uis[uiCount]);
+            fprintf(fp, "\tstd::shared_ptr<BCUI::%s> %s = std::make_shared<BCUI::%s>();\n", t, uis[uiCount], t);
             uiCount++;
             //p = p->next;
         }
@@ -174,8 +174,9 @@ int gen_sandbox(struct list_node* head, char* programPath)
     
     //生成OnInit()方法
     fprintf(fp, "\n\tvoid OnInit() override\n\t{\n");
+    fprintf(fp, "\t\tauto ui = new BCUI::BCUI();\n\n");
     p = head;
-    while (p->next != NULL)
+    while (p && p->next)
     {
         if (p->next->kind == FontSec)
         {
@@ -192,7 +193,7 @@ int gen_sandbox(struct list_node* head, char* programPath)
         p = p->next;
     }
     p = head;
-    while (p->next != NULL)
+    while (p && p->next)
     {
         struct list_node* tmp;
         if (p->next->kind == SpriteSec)
@@ -200,32 +201,160 @@ int gen_sandbox(struct list_node* head, char* programPath)
             tmp = p->next;
             char* spriteName = (char*)p->next->data;
             p = p->next;
-            while (strcmp(p->next->data, S_ORIGIN_PIC) && p->next != NULL)
+            while (p && p->next && strcmp(p->next->data, S_ORIGIN_PIC) && p->next != NULL)
             {
                 p = p->next;
             }
             char* texName = (char*)p->next->next->data;
-            fprintf(fp, "\t\t%s = make_shared<Sprite>(\"%s\");\n", spriteName, texName);
+            fprintf(fp, "\t\t%s = std::make_shared<Sprite>(GetTexture(\"%s\"));\n", spriteName, texName);
 
-            p = tmp->next;
+            p = tmp;
             char* keys[] = {
-                S_COLLISION, S_POS_X, S_POS_Y, S_ROTATE, S_SCALE, S_VISIBLE
+                S_COLLISION, S_POS_X, S_POS_Y, S_ROTATE, S_SCALE, S_VISIBLE, S_ORIGIN_PIC
             };
-            while (p->next->kind & (KEY|VALUE))
+            while (p && p->next && p->next->kind & (KEY|VALUE))
             {
                 if (p->next->kind == KEY)
                 {
-                    for (int i = 0; i < 6; i++)
+                    if (!strcmp(p->next->data, keys[0]))
                     {
-                           
-                    } 
+                        if (!strcmp(p->next->next->data, "false"))
+                            fprintf(fp, "\t\t%s->SetCollidable(false);\n", spriteName);
+                        else
+                            fprintf(fp, "\t\t%s->SetCollidable(true);\n", spriteName);
+                    }
+                    else if (!strcmp(p->next->data, keys[1]))
+                    {
+                        fprintf(fp, "\t\t%s->SetPosX(%s);\n", spriteName, p->next->next->data);
+                    }
+                    else if (!strcmp(p->next->data, keys[2]))
+                    {
+                        fprintf(fp, "\t\t%s->SetPosY(%s);\n", spriteName, p->next->next->data);
+                    }
+                    else if (!strcmp(p->next->data, keys[3]))
+                    {
+                        fprintf(fp, "\t\t%s->SetRotation(%s);\n", spriteName, p->next->next->data);
+                    }
+                    else if (!strcmp(p->next->data, keys[4]))
+                    {
+                        fprintf(fp, "\t\t%s->SetScale(%s);\n", spriteName, p->next->next->data);
+                    }
+                    else if (!strcmp(p->next->data, keys[5]))
+                    {
+                        fprintf(fp, "\t\t%s->SetVisible(%s);\n", spriteName, p->next->next->data);
+                    }
                 }
+                p = p->next;
+            }
+            p = p->next;
+        }
+        if (p && p->next && p->next->kind == UISec)
+        {
+            char* uiName = (char*)p->next->data;
+            p = p->next;
+            char* keys[] = {
+                UI_POS_X, UI_POS_Y, UI_WIDTH, UI_HEIGHT,UI_BUTTON_LABEL,
+                UI_BUTTON_FONT, UI_BUTTON_FONT_SIZE, UI_BUTTON_COLOR, UI_LABEL_FONT,UI_LABEL_FONT_SIZE,
+                //UI_LABEL_COLOR
+            };
+            int bfontFlag = 0;
+            char* bfontName = {0};
+            char* bfontSize = {0};
+            int lfontFlag = 0;
+            char* lfontName = {0};
+            char* lfontSize = {0};
+            while (p && p->next && p->next->kind & (KEY|VALUE))
+            {
+                if (p->next->kind == KEY)
+                {
+                    if (!strcmp(p->next->data, keys[0]))
+                    {
+                        fprintf(fp, "\t\t%s->SetPositionX(%s);\n", uiName, p->next->next->data);
+                    }
+                    else if (!strcmp(p->next->data, keys[1]))
+                    {
+                        fprintf(fp, "\t\t%s->SetPositionY(%s);\n", uiName, p->next->next->data);
+                    }
+                    else if (!strcmp(p->next->data, keys[2]))
+                    {
+                        fprintf(fp, "\t\t%s->SetSize(Vec2(%s, %s->GetSize().Y()));\n", uiName, p->next->next->data, uiName);
+                    }
+                    else if (!strcmp(p->next->data, keys[3]))
+                    {
+                        fprintf(fp, "\t\t%s->SetSize(Vec2(%s->GetSize().Y(), %s));\n", uiName, uiName, p->next->next->data);
+                    }
+                    else if (!strcmp(p->next->data, keys[4]))
+                    {
+                        fprintf(fp, "\t\t%s->SetLabel(\"%s\");\n", uiName, p->next->next->data);
+                    }
+                    else if (!strcmp(p->next->data, keys[5]))
+                    {
+                        bfontFlag = 1;
+                        bfontName = p->next->next->data;
+                    }
+                    else if (!strcmp(p->next->data, keys[6]))
+                    {
+                        bfontFlag = 1;
+                        bfontSize = p->next->next->data;
+                    }
+                    else if (!strcmp(p->next->data, keys[7]))
+                    {
+                        fprintf(fp, "\t\t%s->SetColor(Vec4(\"%s\"));\n", uiName, p->next->next->data);
+                    }
+                    else if (!strcmp(p->next->data, keys[8]))
+                    {
+                        lfontFlag = 1;
+                        lfontName = p->next->next->data;
+                    }
+                    else if (!strcmp(p->next->data, keys[9]))
+                    {
+                        lfontFlag = 1;
+                        lfontSize = p->next->next->data;
+                    }
+                }
+                p = p->next;
+            }
+            if (bfontFlag)
+            {
+                fprintf(fp, "\t\t%s->SetLabelFont(\"%s\", %s);\n", uiName, bfontName, bfontSize);
+            }
+            if (lfontFlag)
+            {
+                fprintf(fp, "\t\t%s->SetLabelFont(\"%s\", %s);\n", uiName, lfontName, lfontSize);
+            }
+        }
 
+        
+        if (p && p->next && p->next->kind == UnnamedSec)
+        {
+            if (!strcmp(p->next->data, SPRITE_ELEMENTS))
+            {
+                p = p->next;
+                while (p->next != NULL && p->next->kind & (KEY|VALUE))
+                {
+                    if (p->next->kind == KEY)
+                    {
+                        fprintf(fp, "\t\tAddSprite(%s);\n", p->next->data);
+                    }
+                    p = p->next;
+                } 
+            }else if (!strcmp(p->next->data, UI_ELEMENTS))
+            {
+                p = p->next;
+                while (p && p->next && p->next->kind & (KEY|VALUE))
+                {
+                    if (p->next->kind == KEY)
+                    {
+                        fprintf(fp, "\t\tui->Add(\"%s.get()\");\n", p->next->data);
+                    }
+                    p = p->next;
+                }
             }
         }
         p = p->next;
     }
     
+    fprintf(fp, "\t\tPushOverLay(ui);\n");
     fprintf(fp, "\t}\n");
     fprintf(fp, "};\n\n");
     fprintf(fp, "Application* Biscuit::CreateApplication()\n");

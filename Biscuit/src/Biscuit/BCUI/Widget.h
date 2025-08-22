@@ -13,7 +13,7 @@ namespace Biscuit::BCUI
             ProgressBar
         };
         static int ID;
-
+        
         Widget(Vec2 position, Vec2 size);
         Widget(const std::string& name, Vec2 position, Vec2 size);
 
@@ -21,13 +21,17 @@ namespace Biscuit::BCUI
         /// 设置组件位置
         /// </summary>
         /// <param name="position">位置坐标</param>
-        inline void SetPosition(Vec2 position);
+        void SetPosition(Vec2 position);
 
+        void SetPositionX(const float& x);
+
+        void SetPositionY(const float& y);
+        
         /// <summary>
         /// 设置组件大小
         /// </summary>
         /// <param name="size">大小</param>
-        inline void SetSize(Vec2 size);
+        void SetSize(Vec2 size);
 
         virtual inline std::string ToString() const;
 

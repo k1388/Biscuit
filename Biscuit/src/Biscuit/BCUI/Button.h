@@ -21,7 +21,7 @@ namespace Biscuit::BCUI
         /// 设置按钮文字
         /// </summary>
         /// <param name="label">文字</param>
-        inline void SetLabel(std::string& label) { m_Label = label; }
+        inline void SetLabel(const std::string& label) { m_Label = label; }
         std::string ToString() const override;
         
         /// <summary>
