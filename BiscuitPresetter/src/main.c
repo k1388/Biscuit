@@ -5,10 +5,16 @@
 #include <string.h>
 #include "iniio.h"
 #include "code_gen.h"
+#include "format_output.h"
 
 #define DEBUG
 
 const char* PROJECT_FILE_NAME = "BCProjectSettings.bp";
+
+int _find_sec(struct list_node* head)
+{
+    return !(strcmp(head->data, "testSprite") && head->kind == SpriteSec);
+}
 
 int main(int argc, char *argv[])
 {
@@ -16,14 +22,12 @@ int main(int argc, char *argv[])
 #ifdef DEBUG
     printf("DEBUGING!\n");
     
-    char* path = "C:\\Users\\kanho\\OneDrive\\Desktop\\test.ini";
+    char* path = "D:\\aaaa\\test.ini";
     char* readonlyPath = "C:\\Users\\kanho\\OneDrive\\Desktop\\bcp.ini";
-    char* tempCode = "C:\\Users\\kanho\\OneDrive\\Desktop\\tempCode.ini";
-    
+    // char* tempCode = "C:\\Users\\kanho\\OneDrive\\Desktop\\tempCode.ini";
     struct list_node* list = gen_list(readonlyPath);
-    //printf("mes\n");
-    list_print(list);
-    gen_sandbox(list, tempCode);
+
+    
 #elif
     char *projPath[200];
     int isRunning = 1;

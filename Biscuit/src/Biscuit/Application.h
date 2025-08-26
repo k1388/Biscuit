@@ -100,7 +100,7 @@ namespace Biscuit
 		bool							OnWindowClose(WindowCloseEvent& e);
 		LayerStack						m_LayerStack;	// 如果将来有Level或者Scene的概念，图层栈应该放到那里面 --7.9
 		std::shared_ptr<SpriteLayer>	m_SpriteLayer;
-		static Application*				m_Instance;
+		static Application*				m_Instance;		// Application单例
 		double							m_LastFrameTime = 0.0f;
 		double							m_CurrentFrameTime = 0.0f;
 

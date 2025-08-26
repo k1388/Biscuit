@@ -1,8 +1,0 @@
-﻿#include "Biscuit.h"
-
-using namespace Biscuit;
-
-class Sandbox : public Application
-{
-public:
-	Sandbox(const Window::WindowProps& props):Application(props){}

@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClInclude Include="src\code_gen.h" />
     <ClInclude Include="src\data_struct.h" />
+    <ClInclude Include="src\format_output.h" />
     <ClInclude Include="src\iniio.h" />
     <ClInclude Include="src\list_sort.h" />
   </ItemGroup>
@@ -138,9 +139,6 @@
     <ClCompile Include="src\data_struct.c" />
     <ClCompile Include="src\iniio.c" />
     <ClCompile Include="src\main.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="presetCodes\sandbox_headder" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,11 +3,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <io.h>
+#include <windows.h>
 
+// 已弃用，但是...有引用
 #define UI_ELEMENTS "UIElements"
 #define SPRITE_ELEMENTS "SpriteElements"
-#define SPRITES(str) "Sprite:" #str
+#define SPRITE(str) "Sprite:" #str
 #define UI(str) "UI:" #str
+
 
 #define S_POS_X "positionX"
 #define S_POS_Y "positionY"
@@ -74,4 +78,11 @@ int ini_write(
     char*       section,
     char*       key,
     char*       value
+);
+
+int ini_write_inplace(
+    const char  *path,
+    const char  *section,
+    const char  *key,
+    const char  *value
 );

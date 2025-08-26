@@ -57,7 +57,7 @@ int list_find(
     void*               _data
 );
 
-int list_find_if(
+struct list_node* list_find_if(
     struct list_node*    head, 
     int                 (*func)(void* data)
 );
@@ -74,3 +74,11 @@ int list_get_prev(
     data_class*         kind
 );
 
+void list_cover_origin_file(
+    struct list_node*   head,
+    char*               filePath   
+);
+
+void list_del_sec(
+    struct list_node*   secNode
+);
