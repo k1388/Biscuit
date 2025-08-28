@@ -24,9 +24,56 @@ int main(int argc, char *argv[])
     
     char* path = "D:\\aaaa\\test.ini";
     char* readonlyPath = "C:\\Users\\kanho\\OneDrive\\Desktop\\bcp.ini";
-    // char* tempCode = "C:\\Users\\kanho\\OneDrive\\Desktop\\tempCode.ini";
+    char* tempCode = "C:\\Users\\kanho\\OneDrive\\Desktop\\tempCode.ini";
     struct list_node* list = gen_list(readonlyPath);
 
+    o_bind_list(list);
+    int stack[10];
+    int stackIndex = 0;
+    stack[stackIndex++] = 0;
+    while (stackIndex > 0)
+    {
+        int cur = stack[stackIndex - 1];
+        MenuItem* items = menu_table[cur].items;
+        int itemCount = menu_table[cur].count;
+        int index = o_menu(items, itemCount);
+        if (index < 0)
+        {
+            continue;
+        }
+
+        MenuItem* item = &items[index];
+
+        if (!item->callFn && item->nextMenu >= 0)
+        {
+            stack[stackIndex++] = item->nextMenu;
+            continue;
+        }
+
+        if (item->nextMenu == -2)
+        {
+            if (stackIndex > 1)
+            {
+                --stackIndex;
+            }
+            continue;
+        }
+
+        if (item->callFn)
+        {
+            int fnret = item->callFn();
+            if (fnret == -2 || fnret == 1)
+            {
+                --stackIndex;
+            }
+            else if (fnret >= 0)
+            {
+                stack[stackIndex++] = fnret;
+            }
+        }
+
+        
+    }
     
 #elif
     char *projPath[200];

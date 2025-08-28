@@ -208,7 +208,8 @@ void list_cover_origin_file(struct list_node* head, char* filePath)
             p = p->next;
             while (p && p->next && p->next->kind & (KEY|VALUE))
             {
-                char* keys[] = {
+                char* keys[] =
+                {
                     UI_POS_X, UI_POS_Y, UI_WIDTH, UI_HEIGHT,UI_BUTTON_LABEL,
                     UI_BUTTON_FONT, UI_BUTTON_FONT_SIZE, UI_BUTTON_COLOR, UI_LABEL_FONT,UI_LABEL_FONT_SIZE,
                     UI_TYPE
