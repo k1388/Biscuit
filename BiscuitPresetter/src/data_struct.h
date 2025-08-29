@@ -34,6 +34,11 @@ void list_append(
     data_class          dataKind
 );
 
+void list_append_node(
+    struct list_node*   head, 
+    struct list_node*   node
+);
+
 int list_delete(
     struct list_node*    head, 
     void*               _data

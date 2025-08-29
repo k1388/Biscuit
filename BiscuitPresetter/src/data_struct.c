@@ -32,6 +32,21 @@ void list_append(struct list_node* head, void* _data, data_class dataKind)
     p1->prev = p;
 }
 
+void list_append_node(struct list_node* head, struct list_node* node)
+{
+    struct list_node* p = head;
+    struct list_node* p1 = node;
+    
+    while (p->next != NULL)
+    {
+        p = p->next;
+    }
+    
+    p->next = p1;
+    p1->prev = p;
+    p1->next = NULL;
+}
+
 int list_delete(struct list_node* head, void* _data)
 {
     struct list_node* p = head;
@@ -138,12 +153,13 @@ struct list_node* list_find_if(struct list_node* head, int (*func)(void* data))
 {
     struct list_node* p = head;
 
-    while (p->next != NULL)
+    while (p && p->next != NULL)
     {
         if (func(p->next))
         {
             return p->next;
         }
+        p = p->next;
     }
     
     return NULL;

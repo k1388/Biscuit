@@ -25,6 +25,10 @@ int o_manage_all_elements_callback(void);
 int o_sprite_detail_callback(void);
 int o_ui_detail_callback(void);
 int o_sprite_prop_change_callback(void);
+int o_ui_prop_change_callback(void);
+int o_create_sprite_callback(void);
+int o_create_ui_callback(void);
+
 typedef struct
 {
     int             id;          
@@ -45,7 +49,7 @@ static const MenuItem main_menu[] =
 static const MenuItem element_menu[] =
 {
     {1, "管理所有元素", o_manage_all_elements_callback, 2},
-    {2, "创建一个Sprite", NULL, 1},
+    {2, "创建一个Sprite", o_create_sprite_callback, 1},
     {3, "创建一个UI元素", NULL, 3},
     {0, "返回上一页", NULL, -2}
 };
@@ -84,24 +88,22 @@ static MenuItem sprite_management_menu[512] =
 // menu 5
 static MenuItem ui_management_menu[512] =
 {
-    {1, UI_TYPE, NULL, 0},
-    {2, UI_POS_X, NULL, 0},
-    {3, UI_POS_Y, NULL, 0},
-    {4, UI_WIDTH, NULL, 0},
-    {5, UI_HEIGHT, NULL, 0},
-    {6, UI_SCALE, NULL, 0},
-    {7, UI_BUTTON_LABEL, NULL, 0},
-    {8, UI_BUTTON_FONT, NULL, 0},
-    {9, UI_BUTTON_FONT_SIZE, NULL, 0},
-    {10, UI_BUTTON_COLOR, NULL, 0},
-    {11, UI_LABEL_FONT, NULL, 0},
-    {12, UI_LABEL_FONT_SIZE, NULL, 0},
-    {13, UI_LABEL_COLOR, NULL, 0},
+    {1, UI_TYPE, o_ui_prop_change_callback, 5},
+    {2, UI_POS_X, o_ui_prop_change_callback, 5},
+    {3, UI_POS_Y, o_ui_prop_change_callback, 5},
+    {4, UI_WIDTH, o_ui_prop_change_callback, 5},
+    {5, UI_HEIGHT, o_ui_prop_change_callback, 5},
+    {6, UI_SCALE, o_ui_prop_change_callback, 5},
+    {7, UI_BUTTON_LABEL, o_ui_prop_change_callback, 5},
+    {8, UI_BUTTON_FONT, o_ui_prop_change_callback, 5},
+    {9, UI_BUTTON_FONT_SIZE, o_ui_prop_change_callback, 5},
+    {10, UI_BUTTON_COLOR, o_ui_prop_change_callback, 5},
+    {11, UI_LABEL_FONT, o_ui_prop_change_callback, 5},
+    {12, UI_LABEL_FONT_SIZE, o_ui_prop_change_callback, 5},
+    {13, UI_LABEL_COLOR, o_ui_prop_change_callback, 5},
     {0, "返回上一页", NULL, -2},
     
 };
-
-
 
 static struct
 {
@@ -304,16 +306,22 @@ int o_find_sprite_sec(struct list_node* node)
     return node->kind == SpriteSec && !(strcmp(node->data, secName));
 }
 
+int o_find_ui_sec(struct list_node* node)
+{
+    return node->kind == UISec && !(strcmp(node->data, secName));
+}
+
 int o_sprite_prop_change_callback(void)
 {
-    strcpy(keyName, all_elements_menu[choice].text);
-    printf("%s---%s\n", secName, keyName);
+    strcpy(keyName, sprite_management_menu[choice].text);
+    o_p_line(30);
     struct list_node* node = list_find_if(list, o_find_sprite_sec);
+    //list_print(node);
     int isDefined = 0;
     struct list_node* theKeyNode = NULL;
     while (node && node->next && node->next->kind & (KEY|VALUE))
     {
-        if (node->next->kind == KEY && strcmp(node->next->data, keyName))
+        if (node->next->kind == KEY && !strcmp(node->next->data, keyName))
         {
             isDefined = 1;
             theKeyNode = node->next;
@@ -321,12 +329,179 @@ int o_sprite_prop_change_callback(void)
         }
         node = node->next;
     }
+    // 这边有内存泄漏问题
+    char* ans = malloc(sizeof(char) * 512);
     if (!isDefined)
     {
-        printf("%s的%s属性:\n默认\n", secName, keyName);
+        printf("%s的 %s 属性(输入00返回):\n默认\n", secName, keyName);
+        scanf("%s", ans);
+        if (strcmp(ans, "00"))
+        {
+            struct list_node* n1 = malloc(sizeof(struct list_node));
+            struct list_node* n2 = malloc(sizeof(struct list_node));
+            n1->kind = KEY;
+            //strcpy(n1->data, keyName);
+            n1->data = keyName;
+            n2->kind = VALUE;
+            //strcpy(n1->data, ans);
+            n2->data = ans;
+            n1->next = n2;
+            n2->prev = n1;
+            n1->prev = node;
+            n2->next = node->next;
+            node->next = n1;
+        }
     }
-    printf("%s的%s属性:\n%s\n", secName, theKeyNode->data, theKeyNode->next->data);
-    char ans[512] = {0};
-    scanf("%s", ans);
+    else
+    {
+        printf("%s的 %s 属性(输入00返回):\n%s\n", secName, theKeyNode->data, theKeyNode->next->data);
+        char ans[512] = {0};
+        scanf("%s", ans);
+        if (strcmp(ans, "00"))
+        {
+            theKeyNode->next->data = ans;
+        }
+    }
+    //free(ans);
     return 4;
 }
+
+int o_ui_prop_change_callback(void)
+{
+    strcpy(keyName, ui_management_menu[choice].text);
+    o_p_line(30);
+    struct list_node* node = list_find_if(list, o_find_ui_sec);
+    int isDefined = 0;
+    struct list_node* theKeyNode = NULL;
+    while (node && node->next && node->next->kind & (KEY|VALUE))
+    {
+        if (node->next->kind == KEY && !strcmp(node->next->data, keyName))
+        {
+            isDefined = 1;
+            theKeyNode = node->next;
+            break;
+        }
+        node = node->next;
+    }
+    // 这边有内存泄漏问题
+    char* ans = malloc(sizeof(char) * 512);
+    if (!isDefined)
+    {
+        printf("%s的 %s 属性(输入00返回):\n默认\n", secName, keyName);
+        scanf("%s", ans);
+        if (strcmp(ans, "00"))
+        {
+            struct list_node* n1 = malloc(sizeof(struct list_node));
+            struct list_node* n2 = malloc(sizeof(struct list_node));
+            n1->kind = KEY;
+            //strcpy(n1->data, keyName);
+            n1->data = keyName;
+            n2->kind = VALUE;
+            //strcpy(n1->data, ans);
+            n2->data = ans;
+            n1->next = n2;
+            n2->prev = n1;
+            n1->prev = node;
+            n2->next = node->next;
+            node->next = n1;
+        }
+    }
+    else
+    {
+        printf("%s的 %s 属性(输入00返回):\n%s\n", secName, theKeyNode->data, theKeyNode->next->data);
+        char ans[512] = {0};
+        scanf("%s", ans);
+        if (strcmp(ans, "00"))
+        {
+            theKeyNode->next->data = ans;
+        }
+    }
+    //free(ans);
+    return 5;
+}
+
+int o_create_sprite_callback()
+{
+    char* keys[] = {
+        S_COLLISION, S_POS_X, S_POS_Y, S_ROTATE, S_SCALE, S_VISIBLE, S_ORIGIN_PIC
+    };
+    char* name = malloc(sizeof(char) * 64);
+    o_p_line(30);
+    printf("为Sprite命名(输入00返回)\n");
+    scanf("%s", name);
+    if (!strcmp(name, "00"))
+    {
+        return 1;
+    }
+    struct list_node* spriteNode = malloc(sizeof(struct list_node));
+    spriteNode->kind = SpriteSec;
+    spriteNode->data = name;
+    list_append_node(list, spriteNode);
+    for (int i = 0; i < 7; ++i)
+    {
+        char* ans = malloc(sizeof(char) * 512);
+        printf("%s的 %s 属性(输入00为默认)\n", name, keys[i]);
+        scanf("%s", ans);
+        if (strcmp(ans, "00"))
+        {
+            struct list_node* propKey = malloc(sizeof(struct list_node));
+            struct list_node* propVal = malloc(sizeof(struct list_node));
+            propKey->kind = KEY;
+            propKey->data = keys[i];
+            propVal->kind = VALUE;
+            propVal->data = ans;
+            list_append_node(list, propKey);
+            list_append_node(list, propVal);
+        }
+    }
+    
+    
+    return 1;
+}
+
+
+int o_create_ui_callback()
+{
+    char* type = malloc(sizeof(char) * 64);
+    strcpy(type, ui_type_menu[choice].text);
+    type = strchr(type, " ") + 1;
+    char* keys[] =
+    {
+        UI_POS_X, UI_POS_Y, UI_WIDTH, UI_HEIGHT,UI_BUTTON_LABEL,
+        UI_BUTTON_FONT, UI_BUTTON_FONT_SIZE, UI_BUTTON_COLOR, UI_LABEL_FONT,UI_LABEL_FONT_SIZE,
+        UI_TYPE
+    };
+    char* name = malloc(sizeof(char) * 64);
+    o_p_line(30);
+    printf("为%s命名(输入00返回)\n", type);
+    scanf("%s", name);
+    if (!strcmp(name, "00"))
+    {
+        return 3;
+    }
+    struct list_node* spriteNode = malloc(sizeof(struct list_node));
+    spriteNode->kind = SpriteSec;
+    spriteNode->data = name;
+    list_append_node(list, spriteNode);
+    for (int i = 0; i < 11; ++i)
+    {
+        char* ans = malloc(sizeof(char) * 512);
+        printf("%s的 %s 属性(输入00为默认)\n", name, keys[i]);
+        scanf("%s", ans);
+        if (strcmp(ans, "00"))
+        {
+            struct list_node* propKey = malloc(sizeof(struct list_node));
+            struct list_node* propVal = malloc(sizeof(struct list_node));
+            propKey->kind = KEY;
+            propKey->data = keys[i];
+            propVal->kind = VALUE;
+            propVal->data = ans;
+            list_append_node(list, propKey);
+            list_append_node(list, propVal);
+        }
+    }
+    
+    return 3;
+}
+
+
