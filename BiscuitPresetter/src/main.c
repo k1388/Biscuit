@@ -3,11 +3,13 @@
 #include <sys/stat.h>
 #include <io.h>
 #include <string.h>
+#include <windows.h>
+#include <direct.h>
 #include "iniio.h"
 #include "code_gen.h"
 #include "format_output.h"
 
-#define DEBUG
+//#define DEBUG
 
 const char* PROJECT_FILE_NAME = "BCProjectSettings.bp";
 
@@ -16,12 +18,10 @@ int _find_sec(struct list_node* head)
     return !(strcmp(head->data, "testSprite") && head->kind == SpriteSec);
 }
 
-int main(int argc, char *argv[])
-{
-    
 #ifdef DEBUG
-    printf("DEBUGING!\n");
-    
+
+int main()
+{
     char* path = "D:\\aaaa\\test.ini";
     char* readonlyPath = "C:\\Users\\kanho\\OneDrive\\Desktop\\bcp.ini";
     char* tempCode = "C:\\Users\\kanho\\OneDrive\\Desktop\\tempCode.ini";
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
         }
 
         MenuItem* item = &items[index];
-
+        
         if (!item->callFn && item->nextMenu >= 0)
         {
             stack[stackIndex++] = item->nextMenu;
@@ -62,7 +62,131 @@ int main(int argc, char *argv[])
         if (item->callFn)
         {
             int fnret = item->callFn();
-            if (fnret == -2 || fnret == 1)
+
+            if (fnret == -2)
+            {
+                --stackIndex;
+            }
+            else if (fnret >= 0)
+            {
+                stack[stackIndex++] = fnret;
+            }
+        }
+
+        
+    }
+}
+
+#else
+
+char projPath[512] = {0};
+char iniPath[512] = {0};
+char sandboxCodePath[512] = {0};
+FILE* inifp = NULL;
+FILE* sandboxcodefp = NULL;
+struct list_node* m_list = NULL;
+
+int directory_exists(const char* path)
+{
+    DWORD attr = GetFileAttributesA(path);
+    return (attr != INVALID_FILE_ATTRIBUTES) && (attr & FILE_ATTRIBUTE_DIRECTORY);
+}
+
+void update_files(void)
+{
+    strcpy(iniPath, projPath);
+    strcat(iniPath, "\\");
+    strcat(iniPath, PROJECT_FILE_NAME);
+
+    char tmpPath[512] = {0};
+    strcpy(tmpPath, projPath);
+    if (!directory_exists(strcat(tmpPath, "\\Sandbox")))
+    {
+        _mkdir(tmpPath);
+    }
+    
+    
+    strcpy(sandboxCodePath, projPath);
+    strcat(sandboxCodePath, "\\Sandbox\\Sandbox.cpp");
+    
+    FILE* inifp = fopen(iniPath, "r+");
+    if (!inifp)
+    {
+        inifp = fopen(iniPath, "w+");
+    }
+
+    FILE* sandboxcodefp = fopen(sandboxCodePath, "r+");
+    if (!sandboxcodefp)
+    {
+        sandboxcodefp = fopen(sandboxCodePath, "w+");
+    }
+
+    m_list = gen_list(iniPath);
+
+    o_bind_list(m_list);
+    o_bind_progPath(sandboxCodePath);
+}
+
+void update_ini(void)
+{
+    char tmp[512] = {0};
+    strcpy(tmp, projPath);
+    strcat(tmp, "\\BCProjectSettings.bp");
+    list_cover_origin_file(list, tmp);
+}
+
+int main(int argc, char *argv[])
+{
+
+    if (argc == 2)
+    {
+        strcpy(projPath, argv[1]);
+    }
+    else
+    {
+        printf("请输入项目目录:\n");
+        scanf("%s", projPath);
+    }
+    o_bind_callback(update_files);
+    o_bind_ini_callback(update_ini);
+    update_files();
+    
+    int stack[10];
+    int stackIndex = 0;
+    stack[stackIndex++] = 0;
+    while (stackIndex > 0)
+    {
+        int cur = stack[stackIndex - 1];
+        MenuItem* items = menu_table[cur].items;
+        int itemCount = menu_table[cur].count;
+        int index = o_menu(items, itemCount);
+        if (index < 0)
+        {
+            continue;
+        }
+
+        MenuItem* item = &items[index];
+        
+        if (!item->callFn && item->nextMenu >= 0)
+        {
+            stack[stackIndex++] = item->nextMenu;
+            continue;
+        }
+
+        if (item->nextMenu == -2)
+        {
+            if (stackIndex > 1)
+            {
+                --stackIndex;
+            }
+            continue;
+        }
+
+        if (item->callFn)
+        {
+            int fnret = item->callFn();
+
+            if (fnret == -2)
             {
                 --stackIndex;
             }
@@ -75,44 +199,7 @@ int main(int argc, char *argv[])
         
     }
     
-#elif
-    char *projPath[200];
-    int isRunning = 1;
-    if(argc == 1)
-    {
-        int hasRightProjPath = 0;
-        while (!hasRightProjPath)
-        {
-            printf("\033[33m输入项目路径\033[0m:\n");
-            scanf("%s", projPath);
-
-            struct stat s;
-            if (stat(projPath, &s) != 0 || !(s.st_mode & S_IFDIR))
-            {
-                printf("\033[31m您输入的路径有误！\033[0m\n");
-            }
-            else
-            {
-                hasRightProjPath = 1;
-            }
-        }
-
-        int hasCreatedProjFile = 0;
-        if (access(strcat(projPath, PROJECT_FILE_NAME), 0)==0)
-        {
-            hasCreatedProjFile = 1;
-        }
-        else
-        {
-                
-        }
-    }
-    while (isRunning)
-    {
-        //system("cls");
-    }
-#endif
-    
-    
     return 0;
 }
+
+#endif

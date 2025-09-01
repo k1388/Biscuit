@@ -3,9 +3,12 @@
 #include "data_struct.h"
 
 struct list_node* list = NULL;
+char progPath[512];
 char secName[100];
 char keyName[100];
 int choice = 0;
+void (*update_files_callback)(void)  = NULL;
+void (*update_ini_callback)(void)  = NULL;
 
 void o_bind_list(struct list_node* _list)
 {
@@ -19,6 +22,18 @@ void o_bind_key(char* name)
 {
     strcpy(keyName, name);
 }
+void o_bind_progPath(char* path)
+{
+    strcpy(progPath, path);
+}
+void o_bind_callback(void (*_callback)(void))
+{
+    update_files_callback = _callback;
+}
+void o_bind_ini_callback(void (*_callback)(void))
+{
+    update_ini_callback = _callback;
+}
 
 void o_refresh_elements_menu(struct list_node* head);
 int o_manage_all_elements_callback(void);
@@ -28,6 +43,11 @@ int o_sprite_prop_change_callback(void);
 int o_ui_prop_change_callback(void);
 int o_create_sprite_callback(void);
 int o_create_ui_callback(void);
+int o_gen_code_callback(void);
+int o_sprite_delete_callback(void);
+int o_ui_delete_callback(void);
+int o_reselect_path_callback(void);
+int o_save_ini_callback(void);
 
 typedef struct
 {
@@ -41,8 +61,9 @@ typedef struct
 static const MenuItem main_menu[] =
 {
     {1, "浏览和设置项目元素", NULL, 1},
-    {2, "生成项目Sandbox", NULL, 0},
-    {3, "重新选择项目地址", NULL, 0}
+    {2, "生成项目Sandbox", o_gen_code_callback, 0},
+    {3, "重新选择项目地址", o_reselect_path_callback, 0},
+    {4, "保存更改到配置文件", o_save_ini_callback, 0},
 };
 
 // menu 1
@@ -64,9 +85,9 @@ int all_elements_menu_count = 0;
 // menu 3
 static MenuItem ui_type_menu[] =
 {
-    {1, "创建 Button", NULL, 0},
-    {2, "创建 Label", NULL, 0},
-    {3, "创建 Prograss Bar", NULL, 0},
+    {1, "创建 Button", o_create_ui_callback, 0},
+    {2, "创建 Label", o_create_ui_callback, 0},
+    {3, "创建 ProgressBar", o_create_ui_callback, 0},
     {0, "返回上一页", NULL, -2}
 };
 
@@ -82,6 +103,7 @@ static MenuItem sprite_management_menu[512] =
     {7, S_VISIBLE, o_sprite_prop_change_callback, 4},
     {8, S_SCRIPT_PATH, o_sprite_prop_change_callback, 4},
     {9, S_COLLISION, o_sprite_prop_change_callback, 4},
+    {-1, "删除此Sprite", o_sprite_delete_callback, 3},
     {0, "返回上一页", NULL, -2},
 };
 
@@ -101,6 +123,7 @@ static MenuItem ui_management_menu[512] =
     {11, UI_LABEL_FONT, o_ui_prop_change_callback, 5},
     {12, UI_LABEL_FONT_SIZE, o_ui_prop_change_callback, 5},
     {13, UI_LABEL_COLOR, o_ui_prop_change_callback, 5},
+    {-1, "删除此UI控件", o_ui_delete_callback, 5},
     {0, "返回上一页", NULL, -2},
     
 };
@@ -116,20 +139,25 @@ menu_table[] =
     [1] = { element_menu,  sizeof(element_menu)/sizeof(element_menu[0]) },
     [2] = { all_elements_menu, sizeof(all_elements_menu)/sizeof(all_elements_menu[0]) },
     [3] = { ui_type_menu,  sizeof(ui_type_menu)/sizeof(ui_type_menu[0]) },
-    [4] = { sprite_management_menu, 10},
-    [5] = { ui_management_menu,14}
+    [4] = { sprite_management_menu, 11},
+    [5] = { ui_management_menu,15}
 };
 
 int _o_sti(char* str)
 {
     int len = strlen(str);
+    int negtive = 0;
+    if (str[0] == '-')
+    {
+        negtive = 1;
+    }
     int res = 0;
-    for (int i = 0; i < len; ++i)
+    for (int i = negtive ? 1 : 0; i < len; ++i)
     {
         res *= 10;
         res += str[i] - '0';
     }
-    return res;
+    return negtive ? -res : res;
 }
 
 int _o_get_width(char* v)
@@ -363,7 +391,7 @@ int o_sprite_prop_change_callback(void)
         }
     }
     //free(ans);
-    return 4;
+    return -1;
 }
 
 int o_ui_prop_change_callback(void)
@@ -417,7 +445,7 @@ int o_ui_prop_change_callback(void)
         }
     }
     //free(ans);
-    return 5;
+    return -1;
 }
 
 int o_create_sprite_callback()
@@ -431,7 +459,7 @@ int o_create_sprite_callback()
     scanf("%s", name);
     if (!strcmp(name, "00"))
     {
-        return 1;
+        return -1;
     }
     struct list_node* spriteNode = malloc(sizeof(struct list_node));
     spriteNode->kind = SpriteSec;
@@ -456,44 +484,71 @@ int o_create_sprite_callback()
     }
     
     
-    return 1;
+    return -1;
 }
-
 
 int o_create_ui_callback()
 {
     char* type = malloc(sizeof(char) * 64);
     strcpy(type, ui_type_menu[choice].text);
-    type = strchr(type, " ") + 1;
+    type = strchr(type, ' ') + 1;
+    
     char* keys[] =
     {
         UI_POS_X, UI_POS_Y, UI_WIDTH, UI_HEIGHT,UI_BUTTON_LABEL,
         UI_BUTTON_FONT, UI_BUTTON_FONT_SIZE, UI_BUTTON_COLOR, UI_LABEL_FONT,UI_LABEL_FONT_SIZE,
-        UI_TYPE
     };
+    int btnIndexes[] = {0, 1, 2, 3, 4, 5, 6, 7};
+    int labIndexes[] = {0, 1, 2, 3, 8, 9};
+    int pragIndexes[] = {0, 1, 2, 3};
+    int *indexes[] = {btnIndexes, labIndexes, pragIndexes};
+    int typescounts[] = {8, 6, 4};
+    int thecount = 0;
+    int* theindexes = NULL;
+    char* types[] =
+    {
+        UI_TYPE_BUTTON, UI_TYPE_LABEL, UI_TYPE_PROGRESSBAR
+    };
+    struct list_node* typekeyNode = malloc(sizeof(struct list_node));
+    typekeyNode->kind = KEY;
+    typekeyNode->data = UI_TYPE;
+    struct list_node* typeNode = malloc(sizeof(struct list_node));
+    typeNode->kind = VALUE;
+    for (int i = 0; i < sizeof(types)/sizeof(types[0]); ++i)
+    {
+        if (!strcmp(type, types[i]))
+        {
+            thecount = typescounts[i];
+            typeNode->data = types[i];
+            theindexes = indexes[i];
+        }
+    }
+    //printf("%d", thecount);
     char* name = malloc(sizeof(char) * 64);
     o_p_line(30);
     printf("为%s命名(输入00返回)\n", type);
     scanf("%s", name);
     if (!strcmp(name, "00"))
     {
-        return 3;
+        return -1;
     }
     struct list_node* spriteNode = malloc(sizeof(struct list_node));
-    spriteNode->kind = SpriteSec;
+    spriteNode->kind = UISec;
     spriteNode->data = name;
     list_append_node(list, spriteNode);
-    for (int i = 0; i < 11; ++i)
+    list_append_node(list, typekeyNode);
+    list_append_node(list, typeNode);
+    for (int i = 0; i < thecount; ++i)
     {
         char* ans = malloc(sizeof(char) * 512);
-        printf("%s的 %s 属性(输入00为默认)\n", name, keys[i]);
+        printf("%s的 %s 属性(输入00为默认)\n", name, keys[theindexes[i]]);
         scanf("%s", ans);
         if (strcmp(ans, "00"))
         {
             struct list_node* propKey = malloc(sizeof(struct list_node));
             struct list_node* propVal = malloc(sizeof(struct list_node));
             propKey->kind = KEY;
-            propKey->data = keys[i];
+            propKey->data = keys[theindexes[i]];
             propVal->kind = VALUE;
             propVal->data = ans;
             list_append_node(list, propKey);
@@ -501,7 +556,43 @@ int o_create_ui_callback()
         }
     }
     
-    return 3;
+    return -1;
 }
 
+int o_gen_code_callback()
+{
+    gen_sandbox(list, progPath);
+    return 0;
+}
 
+int o_sprite_delete_callback()
+{
+    struct list_node* secNode = list_find_if(list, o_find_sprite_sec);
+    list_del_sec(secNode);
+    //o_refresh_elements_menu(list);
+    return 1;
+}
+
+int o_ui_delete_callback()
+{
+    struct list_node* secNode = list_find_if(list, o_find_ui_sec);
+    list_del_sec(secNode);
+    //o_refresh_elements_menu(list);
+    return 1;
+}
+
+int o_reselect_path_callback()
+{
+    printf("请输入项目目录:\n");
+    char* ans = malloc(sizeof(char) * 512);
+    scanf("%s", ans);
+    strcpy(progPath, ans);
+    update_files_callback();
+}
+
+int o_save_ini_callback()
+{
+    update_ini_callback();
+    update_files_callback();
+    return 0;
+}

@@ -191,7 +191,7 @@ void list_cover_origin_file(struct list_node* head, char* filePath)
 {
     struct list_node* p = head;
     FILE* fp = fopen(filePath, "w");
-    while (p->next != NULL)
+    while (p && p->next != NULL)
     {
         if (p && p->next && p->next->kind == SpriteSec)
         {

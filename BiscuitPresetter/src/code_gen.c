@@ -207,7 +207,7 @@ int gen_sandbox(struct list_node* head, char* programPath)
             }
             char* texName = (char*)p->next->next->data;
             fprintf(fp, "\t\t%s = std::make_shared<Sprite>(GetTexture(\"%s\"));\n", spriteName, texName);
-
+            fprintf(fp, "\t\tAddSprite(%s);\n", spriteName);
             p = tmp;
             char* keys[] = {
                 S_COLLISION, S_POS_X, S_POS_Y, S_ROTATE, S_SCALE, S_VISIBLE, S_ORIGIN_PIC
@@ -323,7 +323,6 @@ int gen_sandbox(struct list_node* head, char* programPath)
                 fprintf(fp, "\t\t%s->SetLabelFont(\"%s\", %s);\n", uiName, lfontName, lfontSize);
             }
         }
-
         
         if (p && p->next && p->next->kind == UnnamedSec)
         {
@@ -351,7 +350,10 @@ int gen_sandbox(struct list_node* head, char* programPath)
                 }
             }
         }
+
         p = p->next;
+
+        
     }
     
     fprintf(fp, "\t\tPushOverLay(ui);\n");
@@ -362,4 +364,5 @@ int gen_sandbox(struct list_node* head, char* programPath)
     fprintf(fp, "\tWindow::WindowProps* props = new Window::WindowProps(\"Game\", 1920, 1080);\n");
     fprintf(fp, "\treturn new Sandbox(*props);\n");
     fprintf(fp, "}\n\n");
+    fclose(fp);
 }
