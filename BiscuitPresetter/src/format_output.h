@@ -36,6 +36,7 @@ void o_bind_ini_callback(void (*_callback)(void))
 }
 
 void o_refresh_elements_menu(struct list_node* head);
+
 int o_manage_all_elements_callback(void);
 int o_sprite_detail_callback(void);
 int o_ui_detail_callback(void);
@@ -48,6 +49,14 @@ int o_sprite_delete_callback(void);
 int o_ui_delete_callback(void);
 int o_reselect_path_callback(void);
 int o_save_ini_callback(void);
+int o_create_texture_callback(void);
+int o_create_font_callback(void);
+int o_texture_detail_callback(void);
+int o_font_detail_callback(void);
+int o_texture_prop_change_callback(void);
+int o_font_prop_change_callback(void);
+int o_texture_delete_callback(void);
+int o_font_delete_callback(void);
 
 typedef struct
 {
@@ -72,6 +81,8 @@ static const MenuItem element_menu[] =
     {1, "管理所有元素", o_manage_all_elements_callback, 2},
     {2, "创建一个Sprite", o_create_sprite_callback, 1},
     {3, "创建一个UI元素", NULL, 3},
+    {4, "创建一个Texture", o_create_texture_callback, 1},
+    {5, "创建一个Font", o_create_font_callback, 1},
     {0, "返回上一页", NULL, -2}
 };
 
@@ -128,6 +139,22 @@ static MenuItem ui_management_menu[512] =
     
 };
 
+// menu 6
+static MenuItem texture_detail_menu[] =
+{
+    {1, "更改Texture路径", o_texture_prop_change_callback, 6},
+    {-1, "删除此UI控件", o_texture_delete_callback, 6},
+    {0, "返回上一页", NULL, -2},
+};
+
+// menu 7
+static MenuItem font_detail_menu[] =
+{
+    {1, "更改Font路径", o_font_prop_change_callback, 6},
+    {-1, "删除此UI控件", o_ui_delete_callback, 6},
+    {0, "返回上一页", NULL, -2},
+};
+
 static struct
 {
     const MenuItem *items;
@@ -140,7 +167,9 @@ menu_table[] =
     [2] = { all_elements_menu, sizeof(all_elements_menu)/sizeof(all_elements_menu[0]) },
     [3] = { ui_type_menu,  sizeof(ui_type_menu)/sizeof(ui_type_menu[0]) },
     [4] = { sprite_management_menu, 11},
-    [5] = { ui_management_menu,15}
+    [5] = { ui_management_menu,15},
+    [6] = { texture_detail_menu, sizeof(texture_detail_menu)/sizeof(texture_detail_menu[0])},
+    [7] = { font_detail_menu, sizeof(font_detail_menu)/sizeof(font_detail_menu[0])},
 };
 
 int _o_sti(char* str)
@@ -254,6 +283,32 @@ void o_refresh_elements_menu(struct list_node* head)
     struct list_node* p = head;
     while (p && p->next != NULL)
     {
+        if (p->next->kind == TextureSEC)
+        {
+            char* buf = malloc(sizeof(char) * 64);
+            strcpy(buf, "Texture:");
+            strcat(buf, p->next->data);
+            all_elements_menu[count].id = count + 1;
+            all_elements_menu[count].text = buf;
+            all_elements_menu[count].callFn = o_texture_detail_callback;
+            all_elements_menu[count].nextMenu = 4;
+            count++;
+            p = p->next;
+            continue;
+        }
+        if (p->next->kind == FontSec)
+        {
+            char* buf = malloc(sizeof(char) * 64);
+            strcpy(buf, "Font:");
+            strcat(buf, p->next->data);
+            all_elements_menu[count].id = count + 1;
+            all_elements_menu[count].text = buf;
+            all_elements_menu[count].callFn = o_font_detail_callback;
+            all_elements_menu[count].nextMenu = 4;
+            count++;
+            p = p->next;
+            continue;
+        }
         if (p->next->kind == SpriteSec)
         {
             // 这边有内存泄漏问题 --8.28
@@ -483,7 +538,6 @@ int o_create_sprite_callback()
         }
     }
     
-    
     return -1;
 }
 
@@ -595,4 +649,137 @@ int o_save_ini_callback()
     update_ini_callback();
     update_files_callback();
     return 0;
+}
+
+int o_create_texture_callback()
+{
+    char* name = malloc(sizeof(char) * 64);
+    o_p_line(30);
+    printf("为Texture命名(输入00返回)\n");
+    scanf("%s", name);
+    if (!strcmp(name, "00"))
+    {
+        return -1;
+    }
+    char* ans = malloc(sizeof(char) * 512);
+    printf("Texture路径:\n");
+    scanf("%s", ans);
+    struct list_node* secNode = malloc(sizeof(struct list_node));
+    secNode->kind = TextureSEC;
+    secNode->data = name;
+    struct list_node* pathKeyNode = malloc(sizeof(struct list_node));
+    pathKeyNode->kind = KEY;
+    pathKeyNode->data = TEXTURE_PATH;
+    struct list_node* pathNode = malloc(sizeof(struct list_node));
+    pathNode->kind = VALUE;
+    pathNode->data = ans;
+    
+    list_append_node(list, secNode);
+    list_append_node(list, pathKeyNode);
+    list_append_node(list, pathNode);
+    return -1;
+}
+
+int o_create_font_callback()
+{
+    char* name = malloc(sizeof(char) * 64);
+    o_p_line(30);
+    printf("为Font命名(输入00返回)\n");
+    scanf("%s", name);
+    if (!strcmp(name, "00"))
+    {
+        return -1;
+    }
+    char* ans = malloc(sizeof(char) * 512);
+    printf("Font路径:\n");
+    scanf("%s", ans);
+    struct list_node* secNode = malloc(sizeof(struct list_node));
+    secNode->kind = FontSec;
+    secNode->data = name;
+    struct list_node* pathKeyNode = malloc(sizeof(struct list_node));
+    pathKeyNode->kind = KEY;
+    pathKeyNode->data = TEXTURE_PATH;
+    struct list_node* pathNode = malloc(sizeof(struct list_node));
+    pathNode->kind = VALUE;
+    pathNode->data = ans;
+    
+    list_append_node(list, secNode);
+    list_append_node(list, pathKeyNode);
+    list_append_node(list, pathNode);
+    return -1;
+}
+
+int o_texture_detail_callback(void)
+{
+    const char *colon = strchr(all_elements_menu[choice].text, ':');
+    if (colon && *(colon + 1))
+        strcpy(secName, colon + 1);
+    else
+        strcpy(secName, all_elements_menu[choice].text);
+    return 6;   
+}
+
+int o_font_detail_callback(void)
+{
+    const char *colon = strchr(all_elements_menu[choice].text, ':');
+    if (colon && *(colon + 1))
+        strcpy(secName, colon + 1);
+    else
+        strcpy(secName, all_elements_menu[choice].text);
+    return 7;   
+}
+
+int o_find_texture_sec(struct list_node* node)
+{
+    return node->kind == TextureSEC && !(strcmp(node->data, secName));
+}
+
+int o_find_font_sec(struct list_node* node)
+{
+    return node->kind == FontSec && !(strcmp(node->data, secName));
+}
+
+int o_texture_prop_change_callback(void){
+    char* ans = malloc(sizeof(char) * 512);
+    printf("更改Texture路径(输入00不更改):\n");
+    scanf("%s", ans);
+    if (!strcmp(ans, "00"))
+    {
+        return -1;
+    }
+    struct list_node* secNode = list_find_if(list, o_find_texture_sec);
+    secNode->next->next->data = ans;
+    //list_print(list);
+    return -1;
+}
+
+int o_font_prop_change_callback(void)
+{
+    char* ans = malloc(sizeof(char) * 512);
+    printf("更改Font路径(输入00不更改):\n");
+    scanf("%s", ans);
+    if (!strcmp(ans, "00"))
+    {
+        return -1;
+    }
+    struct list_node* secNode = list_find_if(list, o_find_font_sec);
+    secNode->next->next->data = ans;
+    
+    return -1;
+}
+
+int o_texture_delete_callback(void)
+{
+    struct list_node* secNode = list_find_if(list, o_find_texture_sec);
+    list_del_sec(secNode);
+    //o_refresh_elements_menu(list);
+    return 1;
+}
+
+int o_font_delete_callback(void)
+{
+    struct list_node* secNode = list_find_if(list, o_find_font_sec);
+    list_del_sec(secNode);
+    //o_refresh_elements_menu(list);
+    return 1;
 }

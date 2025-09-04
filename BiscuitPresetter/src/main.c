@@ -1,7 +1,5 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
-#include <sys/stat.h>
-#include <io.h>
 #include <string.h>
 #include <windows.h>
 #include <direct.h>
@@ -151,7 +149,7 @@ int main(int argc, char *argv[])
     o_bind_ini_callback(update_ini);
     update_files();
     
-    int stack[10];
+    int stack[15];
     int stackIndex = 0;
     stack[stackIndex++] = 0;
     while (stackIndex > 0)
