@@ -2,13 +2,13 @@
 #include <stdio.h>
 #include "data_struct.h"
 
-struct list_node* list = NULL;
-char progPath[512];
-char secName[100];
-char keyName[100];
-int choice = 0;
-void (*update_files_callback)(void)  = NULL;
-void (*update_ini_callback)(void)  = NULL;
+static struct list_node* list = NULL;
+static char progPath[512];
+static char secName[100];
+static char keyName[100];
+static int choice = 0;
+static void (*update_files_callback)(void)  = NULL;
+static void (*update_ini_callback)(void)  = NULL;
 
 void o_bind_list(struct list_node* _list)
 {
@@ -37,26 +37,26 @@ void o_bind_ini_callback(void (*_callback)(void))
 
 void o_refresh_elements_menu(struct list_node* head);
 
-int o_manage_all_elements_callback(void);
-int o_sprite_detail_callback(void);
-int o_ui_detail_callback(void);
-int o_sprite_prop_change_callback(void);
-int o_ui_prop_change_callback(void);
-int o_create_sprite_callback(void);
-int o_create_ui_callback(void);
-int o_gen_code_callback(void);
-int o_sprite_delete_callback(void);
-int o_ui_delete_callback(void);
-int o_reselect_path_callback(void);
-int o_save_ini_callback(void);
-int o_create_texture_callback(void);
-int o_create_font_callback(void);
-int o_texture_detail_callback(void);
-int o_font_detail_callback(void);
-int o_texture_prop_change_callback(void);
-int o_font_prop_change_callback(void);
-int o_texture_delete_callback(void);
-int o_font_delete_callback(void);
+static int o_manage_all_elements_callback(void);
+static int o_sprite_detail_callback(void);
+static int o_ui_detail_callback(void);
+static int o_sprite_prop_change_callback(void);
+static int o_ui_prop_change_callback(void);
+static int o_create_sprite_callback(void);
+static int o_create_ui_callback(void);
+static int o_gen_code_callback(void);
+static int o_sprite_delete_callback(void);
+static int o_ui_delete_callback(void);
+static int o_reselect_path_callback(void);
+static int o_save_ini_callback(void);
+static int o_create_texture_callback(void);
+static int o_create_font_callback(void);
+static int o_texture_detail_callback(void);
+static int o_font_detail_callback(void);
+static int o_texture_prop_change_callback(void);
+static int o_font_prop_change_callback(void);
+static int o_texture_delete_callback(void);
+static int o_font_delete_callback(void);
 
 typedef struct
 {
@@ -172,7 +172,7 @@ menu_table[] =
     [7] = { font_detail_menu, sizeof(font_detail_menu)/sizeof(font_detail_menu[0])},
 };
 
-int _o_sti(char* str)
+static int o_sti(char* str)
 {
     int len = strlen(str);
     int negtive = 0;
@@ -189,7 +189,7 @@ int _o_sti(char* str)
     return negtive ? -res : res;
 }
 
-int _o_get_width(char* v)
+static int o_get_width(char* v)
 {
     char buf[512];
     sprintf(buf, "%s", v);
@@ -226,7 +226,7 @@ int o_menu(MenuItem* menu, int count)
     printf("请选择：");
     char ans[16];
     scanf("%s", ans);
-    int sel = _o_sti(ans);
+    int sel = o_sti(ans);
 
     for (int i = 0; i < count; ++i)
     {
@@ -240,7 +240,7 @@ int o_menu(MenuItem* menu, int count)
     return -1;
 }
 
-int _o_find_uiType(struct list_node* node)
+int o_find_uiType(struct list_node* node)
 {
     return !strcmp((char*)node->data, UI_TYPE) && node->kind == KEY;
 }
@@ -259,7 +259,7 @@ void o_p_all_elements(struct list_node* head)
         }
         if (p->next->kind == UISec)
         {
-            struct list_node* node = list_find_if(p->next, _o_find_uiType);
+            struct list_node* node = list_find_if(p->next, o_find_uiType);
             char* type;
             char* types[] = {UI_TYPE_BUTTON, UI_TYPE_LABEL, UI_TYPE_PROGRESSBAR};
             for (int i = 0; i < 3; ++i)
@@ -325,7 +325,7 @@ void o_refresh_elements_menu(struct list_node* head)
         }
         if (p->next->kind == UISec)
         {
-            struct list_node* node = list_find_if(p->next, _o_find_uiType);
+            struct list_node* node = list_find_if(p->next, o_find_uiType);
             char* type;
             char* types[] = {UI_TYPE_BUTTON, UI_TYPE_LABEL, UI_TYPE_PROGRESSBAR};
             for (int i = 0; i < 3; ++i)

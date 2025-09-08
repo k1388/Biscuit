@@ -355,6 +355,11 @@ int gen_sandbox(struct list_node* head, char* programPath)
 
         
     }
+
+    for (int i = 0; i < uiCount; ++i)
+    {
+        fprintf(fp, "\t\tui->Add(%s);\n", uis[i]);
+    }
     
     fprintf(fp, "\t\tPushOverLay(ui);\n");
     fprintf(fp, "\t}\n");
