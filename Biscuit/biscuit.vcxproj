@@ -77,7 +77,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>BC_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;BC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\stb;vendor\Lua54\include;vendor\sol2\sol2-develop\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -89,7 +89,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>GLFW.lib;Glad.lib;ImGui.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GLFW.lib;Glad.lib;ImGui.lib;opengl32.lib;lua54.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>vendor-bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
@@ -104,7 +104,7 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Debug-windows-x86_64
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>BC_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;BC_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\stb;vendor\Lua54\include;vendor\sol2\sol2-develop\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -120,7 +120,7 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Debug-windows-x86_64
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>GLFW.lib;Glad.lib;ImGui.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GLFW.lib;Glad.lib;ImGui.lib;opengl32.lib;lua54.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>vendor-bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
@@ -135,7 +135,7 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Release-windows-x86_
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>BC_PLATFORM_WINDOWS;GLFW_INCLUDE_NONE;BC_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\stb;vendor\Lua54\include;vendor\sol2\sol2-develop\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -151,7 +151,7 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Release-windows-x86_
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>GLFW.lib;Glad.lib;ImGui.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GLFW.lib;Glad.lib;ImGui.lib;opengl32.lib;lua54.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>vendor-bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
@@ -189,6 +189,7 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClInclude Include="src\Biscuit\Render\Drawable.h" />
     <ClInclude Include="src\Biscuit\Render\Shader.h" />
     <ClInclude Include="src\Biscuit\Render\Texture.h" />
+    <ClInclude Include="src\Biscuit\ScriptSys\SolBindTest.h" />
     <ClInclude Include="src\Biscuit\SpriteLayer.h" />
     <ClInclude Include="src\Biscuit\Window.h" />
     <ClInclude Include="src\pch.h" />
@@ -211,6 +212,7 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClCompile Include="src\Biscuit\Render\Drawable.cpp" />
     <ClCompile Include="src\Biscuit\Render\Shader.cpp" />
     <ClCompile Include="src\Biscuit\Render\Texture.cpp" />
+    <ClCompile Include="src\Biscuit\ScriptSys\SolBindTest.cpp" />
     <ClCompile Include="src\Biscuit\SpriteLayer.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

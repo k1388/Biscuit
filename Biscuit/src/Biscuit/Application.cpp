@@ -134,6 +134,8 @@ namespace Biscuit
 
 	void Application::Run()
 	{
+		SolBindTest* lua = new SolBindTest();
+		
 		m_SpriteLayer = std::make_shared<SpriteLayer>();
 		this->PushLayer(m_SpriteLayer.get());
 		OnInit();
@@ -152,8 +154,8 @@ namespace Biscuit
 			glClearColor(0.8f, 0.8f, 0.9f, 1);
 			//drawable.Draw();
 			//drawable.SetPos(drawable.GetPos().GetX()+deltaTime*100, drawable.GetPos().GetY());
-
-
+			lua->DoSome();
+			
 			if (Input::IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT))
 			{
 				m_SpriteLayer->CheckMouseCollisions(Vec2(Input::GetMouseX(), Input::GetMouseY()));

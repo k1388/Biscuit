@@ -5,6 +5,7 @@
 #include "Event/ApplicationEvent.h"
 #include "LayerStack.h"
 #include "SpriteLayer.h"
+#include "ScriptSys/SolBindTest.h"
 
 namespace Biscuit
 {

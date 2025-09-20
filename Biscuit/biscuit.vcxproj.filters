@@ -22,6 +22,9 @@
     <Filter Include="Biscuit\Render">
       <UniqueIdentifier>{C7C76907-B395-5D0D-9C29-CE3388963972}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Biscuit\ScriptSys">
+      <UniqueIdentifier>{3BA3AA84-A7B9-A81A-F030-343C5C8679A2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Biscuit.h" />
@@ -106,6 +109,9 @@
     <ClInclude Include="src\Biscuit\Render\Texture.h">
       <Filter>Biscuit\Render</Filter>
     </ClInclude>
+    <ClInclude Include="src\Biscuit\ScriptSys\SolBindTest.h">
+      <Filter>Biscuit\ScriptSys</Filter>
+    </ClInclude>
     <ClInclude Include="src\Biscuit\SpriteLayer.h">
       <Filter>Biscuit</Filter>
     </ClInclude>
@@ -165,6 +171,9 @@
     </ClCompile>
     <ClCompile Include="src\Biscuit\Render\Texture.cpp">
       <Filter>Biscuit\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Biscuit\ScriptSys\SolBindTest.cpp">
+      <Filter>Biscuit\ScriptSys</Filter>
     </ClCompile>
     <ClCompile Include="src\Biscuit\SpriteLayer.cpp">
       <Filter>Biscuit</Filter>

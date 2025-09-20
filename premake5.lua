@@ -16,6 +16,8 @@ IncludeDir["GLFW"] = "Biscuit/vendor/GLFW/include"
 IncludeDir["Glad"] = "Biscuit/vendor/Glad/include"
 IncludeDir["ImGui"] = "Biscuit/vendor/imgui"
 IncludeDir["stb"] = "Biscuit/vendor/stb"
+IncludeDir["Lua54"] = "Biscuit/vendor/Lua54/include"
+IncludeDir["sol2"] = "Biscuit/vendor/sol2/sol2-develop/include"
 IncludeDir["libdir"] = "Biscuit/vendor-bin"
 
 --include "Biscuit/vendor/GLFW"
@@ -49,7 +51,9 @@ project "Biscuit"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		--"%{IncludeDir.glm}",
-		"%{IncludeDir.stb}"
+		"%{IncludeDir.stb}",
+		"%{IncludeDir.Lua54}",
+		"%{IncludeDir.sol2}"
 	}
 
 
@@ -62,7 +66,8 @@ project "Biscuit"
 		"GLFW",
 		"Glad",
 		"ImGui",
-		"opengl32.lib"
+		"opengl32.lib",
+		"lua54.lib"
 	}
 	
 	postbuildcommands
@@ -120,7 +125,9 @@ project "Sandbox"
 		"Biscuit/src",
 		"Biscuit/vendor/Glad/include",
 		"Biscuit/vendor/imgui",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",		
+		"%{IncludeDir.Lua54}",
+		"%{IncludeDir.sol2}"
 	}
 	links
 	{
