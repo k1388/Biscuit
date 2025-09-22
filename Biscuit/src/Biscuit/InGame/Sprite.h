@@ -4,7 +4,7 @@
 namespace Biscuit
 {
     class Prefab;
-
+    
     /// <summary>
     /// 游戏角色/对象
     /// </summary>
@@ -71,14 +71,7 @@ namespace Biscuit
         /// <summary>
         /// 每帧调用一次
         /// </summary>
-        virtual void Update()
-        {
-            if (m_Callback != nullptr)
-            {
-                m_Callback();
-            }
-           
-        }
+        virtual void Update();
 
         /// <summary>
         /// 设置受到碰撞的行为
@@ -182,11 +175,12 @@ namespace Biscuit
         Sprite(const std::string& picSrc);
         
         Sprite(const std::shared_ptr<Texture>& texture);
+
+        void BindScript(const std::string& scriptPath);
     protected:
         friend class Prefab;
         
         virtual std::shared_ptr<Sprite> Clone();
-
         
     private:
         const float         PI = 3.1415926f;
@@ -199,6 +193,7 @@ namespace Biscuit
         std::string         m_OriginalPicSrc = "";
         CallbackFn          m_OnAttachedToScene = nullptr;
         CallbackFn          m_OnRemoved = nullptr;
+        bool                m_bindedLua = false;
         
         float* GenerateRotateMatrix() const;
     };

@@ -10,15 +10,15 @@
 #include <array>
 #include <Glad/glad.h>
 
-
 #ifdef BC_DEBUG
 
 #include "Biscuit/Log.h"
 
 #endif // BC_DEBUG
 
-
-
 #ifdef BC_PLATFORM_WINDOWS
 #include <Windows.h>
 #endif // BC_PLATFORM_WINDOWS
+
+#define STR(x) #x
+#define XSTR(x) STR(x)

@@ -1,10 +1,11 @@
 ﻿#include "pch.h"
 #include "Sprite.h"
-
+#include "../ScriptSys/ScriptCore.h"
 #include "Biscuit/Application.h"
 
 namespace Biscuit
 {
+    
     Sprite::Sprite(const std::string& picSrc) : Drawable(picSrc)
     {
         const float sw = float(Application::Get()->GetApplicationWindow().GetWidth());
@@ -22,6 +23,18 @@ namespace Biscuit
 
         m_Pos = Vec2(sw/2,sh/2);
         //m_OriginalPicSrc = picSrc;
+    }
+
+    void Sprite::BindScript(const std::string& scriptPath)
+    {
+        ScriptCore::BindSpriteObject(this);
+        ScriptCore::BindLua(scriptPath);
+        m_bindedLua = true;
+        auto _update =  std::make_shared<sol::function>(ScriptCore::GetLuaMethod(m_Name, "update"));
+        m_Callback = [_update]()
+        {
+            (*_update)();
+        };
     }
 
     float* Sprite::CoordTransform()
@@ -90,6 +103,21 @@ namespace Biscuit
         vertices[idx++] = 0.0f;
 
         return vertices;
+    }
+
+    void Sprite::Update()
+    {
+        if (m_Callback != nullptr)
+        {
+            //BC_CORE_INFO();
+            m_Callback();
+        }
+
+        // if (m_bindedLua)
+        // {
+        //     BC_CORE_INFO("luaupdate");
+        //     ScriptCore::lua.script(m_Name + ":update()");
+        // }
     }
 
     std::shared_ptr<Sprite> Sprite::Clone()

@@ -7,6 +7,7 @@
 #include "Input.h"
 #include "ImGui/ImGuiLayer.h"
 #include "InGame/Sprite.h"
+#include "ScriptSys/ScriptCore.h"
 
 namespace Biscuit
 {
@@ -134,7 +135,7 @@ namespace Biscuit
 
 	void Application::Run()
 	{
-		SolBindTest* lua = new SolBindTest();
+		ScriptCore* scriptCore = new ScriptCore();
 		
 		m_SpriteLayer = std::make_shared<SpriteLayer>();
 		this->PushLayer(m_SpriteLayer.get());
@@ -154,7 +155,6 @@ namespace Biscuit
 			glClearColor(0.8f, 0.8f, 0.9f, 1);
 			//drawable.Draw();
 			//drawable.SetPos(drawable.GetPos().GetX()+deltaTime*100, drawable.GetPos().GetY());
-			lua->DoSome();
 			
 			if (Input::IsMouseButtonPressed(GLFW_MOUSE_BUTTON_LEFT))
 			{

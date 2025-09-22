@@ -7,7 +7,7 @@ class Sandbox : public Application
 public:
 	Sandbox(const Window::WindowProps& props):Application(props){}
 
-	std::shared_ptr<Sprite> testSprite;
+	std::shared_ptr<Sprite> test;
 	std::shared_ptr<BCUI::Button> testUI = std::make_shared<BCUI::Button>();
 
 	void OnInit() override
@@ -15,9 +15,11 @@ public:
 		auto ui = new BCUI::BCUI();
 
 		LoadTextureFromFile("C:/Users/kanho/OneDrive/Desktop/7-3-2025_10-52-21_PM.png", "tex1");
-		testSprite = std::make_shared<Sprite>(GetTexture("tex1"));
-		testSprite->SetRotation(90);
-		AddSprite(testSprite);
+		test = std::make_shared<Sprite>(GetTexture("tex1"));
+		test->SetRotation(90);
+		AddSprite(test);
+		test->SetName("test");
+		test->BindScript("D:\\Projects\\biscuit\\Biscuit\\Biscuit\\src\\Script\\test.lua");
 		PushOverLay(ui);
 	}
 };

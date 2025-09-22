@@ -189,6 +189,7 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClInclude Include="src\Biscuit\Render\Drawable.h" />
     <ClInclude Include="src\Biscuit\Render\Shader.h" />
     <ClInclude Include="src\Biscuit\Render\Texture.h" />
+    <ClInclude Include="src\Biscuit\ScriptSys\ScriptCore.h" />
     <ClInclude Include="src\Biscuit\ScriptSys\SolBindTest.h" />
     <ClInclude Include="src\Biscuit\SpriteLayer.h" />
     <ClInclude Include="src\Biscuit\Window.h" />
@@ -212,11 +213,15 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClCompile Include="src\Biscuit\Render\Drawable.cpp" />
     <ClCompile Include="src\Biscuit\Render\Shader.cpp" />
     <ClCompile Include="src\Biscuit\Render\Texture.cpp" />
+    <ClCompile Include="src\Biscuit\ScriptSys\ScriptCore.cpp" />
     <ClCompile Include="src\Biscuit\ScriptSys\SolBindTest.cpp" />
     <ClCompile Include="src\Biscuit\SpriteLayer.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\Script\test.lua" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
