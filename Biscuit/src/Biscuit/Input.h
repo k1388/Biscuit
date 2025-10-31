@@ -36,13 +36,18 @@ namespace Biscuit
         /// </summary>
         /// <returns>鼠标坐标</returns>
         static Vec2 GetMousePosition();
+
+        static Input* GetInstance();
+        
+        float   HorizontalInput;
+        float   VerticalInput;
         
     private:
-        bool IsKeyPressedImpl(int key);
-        bool IsMouseButtonPressedImpl(int button);
+        bool    IsKeyPressedImpl(int key);
+        bool    IsMouseButtonPressedImpl(int button);
         float GetMouseXImpl();
-        float GetMouseYImpl();
-        Vec2 GetMousePosImpl();
+        float   GetMouseYImpl();
+        Vec2    GetMousePosImpl();
         
         static Input* m_Instance;
     };

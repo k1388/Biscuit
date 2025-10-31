@@ -31,6 +31,11 @@ namespace Biscuit
         return m_Instance->GetMousePosImpl();
     }
 
+    Input* Input::GetInstance()
+    {
+        return m_Instance;
+    }
+
     bool Input::IsKeyPressedImpl(int key)
     {
         auto window = Application::Get()->GetApplicationWindow().GetWindow();
