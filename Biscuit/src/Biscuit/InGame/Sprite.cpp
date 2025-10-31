@@ -5,7 +5,29 @@
 
 namespace Biscuit
 {
+    void Sprite::InOnAttachedToScene()
+    {
+        if (m_luaRef.valid())
+        {
+            sol::table self_table = (sol::table)m_luaRef;
+            if (self_table.valid())
+            {
+                sol::object update_obj = self_table["on_attached"]; 
+                if (update_obj.valid() && update_obj.is<sol::function>())
+                {
+                    sol::function update_func = update_obj.as<sol::function>();
+                    update_func(self_table);
+                    return; 
+                }
+            }
+        }
+        if (m_OnAttachedToScene != nullptr)
+        {
+            m_OnAttachedToScene();
+        }
     
+    }
+
     Sprite::Sprite(const std::string& picSrc) : Drawable(picSrc)
     {
         const float sw = float(Application::Get()->GetApplicationWindow().GetWidth());
@@ -14,6 +36,7 @@ namespace Biscuit
         m_Pos = Vec2(sw/2,sh/2);
         m_OriginalPicSrc = picSrc;
         //Application::Get()->GetSpriteLayer()->AddSprite(this);
+        m_luaTable = std::make_shared<LuaTable>();
     }
 
     Sprite::Sprite(const std::shared_ptr<Texture>& texture): Drawable(texture)
@@ -23,6 +46,7 @@ namespace Biscuit
 
         m_Pos = Vec2(sw/2,sh/2);
         //m_OriginalPicSrc = picSrc;
+        m_luaTable = std::make_shared<LuaTable>();
     }
 
     void Sprite::BindScript(const std::string& scriptPath)
@@ -35,6 +59,26 @@ namespace Biscuit
         {
             (*_update)();
         };
+    }
+
+    void Sprite::BindLuaTable(const sol::table& table)
+    {
+        m_luaTable->table = table;
+    }
+
+    sol::table Sprite::GetLuaTable() const
+    {
+        return m_luaTable->table;
+    }
+
+    void Sprite::SetLuaReference(const sol::reference& ref)
+    {
+        m_luaRef = ref;
+    }
+
+    sol::reference Sprite::GetLuaReference() const
+    {
+        return m_luaRef;
     }
 
     float* Sprite::CoordTransform()
@@ -107,17 +151,27 @@ namespace Biscuit
 
     void Sprite::Update()
     {
-        if (m_Callback != nullptr)
+        if (m_luaRef.valid())
         {
-            //BC_CORE_INFO();
-            m_Callback();
+            sol::table self_table = (sol::table)m_luaRef;
+            if (self_table.valid())
+            {
+                sol::object update_obj = self_table["on_update"]; 
+                if (update_obj.valid() && update_obj.is<sol::function>())
+                {
+                    sol::function update_func = update_obj.as<sol::function>();
+                    update_func(self_table, Application::Get()->deltaTime);
+                    return; 
+                }
+            }
         }
 
-        // if (m_bindedLua)
-        // {
-        //     BC_CORE_INFO("luaupdate");
-        //     ScriptCore::lua.script(m_Name + ":update()");
-        // }
+        
+        // 执行 C++ 内部的Update逻辑
+        if (m_Callback != nullptr)
+        {
+            m_Callback();
+        }
     }
 
     std::shared_ptr<Sprite> Sprite::Clone()

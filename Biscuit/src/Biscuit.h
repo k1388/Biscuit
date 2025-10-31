@@ -22,4 +22,5 @@
 
 #include "Biscuit/GlobalResources.h"
 
+#include "Biscuit/ScriptSys/ScriptCore.h"
 //#include "Biscuit/ScriptSys/ScriptCore.h"

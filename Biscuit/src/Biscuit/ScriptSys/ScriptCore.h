@@ -20,6 +20,8 @@ namespace Biscuit
         static void BindSpriteObject(std::shared_ptr<Sprite>& obj);
         static void BindSpriteObject(Sprite* obj);
         static void BindLua(const std::string& scriptPath);
+        static void LoadLua(const std::string& scriptPath);
         static sol::function GetLuaMethod(const std::string& table, const std::string& method);
+        static void BindLuaTableToSprite(std::shared_ptr<Sprite> obj);
     };
 }

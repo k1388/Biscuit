@@ -177,6 +177,7 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClInclude Include="src\Biscuit\GlobalResources.h" />
     <ClInclude Include="src\Biscuit\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Biscuit\InGame\Prefab.h" />
+    <ClInclude Include="src\Biscuit\InGame\Proxy\LuaTable.h" />
     <ClInclude Include="src\Biscuit\InGame\Sprite.h" />
     <ClInclude Include="src\Biscuit\Input.h" />
     <ClInclude Include="src\Biscuit\Keycode.h" />
@@ -205,6 +206,7 @@ copy /Y "$(TargetDir)\$(TargetFileName)" "$(SolutionDir)bin\Dist-windows-x86_64\
     <ClCompile Include="src\Biscuit\BCUI\Widget.cpp" />
     <ClCompile Include="src\Biscuit\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Biscuit\InGame\Prefab.cpp" />
+    <ClCompile Include="src\Biscuit\InGame\Proxy\LuaTable.cpp" />
     <ClCompile Include="src\Biscuit\InGame\Sprite.cpp" />
     <ClCompile Include="src\Biscuit\Input.cpp" />
     <ClCompile Include="src\Biscuit\Layer.cpp" />

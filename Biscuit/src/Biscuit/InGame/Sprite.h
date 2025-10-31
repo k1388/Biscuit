@@ -1,5 +1,8 @@
 ﻿#pragma once
+#include <sol/table.hpp>
+
 #include "Biscuit/Render/Drawable.h"
+#include "Proxy/LuaTable.h"
 
 namespace Biscuit
 {
@@ -17,6 +20,8 @@ namespace Biscuit
         using CollideCallbackFn = std::function<void(std::shared_ptr<Sprite>)>;
 
         using ClickCallbackFn = std::function<void(Vec2)>;
+
+        using LuaTableProxy = std::shared_ptr<LuaTable>;
         
         [[deprecated("动态生成材质会造成性能问题")]] static std::shared_ptr<Sprite> Create(const std::string& picSrc)
         {
@@ -140,6 +145,21 @@ namespace Biscuit
 
         virtual void InOnCreated()
         {
+            // if (m_luaRef.valid())
+            // {
+            //     sol::table self_table = (sol::table)m_luaRef;
+            //     if (self_table.valid())
+            //     {
+            //         sol::object creat_obj = self_table["on_created"]; 
+            //         if (creat_obj.valid() && creat_obj.is<sol::function>())
+            //         {
+            //             sol::function creat_func = creat_obj.as<sol::function>();
+            //             creat_func(self_table);
+            //             return;
+            //         }
+            //     }
+            // }
+            // 执行 C++ 内部的Update逻辑
             if (m_OnCreatedFn != nullptr)
             {
                 m_OnCreatedFn();
@@ -151,13 +171,7 @@ namespace Biscuit
             m_OnAttachedToScene = fn;
         }
 
-        virtual void InOnAttachedToScene()
-        {
-            if (m_OnAttachedToScene != nullptr)
-            {
-                m_OnAttachedToScene();
-            }
-        }
+        virtual void InOnAttachedToScene();
 
         void OnRemoved(CallbackFn fn)
         {
@@ -177,6 +191,15 @@ namespace Biscuit
         Sprite(const std::shared_ptr<Texture>& texture);
 
         void BindScript(const std::string& scriptPath);
+
+        void BindLuaTable(const sol::table& table);
+
+        sol::table GetLuaTable() const;
+
+        void SetLuaReference(const sol::reference& ref);
+
+        sol::reference GetLuaReference() const;
+    
     protected:
         friend class Prefab;
         
@@ -194,6 +217,8 @@ namespace Biscuit
         CallbackFn          m_OnAttachedToScene = nullptr;
         CallbackFn          m_OnRemoved = nullptr;
         bool                m_bindedLua = false;
+        LuaTableProxy       m_luaTable;
+        sol::reference      m_luaRef;
         
         float* GenerateRotateMatrix() const;
     };

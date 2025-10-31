@@ -17,9 +17,13 @@ public:
 		LoadTextureFromFile("C:/Users/kanho/OneDrive/Desktop/7-3-2025_10-52-21_PM.png", "tex1");
 		test = std::make_shared<Sprite>(GetTexture("tex1"));
 		test->SetRotation(90);
+		ScriptCore::BindLuaTableToSprite(test);
+		ScriptCore::LoadLua("D:\\Projects\\biscuit\\Biscuit\\Biscuit\\src\\Script\\test.lua");
 		AddSprite(test);
 		test->SetName("test");
-		test->BindScript("D:\\Projects\\biscuit\\Biscuit\\Biscuit\\src\\Script\\test.lua");
+		//test->BindScript("D:\\Projects\\biscuit\\Biscuit\\Biscuit\\src\\Script\\test.lua");
+
+
 		PushOverLay(ui);
 	}
 };
