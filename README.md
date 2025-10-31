@@ -6,7 +6,7 @@ Biscuit是一个轻量级的，C/C++环境下基于OpenGL的2D游戏引擎/框�
 运行generateProjects.bat，之后会自动生成解决方案，您可以使用Rider、Visuial Studio等IDE打开生成的biscuit.sln
 
 其中，Biscuit项目为引擎源项目，Sandbox为您的游戏项目
-## 开始
+## 开始(以下内容已过时，现在Biscuit引擎使用Lua脚本)
 要实现一个最简单的游戏，您可以打开 Sandbox/Sandbox.cpp 并编辑：
 
 ```C++
