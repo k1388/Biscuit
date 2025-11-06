@@ -91,13 +91,7 @@ namespace Biscuit
         /// 受到碰撞调用
         /// </summary>
         /// <param name="other">与Sprite碰撞的对象</param>
-        virtual void InOnCollision(std::shared_ptr<Sprite> other)
-        {
-            if (m_OnCollision != nullptr)
-            {
-                m_OnCollision(other);
-            }
-        }
+        virtual void InOnCollision(std::shared_ptr<Sprite> other);
 
         /// <summary>
         /// 设置是否参与碰撞
@@ -130,13 +124,7 @@ namespace Biscuit
         /// 鼠标点击后调用
         /// </summary>
         /// <param name="pos">鼠标位置</param>
-        virtual void InOnClick(Vec2 pos)
-        {
-            if (m_OnClick != nullptr)
-            {
-                m_OnClick(pos);
-            }
-        }
+        virtual void InOnClick(Vec2 pos);
 
         void OnCreated(CallbackFn fn)
         {
@@ -190,11 +178,11 @@ namespace Biscuit
         
         Sprite(const std::shared_ptr<Texture>& texture);
 
-        void BindScript(const std::string& scriptPath);
+        [[deprecated("已弃用")]]void BindScript(const std::string& scriptPath);
 
-        void BindLuaTable(const sol::table& table);
+        [[deprecated("已弃用，Sprite不再直接存储Lua表")]]void BindLuaTable(const sol::table& table);
 
-        sol::table GetLuaTable() const;
+        [[deprecated("已弃用，Sprite不再直接存储Lua表")]]sol::table GetLuaTable() const;
 
         void SetLuaReference(const sol::reference& ref);
 

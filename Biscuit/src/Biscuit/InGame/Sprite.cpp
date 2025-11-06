@@ -5,6 +5,28 @@
 
 namespace Biscuit
 {
+    void Sprite::InOnClick(Vec2 pos)
+    {
+        if (m_luaRef.valid())
+        {
+            sol::table self_table = (sol::table)m_luaRef;
+            if (self_table.valid())
+            {
+                sol::object update_obj = self_table["on_click"]; 
+                if (update_obj.valid() && update_obj.is<sol::function>())
+                {
+                    sol::function update_func = update_obj.as<sol::function>();
+                    update_func(self_table, pos);
+                    return; 
+                }
+            }
+        }
+        if (m_OnClick != nullptr)
+        {
+            m_OnClick(pos);
+        }
+    }
+
     void Sprite::InOnAttachedToScene()
     {
         if (m_luaRef.valid())
@@ -171,6 +193,29 @@ namespace Biscuit
         if (m_Callback != nullptr)
         {
             m_Callback();
+        }
+    }
+
+    void Sprite::InOnCollision(std::shared_ptr<Sprite> other)
+    {
+        if (m_luaRef.valid())
+        {
+            sol::table self_table = (sol::table)m_luaRef;
+            if (self_table.valid())
+            {
+                sol::object update_obj = self_table["on_collision"]; 
+                if (update_obj.valid() && update_obj.is<sol::function>())
+                {
+                    sol::function update_func = update_obj.as<sol::function>();
+                    update_func(self_table, other);
+                    return; 
+                }
+            }
+        }
+        
+        if (m_OnCollision != nullptr)
+        {
+            m_OnCollision(other);
         }
     }
 

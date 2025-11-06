@@ -3,6 +3,7 @@
 #include "../Math/Vec4.h"
 #include "Biscuit/Input.h"
 #include "Biscuit/Keycode.h"
+#include "Biscuit/Math/Math.h"
 
 namespace Biscuit
 {
@@ -22,7 +23,10 @@ namespace Biscuit
 
     void ScriptCore::Init()
     {
-
+        lua.new_usertype<Math>(
+            "Math",
+            "clamp", &Math::Clamp
+        );
         lua.new_usertype<Vec2>
         (
             "Vec2",
@@ -267,12 +271,12 @@ namespace Biscuit
     void ScriptCore::BindLuaTableToSprite(std::shared_ptr<Sprite> obj)
     {
         sol::table testTbl = lua.create_table();
-        testTbl["sprite"] = obj.get();   // 裸指针即可
+        testTbl["sprite"] = obj.get();   // 裸指针
 
         sol::table mt = lua.create_table();
         mt[sol::meta_function::index] = [](sol::table t, sol::object k) -> sol::object
         {
-            return t["sprite"][k];       // 自动回落到 Sprite userdata
+            return t["sprite"][k];       
         };
 
         testTbl[sol::metatable_key] = mt;

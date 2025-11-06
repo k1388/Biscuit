@@ -20,3 +20,7 @@ function test:on_attached()
    self.sprite:set_scale(1.25)
 end
 
+function test:on_click(pos)
+   print(pos.x, pos.y) 
+end
+
